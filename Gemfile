@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in thredded-personalized-navigation.gemspec
+# Rails 5
+gem "rails", "~> 5.0.0"
+
+group :test do
+  gem "rails-controller-testing"
+end
+
 gemspec
+
+eval_gemfile File.expand_path("shared.gemfile", File.dirname(__FILE__))

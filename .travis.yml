@@ -2,4 +2,22 @@ sudo: false
 language: ruby
 rvm:
   - 2.3.1
+
+cache: bundler
+bundler_args: --path ../../vendor/bundle --without debug
+gemfile:
+  - spec/gemfiles/rails_4_2.gemfile
+  - spec/gemfiles/rails_5_0.gemfile
+
+env:
+  matrix:
+  # Username and password from http://docs.travis-ci.com/user/database-setup/
+#  - DB=sqlite3
+#  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
+  - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+
 before_install: gem install bundler -v 1.12.3
+before_script: "RAILS_ENV=test bundle exec rake db:create db:migrate"
+
+# Avoid rake here, as the RSpec test task spawns a new process which does not run via bundler.
+script: "bundle exec rspec && bundle exec rubocop"

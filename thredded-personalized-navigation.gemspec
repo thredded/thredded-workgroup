@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Tim Diggins"]
   spec.email         = ["tim@red56.uk"]
 
-  spec.summary       = "Extension to Thredded with Personalized navigation (Unread, Written)."
+  spec.summary       = "Extension to Thredded with Personalized navigation (Unread, Posted, Following)."
   spec.description   = "Write a longer description or delete this line."
   spec.homepage      = "https://github.com/red56/thredded-personalized-navigation."
   spec.license       = "MIT"
@@ -29,8 +29,37 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  # needs thredded, but we keep this as only a development dependency so that you can specify
+  # a specific fork if you need to!
+  spec .add_development_dependency "thredded", "~> 0.6"
+
+  # bundler added dependencies
   spec.add_development_dependency "bundler", "~> 1.12"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+
+  # test dependencies
+  spec.add_development_dependency "capybara", "~> 2.4"
+  spec.add_development_dependency "database_cleaner"
+  spec.add_development_dependency "factory_girl_rails"
+  spec.add_development_dependency "faker", ">= 1.6.2"
+  spec.add_development_dependency "launchy"
+  spec.add_development_dependency "rspec-rails", ">= 3.5.0"
   spec.add_development_dependency "rubocop", "= 0.41.2"
+
+  # dummy app dependencies
+  spec.add_development_dependency "rails-i18n"
+  spec.add_development_dependency "http_accept_language"
+  spec.add_development_dependency "mysql2"
+  spec.add_development_dependency "pg"
+  spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "puma"
+  spec.add_development_dependency "rails_email_preview", ">= 2.0.1"
+  spec.add_development_dependency "i18n-tasks"
+
+  # dummy app frontend
+  spec.add_development_dependency "jquery-turbolinks"
+  # TODO: upgrade once Turbolinks 5 is supported by jquery-turbolinks:
+  # https://github.com/kossnocorp/jquery.turbolinks/pull/58
+  spec.add_development_dependency "turbolinks", "~> 2.5"
 end

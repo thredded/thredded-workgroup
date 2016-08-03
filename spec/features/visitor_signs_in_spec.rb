@@ -1,0 +1,14 @@
+# frozen_string_literal: true
+require "spec_helper"
+
+describe "Signing in", type: :feature do
+  xspecify "Visitor with existing account signs in" do
+    create(:user, name: "joe", email: "joe@example.com")
+    visit new_user_session_path
+    fill_in "name", with: "joe"
+    click_button "Sign in"
+
+    expect(page).to have_content("joe")
+    expect(page).to have_content("Sign out")
+  end
+end
