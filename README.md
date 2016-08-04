@@ -16,10 +16,9 @@ Out the box enables a homepage with a top-level nav menu consisting of:
 
 ## Installation
 
-Add this line to your application's Gemfile, along with thredded:
+Add this line to your application's Gemfile (along with thredded if you want to specify a specific fork):
 
 ```ruby
-gem 'thredded'
 gem 'thredded-personalized-navigation'
 ```
 
@@ -29,12 +28,16 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install thredded
     $ gem install thredded-personalized-navigation
 
 ## Usage
 
-TODO: Write usage instructions here
+add to routes.rb (**instead** of mounting Thredded)
+
+```
+  mount Thredded::PersonalizedNavigation::Engine => "/thredded"
+```
+
 
 ## Development
 

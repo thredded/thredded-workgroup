@@ -1,0 +1,13 @@
+---
+en:
+  thredded:
+    personalized_navigation:
+      unread:
+        title: Unread topics you are following
+        link: Unread
+      following:
+        title: Topics you are following
+        link: Following
+      all_topics:
+        title: All topics
+        link: All topics

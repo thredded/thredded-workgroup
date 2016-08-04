@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "thredded/personalized_navigation/engine"
 require "thredded/personalized_navigation/version"
 
 module Thredded

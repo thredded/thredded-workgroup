@@ -11,6 +11,7 @@ require "jquery-turbolinks"
 require "turbolinks"
 require "rails_email_preview"
 require "thredded"
+require "thredded/personalized_navigation"
 
 if ENV["HEROKU"]
   require "rack/canonical_host"

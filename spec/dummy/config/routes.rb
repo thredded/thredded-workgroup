@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   resources :users, only: [:show], path: "u"
 
   mount RailsEmailPreview::Engine, at: "/emails"
-  mount Thredded::Engine => "/thredded"
+  mount Thredded::PersonalizedNavigation::Engine => "/thredded"
 end

@@ -1,4 +1,5 @@
-gem 'test_after_commit', group: :test
+gem 'test'
+gem 'thredded', github: 'red56/thredded', branch: 'integration' # at present dependent on changes only in this branch
 
 if ENV['TRAVIS']
   gem 'codeclimate-test-reporter', group: :test, require: false

@@ -1,0 +1,17 @@
+<% content_for :thredded_page_title, t('thredded.personalized_navigation.unread.title') %>
+<% content_for :thredded_page_id, 'thredded--unread' %>
+<% content_for :thredded_breadcrumbs do %>
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><%= t('thredded.personalized_navigation.unread.title')%></li>
+  </ul>
+<% end %>
+
+<%= thredded_page do %>
+  <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
+    <%= render @topics %>
+  <% end %>
+
+  <footer>
+    <%= paginate @topics %>
+  </footer>
+<% end %>
