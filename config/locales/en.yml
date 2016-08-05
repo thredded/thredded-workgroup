@@ -8,6 +8,8 @@ en:
       following:
         title: Topics you are following
         link: Following
+      messageboards:
+        link: Messageboards
       all_topics:
         title: All topics
         link: All topics

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>ThreddedPersnav</title>
-  <%= stylesheet_link_tag    "thredded_persnav/application", media: "all" %>
-  <%= javascript_include_tag "thredded_persnav/application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <title>Thredded | <%= yield :thredded_page_title %></title>
+    <%= stylesheet_link_tag "thredded-personalized-navigation", media: "all" %>
+    <%= csrf_meta_tag %>
+    <%= javascript_include_tag 'thredded' %>
+    <%== Gravatar.prefetch_dns %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  </head>
+  <body>
+    <%= yield %>
+  </body>
 </html>
