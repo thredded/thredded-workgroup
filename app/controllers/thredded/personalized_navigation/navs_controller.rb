@@ -5,16 +5,24 @@ module Thredded
       before_action :thredded_require_login!, except: :root
 
       def unread
-        @topics = Thredded::TopicsPageView.new(
-          thredded_current_user,
-          Thredded::Topic.unread_followed_by(current_user)
-            .order_recently_updated_first
-            .includes(:categories, :last_user, :user)
-            .page(current_page)
-        )
+        @topics = gather_topics(Thredded::Topic.unread_followed_by(current_user))
+      end
+
+      def following
+        @topics = gather_topics(Thredded::Topic.followed_by(current_user))
       end
 
       protected
+
+      def gather_topics(scope)
+        Thredded::TopicsPageView.new(
+          thredded_current_user,
+          scope
+            .order_recently_updated_first
+            .includes(:categories, :last_user, :user, :last_post)
+            .page(current_page)
+        )
+      end
 
       def current_page
         (params[:page] || 1).to_i

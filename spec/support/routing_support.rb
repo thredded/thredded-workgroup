@@ -3,8 +3,10 @@ def personalized_navigation_root_path
   Thredded::PersonalizedNavigation::Engine.routes.url_helpers.root_path
 end
 
-def unread_nav_path
-  Thredded::PersonalizedNavigation::Engine.routes.url_helpers.unread_nav_path
+[:unread_nav_path, :following_nav_path].each do |path_method|
+  define_method path_method do
+    Thredded::PersonalizedNavigation::Engine.routes.url_helpers.send(path_method)
+  end
 end
 
 def messageboards_nav_path

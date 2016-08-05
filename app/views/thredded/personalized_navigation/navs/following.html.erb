@@ -1,0 +1,9 @@
+<% content_for :thredded_page_title, t('thredded.personalized_navigation.following.title') %>
+<% content_for :thredded_page_id, 'thredded--following' %>
+<% content_for :thredded_breadcrumbs do %>
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><%= t('thredded.personalized_navigation.following.title')%></li>
+  </ul>
+<% end %>
+
+<%= render partial: 'thredded/topics/topics_with_last_post'%>

@@ -1,0 +1,8 @@
+<%= content_tag :article,
+                id:    dom_id(topic),
+                class: ['thredded--topics--topic', topic_css_classes(topic)] do %>
+  <%= render partial: 'thredded/topics/topic/body', locals: {topic: topic} %>
+  <div class="thredded--last-post">
+    <%= render 'thredded/posts_common/content', post: topic.last_post if topic.last_post %>
+  </div>
+<% end %>

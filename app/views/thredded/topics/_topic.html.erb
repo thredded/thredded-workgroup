@@ -1,0 +1,5 @@
+<%= content_tag :article,
+                id:    dom_id(topic),
+                class: ['thredded--topics--topic', topic_css_classes(topic)] do %>
+  <%= render partial: 'thredded/topics/topic/body', locals: {topic: topic} %>
+<% end %>
