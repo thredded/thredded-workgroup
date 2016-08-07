@@ -102,7 +102,7 @@ namespace :dev do
     require "rails/commands/server"
 
     host = "0.0.0.0"
-    port = ENV["PORT"] || 9292
+    port = ENV["PORT"] || 9293
     ENV["RACK_ENV"] = ENV["RAILS_ENV"] = "development"
     Dir.chdir "spec/dummy"
 
