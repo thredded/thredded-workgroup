@@ -5,4 +5,3 @@ module Thredded
     end
   end
 end
-Thredded::ApplicationController.send(:helper, Thredded::PersonalizedNavigation::ApplicationHelper)

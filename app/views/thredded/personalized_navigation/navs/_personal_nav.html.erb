@@ -1,0 +1,5 @@
+<ul class="thredded--personalized-navigation">
+  <li><%= link_to t('thredded.personalized_navigation.unread.link'), Thredded::PersonalizedNavigation::Engine.routes.url_helpers.unread_nav_path%></li>
+  <li><%= link_to t('thredded.personalized_navigation.following.link'), Thredded::PersonalizedNavigation::Engine.routes.url_helpers.following_nav_path %></li>
+  <li><%= link_to t('thredded.personalized_navigation.messageboards.link'), Thredded::Engine.routes.url_helpers.root_path %></li>
+</ul>
