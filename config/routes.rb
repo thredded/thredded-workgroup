@@ -5,5 +5,5 @@ Thredded::PersonalizedNavigation::Engine.routes.draw do
     get "following", action: :following, as: :following_nav
   end
 
-  mount Thredded::Engine => ""
+  mount Thredded::Engine => "/"
 end

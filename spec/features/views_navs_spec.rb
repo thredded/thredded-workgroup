@@ -22,6 +22,12 @@ describe "Views navs", type: :feature do
       create(:user_topic_read_state, postable: topic, read_at: topic.updated_at, user_id: user.id)
     end
   end
+
+  it "can still view a topic" do
+    create(:post, postable: unread_followed_topic)
+    visit thredded_topic_path(unread_followed_topic)
+  end
+
   context "unread" do
     before { unread_unfollowed_topic; unread_followed_topic; read_followed_topic }
 
@@ -31,6 +37,7 @@ describe "Views navs", type: :feature do
       expect(page).not_to have_link_to(thredded_topic_path(read_followed_topic))
       expect(page).not_to have_link_to(thredded_topic_path(unread_unfollowed_topic))
     end
+
     it "shows last post" do
       create(:post, content: "Something new in sandwiches", postable: unread_followed_topic)
       visit unread_nav_path

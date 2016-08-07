@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require_dependency "thredded/application_helper"
 module Thredded
   module PersonalizedNavigation
     module ApplicationHelper

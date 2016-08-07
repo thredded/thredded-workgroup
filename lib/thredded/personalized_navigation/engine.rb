@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'thredded/engine'
 module Thredded
   module PersonalizedNavigation
     class Engine < ::Rails::Engine
