@@ -28,9 +28,6 @@ module Thredded
         (params[:page] || 1).to_i
       end
 
-      # def thredded_navbar_active
-      #   params[:action].to_sym
-      # end
     end
   end
 end
