@@ -55,6 +55,20 @@ describe "Views navs", type: :feature do
     end
   end
 
+  context "all_topics" do
+    before { unread_unfollowed_topic; unread_followed_topic; read_followed_topic }
+    it "shows followed but not read topics" do
+      visit all_topics_nav_path
+      expect(page).to have_link_to(thredded_topic_path(unread_followed_topic))
+      expect(page).to have_link_to(thredded_topic_path(read_followed_topic))
+      expect(page).to have_link_to(thredded_topic_path(unread_unfollowed_topic))
+    end
+    it "is linked from messageboards" do
+      visit messageboards_nav_path
+      expect(page).to have_link_to(all_topics_nav_path)
+    end
+  end
+
   # context "messageboards" do
   #   it "can navigate to others" do
   #     visit messageboards_nav_path

@@ -6,7 +6,7 @@ module RoutingSupport
     Thredded::PersonalizedNavigation::Engine.routes.url_helpers.root_path
   end
 
-  [:unread_nav_path, :following_nav_path].each do |path_method|
+  [:unread_nav_path, :following_nav_path, :all_topics_nav_path].each do |path_method|
     define_method path_method do
       Thredded::PersonalizedNavigation::Engine.routes.url_helpers.send(path_method)
     end

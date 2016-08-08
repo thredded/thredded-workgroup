@@ -12,6 +12,10 @@ module Thredded
         @topics = gather_topics(Thredded::Topic.followed_by(current_user))
       end
 
+      def all_topics
+        @topics = gather_topics(Thredded::Topic.all)
+      end
+
       protected
 
       def gather_topics(scope)
