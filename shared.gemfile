@@ -1,4 +1,4 @@
-gem 'test'
+gem 'test_after_commit', group: :test
 gem 'thredded', github: 'red56/thredded', branch: 'integration-20160807-1525' # at present dependent on changes only in this branch
 
 if ENV['TRAVIS']
