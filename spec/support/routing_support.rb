@@ -23,7 +23,6 @@ module RoutingSupport
   def thredded_topic_path(topic)
     Thredded::Engine.routes.url_helpers.messageboard_topic_path(topic.messageboard, topic)
   end
-
 end
 RSpec.configure do |config|
   config.include RoutingSupport, type: :feature

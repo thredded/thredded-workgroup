@@ -27,7 +27,6 @@ module Thredded
       def current_page
         (params[:page] || 1).to_i
       end
-
     end
   end
 end

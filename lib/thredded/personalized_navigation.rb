@@ -9,7 +9,7 @@ module Thredded
     end
 
     def self.current_for(params)
-      if params[:controller].include?('personalized')
+      if params[:controller].include?("personalized")
         params[:action].to_sym
       else
         :messageboards
