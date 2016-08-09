@@ -8,10 +8,13 @@ Out the box enables a homepage with a top-level nav menu consisting of:
 
 * Unread: a list of unread topics (ordered by last post) across all messageboards
 * Following: a list of followed topics (ordered by last post) across all messageboards
-* Posted: a list of topics you've posted to (ordered by your last post) across all messageboards
-* All messageboards: a list of messageboards (as present)
+* ~~Posted: a list of topics you've posted to (ordered by your last post) across all messageboards~~ (not yet implemented)
 * All topics: a list of all topics (ordered by last post) across all messageboards
+* All messageboards: a list of messageboards (as present)
 
+It adds a navbar like this:
+
+<img width="898" alt="screenshot" src="https://cloud.githubusercontent.com/assets/18395/17519867/a07ca5e8-5e45-11e6-86e1-953fdc399168.png">
 
 
 ## Installation
