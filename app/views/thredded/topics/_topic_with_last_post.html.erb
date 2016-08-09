@@ -1,7 +1,34 @@
 <%= content_tag :article,
                 id:    dom_id(topic),
                 class: ['thredded--topics--topic', topic_css_classes(topic)] do %>
-  <%= render partial: 'thredded/topics/topic/body', locals: {topic: topic} %>
+  <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
+
+  <h1 class="thredded--topics--title">
+    <%= link_to topic.title, topic.path %>
+  </h1>
+
+  <% if topic.categories.any? %>
+    <ul class="thredded--topics--categories">
+      <%= render topic.categories %>
+    </ul>
+  <% end %>
+
+  <% if topic.blocked? && topic.can_moderate? %>
+    <span class="thredded--topics--moderation-state thredded--alert thredded--alert-danger">
+      <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: topic.last_moderation_record %>
+    </span>
+  <% end %>
+
+  <div class="thredded--topic-source">
+    <cite class="thredded--messageboard-name">
+      <%= messageboard_link topic.messageboard %>,
+    </cite>
+    <cite class="thredded--topics--updated-by">
+      <%= time_ago topic.updated_at %>,
+      <%= user_link topic.last_user %>
+    </cite>
+  </div>
+
   <div class="thredded--last-post">
     <%= render 'thredded/posts_common/content', post: topic.last_post if topic.last_post %>
   </div>

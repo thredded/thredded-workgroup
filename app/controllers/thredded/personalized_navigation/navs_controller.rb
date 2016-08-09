@@ -24,7 +24,8 @@ module Thredded
           scope
             .order_recently_updated_first
             .includes(:categories, :last_user, :user, :last_post)
-            .page(current_page)
+            .page(current_page),
+          topic_view_class: Thredded::PersonalizedNavigation::TopicView
         )
       end
 

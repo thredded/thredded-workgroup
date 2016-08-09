@@ -43,6 +43,14 @@ describe "Views navs", type: :feature do
       visit unread_nav_path
       expect(page).to have_content("Something new in sandwiches")
     end
+
+    include ActionView::RecordIdentifier
+    it "shows messageboard name" do
+      visit unread_nav_path
+      within "##{dom_id(unread_followed_topic)}" do
+        expect(page).to have_content(unread_followed_topic.messageboard.name)
+      end
+    end
   end
 
   context "following" do
