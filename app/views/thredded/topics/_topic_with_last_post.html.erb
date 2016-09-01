@@ -32,4 +32,6 @@
   <div class="thredded--last-post">
     <%= render 'thredded/posts_common/content', post: topic.last_post if topic.last_post %>
   </div>
+
+  <%= render partial: 'thredded/topics/followers', locals: {topic: topic} %>
 <% end %>

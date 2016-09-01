@@ -58,6 +58,26 @@ describe "Views navs", type: :feature do
         expect(e["href"]).to eq(thredded_messageboard_path(unread_followed_topic.messageboard))
       end
     end
+
+    context "when Thredded.show_topic_followers" do
+      around do |ex|
+        was = Thredded.show_topic_followers
+        begin
+          Thredded.show_topic_followers = true
+          ex.call
+        ensure
+          Thredded.show_topic_followers = was
+        end
+      end
+      it "shows followers" do
+        user = create(:user, name: "jeremiah")
+        unread_followed_topic.followers << user
+        visit unread_nav_path
+        within "##{dom_id(unread_followed_topic)}" do
+          expect(page).to have_content("@jeremiah")
+        end
+      end
+    end
   end
 
   context "following" do
