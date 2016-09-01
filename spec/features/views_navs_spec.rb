@@ -14,11 +14,11 @@ describe "Views navs", type: :feature do
   end
   before { log_in }
 
-  let(:unread_followed_topic) { create(:topic).tap { |topic| topic.following_users << user } }
+  let(:unread_followed_topic) { create(:topic).tap { |topic| topic.followers << user } }
   let(:unread_unfollowed_topic) { create(:topic) }
   let(:read_followed_topic) do
     create(:topic).tap do |topic|
-      topic.following_users << user
+      topic.followers << user
       create(:user_topic_read_state, postable: topic, read_at: topic.updated_at, user_id: user.id)
     end
   end

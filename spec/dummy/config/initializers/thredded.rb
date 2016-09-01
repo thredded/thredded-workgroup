@@ -12,7 +12,7 @@ Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
 Thredded.content_visible_while_pending_moderation = true
 # Whether users that are following a topic are listed on topic page.
-Thredded.show_following_users_in_topic = true
+Thredded.show_topic_followers = true
 
 Rails.application.config.to_prepare do
   Thredded::ApplicationController.module_eval do
