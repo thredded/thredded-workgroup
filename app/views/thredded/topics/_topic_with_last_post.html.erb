@@ -4,6 +4,9 @@
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
   <h1 class="thredded--topics--title">
+    <cite class="thredded--messageboard-name">
+      <%= messageboard_link topic.messageboard %>:
+    </cite>
     <%= link_to topic.title, topic.path %>
   </h1>
 
@@ -19,13 +22,11 @@
     </span>
   <% end %>
 
+  <%= render partial: 'thredded/topics/followers', locals: {topic: topic} %>
   <div class="thredded--topic-source">
-    <cite class="thredded--messageboard-name">
-      <%= messageboard_link topic.messageboard %>,
-    </cite>
     <cite class="thredded--topics--updated-by">
-      <%= time_ago topic.updated_at %>,
-      <%= user_link topic.last_user %>
+      <%= user_link topic.last_user %>,
+      <%= time_ago topic.updated_at %>
     </cite>
   </div>
 
@@ -33,5 +34,5 @@
     <%= render 'thredded/posts_common/content', post: topic.last_post if topic.last_post %>
   </div>
 
-  <%= render partial: 'thredded/topics/followers', locals: {topic: topic} %>
+
 <% end %>
