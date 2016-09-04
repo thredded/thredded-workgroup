@@ -41,6 +41,24 @@ add to routes.rb (**instead** of mounting Thredded)
   mount Thredded::PersonalizedNavigation::Engine => "/thredded"
 ```
 
+You will also need to follow the guidelines for installing Thredded, see https://github
+.com/thredded/thredded#installation.
+
+If you use an application layout (see Add thredded styles to your `application.scss` (see https://github.com/thredded/thredded#application-layout) below for customizing the styles), you will need to  include thredded **and** thredded-personalized-navigation:
+
+
+```scss
+@import "thredded";
+@import "thredded-personalized-navigation";
+```
+
+Include thredded JavaScripts in your `application.js`:
+
+```js
+//= require thredded
+//= require thredded-personalized-navigation
+```
+
 
 ## Development
 

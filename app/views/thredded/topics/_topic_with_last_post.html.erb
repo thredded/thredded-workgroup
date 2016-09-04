@@ -1,6 +1,12 @@
 <%= content_tag :article,
-                id:    dom_id(topic),
-                class: ['thredded--topics--topic', topic_css_classes(topic)] do %>
+    id: dom_id(topic),
+    class: ['thredded--topics--topic', topic_css_classes(topic)],
+    data: {topic: topic.id, messageboard: topic.messageboard_id} do %>
+  <div class="thredded--svg-definitions ">
+    <%= inline_svg 'thredded/follow.svg', id:"thredded-follow-icon" %>
+    <%= inline_svg 'thredded/unfollow.svg', id:"thredded-unfollow-icon" %>
+  </div>
+
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
   <h1 class="thredded--topics--title">
@@ -8,6 +14,16 @@
       <%= messageboard_link topic.messageboard %>:
     </cite>
     <%= link_to topic.title, topic.path %>
+    <div class="thredded--topic-follow-icon">
+      <svg viewBox="0 0 116 121">
+        <% if thredded_current_user.following?(topic) %>
+          <use xlink:href="#thredded-follow-icon"/>
+        </svg>
+        <% else %>
+          <use xlink:href="#thredded-unfollow-icon"/>
+        <% end %>
+      </svg>
+    </div>
   </h1>
 
   <% if topic.categories.any? %>

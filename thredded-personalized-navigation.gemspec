@@ -39,12 +39,14 @@ Gem::Specification.new do |spec|
 
   # test dependencies
   spec.add_development_dependency "capybara", "~> 2.4"
+  spec.add_development_dependency "capybara-webkit"
   spec.add_development_dependency "database_cleaner"
   spec.add_development_dependency "factory_girl_rails"
   spec.add_development_dependency "faker", ">= 1.6.2"
   spec.add_development_dependency "launchy"
   spec.add_development_dependency "rspec-rails", ">= 3.5.0"
   spec.add_development_dependency "rubocop", "= 0.41.2"
+  spec.add_development_dependency "transactional_capybara"
 
   # dummy app dependencies
   spec.add_development_dependency "rails-i18n"
