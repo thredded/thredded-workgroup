@@ -48,6 +48,18 @@ After checking out the repo, run `bin/setup` to install dependencies. Then, run 
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
+Then create a database and seed it (this is all very similar to Thredded)
+
+```
+bundle exec rake db:create db:migrate db:seed
+```
+
+Run the server
+
+```
+dummy-rails s -p 3012
+```
+
 ### Updating when thredded changes
 
 For now, there are some copied resources from Thredded. When Thredded changes you need to update these too.
