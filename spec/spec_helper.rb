@@ -42,12 +42,14 @@ counter = -1
 FileUtils.mkdir("log") unless File.directory?("log")
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", "w"))
 
-require 'capybara-webkit'
-require "transactional_capybara/rspec"
-Capybara.javascript_driver = ENV['CAPYBARA_JS_DRIVER'].blank? ? :webkit : ENV['CAPYBARA_JS_DRIVER'].to_sym
-Capybara::Webkit.configure do |config|
-  config.block_unknown_urls
+require "capybara-webkit"
+if db == "sqlite3"
+  require "transactional_capybara/rspec" # so we can do in-memory
+else
+  require "transactional_capybara/ajax_helpers"
 end
+Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
+Capybara::Webkit.configure(&:block_unknown_urls)
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
@@ -68,16 +70,16 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do |example|
-    # DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
+    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction
     DatabaseCleaner.start
     Time.zone = "UTC"
   end
 
-  config.after :each do
-    TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
+  config.after :each do |example|
+    TransactionalCapybara::AjaxHelpers.wait_for_ajax(page) if example.metadata[:js]
   end
 
-  config.after(:each) do
+  config.append_after(:each) do
     DatabaseCleaner.clean
     counter += 1
     if counter > 9
