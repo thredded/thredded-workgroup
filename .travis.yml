@@ -20,7 +20,7 @@ gemfile:
 
 env:
   global:
-    - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+    - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake SQLITE=memory DBCLEANER=deletion
   matrix:
   # Username and password from http://docs.travis-ci.com/user/database-setup/
   - DB=sqlite3
