@@ -20,8 +20,7 @@ $(document).ready(function () {
     var following = $topic.hasClass('thredded--topic-following');
     var topicId = $topic.data("topic");
     var messageboardId = $topic.data("messageboard");
-    var $definitions = $('#thredded--definitions');
-    var rootPath = $definitions.data('thredded-root');
+    var rootPath = $('#thredded--container').data('thredded-root-url');
 
     var path = "" + rootPath + messageboardId + "/" + topicId + "/" + (following ? 'unfollow.json' : 'follow.json');
     $svg.show();
