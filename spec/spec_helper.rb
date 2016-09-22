@@ -37,8 +37,6 @@ end
 
 Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |f| require f }
 
-counter = -1
-
 FileUtils.mkdir("log") unless File.directory?("log")
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", "w"))
 
@@ -74,10 +72,6 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter = :inline
   end
 
-  config.after(:suite) do
-    counter = 0
-  end
-
   config.before(:each) do |example|
     DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction unless dbcleaner_strategy
     DatabaseCleaner.start
@@ -90,12 +84,5 @@ RSpec.configure do |config|
 
   config.append_after(:each) do
     DatabaseCleaner.clean
-    counter += 1
-    if counter > 9
-      GC.enable
-      GC.start
-      GC.disable
-      counter = 0
-    end
   end
 end
