@@ -1,5 +1,5 @@
 gem 'test_after_commit', group: :test
-gem 'thredded', github: 'red56/thredded', branch: 'make-following-json-ready'
+gem 'thredded', github: 'red56/thredded', branch: 'integration-201609220900'
 
 if ENV['TRAVIS']
   gem 'codeclimate-test-reporter', group: :test, require: false
