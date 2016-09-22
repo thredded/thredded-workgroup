@@ -43,7 +43,9 @@ FileUtils.mkdir("log") unless File.directory?("log")
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", "w"))
 
 require "capybara-webkit"
-if db == "sqlite3"
+
+sqlite_source = ENV.fetch("SQLITE", ENV["TRAVIS"] ? "file" : "memory")
+if db == "sqlite3" && sqlite_source == "memory"
   require "transactional_capybara/rspec" # so we can do in-memory sqlite
 else
   require "transactional_capybara/ajax_helpers" # so we can wait for ajax (only!)

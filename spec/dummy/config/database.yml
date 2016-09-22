@@ -27,7 +27,19 @@ development:
 
 test:
   <<: *defaults
-  database: <%= db_adapter == 'sqlite3' ? "':memory:'" : 'thredded_gem_test' %>
+  <% if db_adapter == 'sqlite3'
+        sqlite_source = ENV.fetch('SQLITE', ENV['TRAVIS'] ? 'file' : 'memory')
+        case sqlite_source
+        when 'file' %>
+  database: 'db/test.sqlite3'
+  <%    when 'memory' %>
+  database: ':memory:'
+  <%    else
+          fail "unexepcted sqlite_source '#{sqlite_source}'"
+        end %>
+  <% else %>
+  database: 'thredded_gem_test'
+  <% end %>
 
 production:
   <<: *defaults
