@@ -45,6 +45,8 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(Fi
 require "capybara-webkit"
 
 sqlite_source = ENV.fetch("SQLITE", ENV["TRAVIS"] ? "file" : "memory")
+puts "DB: #{db}"
+puts "    #{sqlite_source}" if db == "sqlite3"
 if db == "sqlite3" && sqlite_source == "memory"
   require "transactional_capybara/rspec" # so we can do in-memory sqlite
 else
