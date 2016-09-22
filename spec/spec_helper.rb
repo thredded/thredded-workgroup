@@ -66,11 +66,11 @@ RSpec.configure do |config|
     puts "dbcleaner_strategy: #{dbcleaner_strategy}"
     DatabaseCleaner.strategy = dbcleaner_strategy || :transaction
     DatabaseCleaner.clean_with(:truncation)
-    if Rails::VERSION::MAJOR < 5
-      # after_commit testing is baked into rails 5.
-      require "test_after_commit"
-      TestAfterCommit.enabled = true
-    end
+    # if Rails::VERSION::MAJOR < 5
+    #   # after_commit testing is baked into rails 5.
+    #   require "test_after_commit"
+    #   TestAfterCommit.enabled = true
+    # end
     ActiveJob::Base.queue_adapter = :inline
   end
 
