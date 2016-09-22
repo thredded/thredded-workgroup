@@ -56,7 +56,7 @@ end
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara::Webkit.configure(&:block_unknown_urls)
 
-dbcleaner_strategy = ENV.fetch('DBCLEANER', ENV['TRAVIS'] && 'truncation').try(:to_sym)
+dbcleaner_strategy = ENV.fetch("DBCLEANER", ENV["TRAVIS"] && "truncation").try(:to_sym)
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
