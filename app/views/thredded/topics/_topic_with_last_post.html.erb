@@ -2,10 +2,6 @@
     id: dom_id(topic),
     class: ['thredded--topics--topic', topic_css_classes(topic)],
     data: {topic: topic.id, messageboard: topic.messageboard_id} do %>
-  <div class="thredded--svg-definitions ">
-    <%= inline_svg 'thredded/follow.svg', id:"thredded-follow-icon" %>
-    <%= inline_svg 'thredded/unfollow.svg', id:"thredded-unfollow-icon" %>
-  </div>
 
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 

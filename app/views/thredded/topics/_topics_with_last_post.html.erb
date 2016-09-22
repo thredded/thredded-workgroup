@@ -6,6 +6,9 @@
 <%= thredded_page do %>
   <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
     <%= render partial: 'thredded/topics/topic_with_last_post', collection: @topics, as: :topic %>
-    <%= paginate @topics %>
   <% end %>
+
+  <footer>
+    <%= paginate @topics %>
+  </footer>
 <% end %>
