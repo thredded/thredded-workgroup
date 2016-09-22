@@ -44,10 +44,11 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(Fi
 
 require "capybara-webkit"
 if db == "sqlite3"
-  require "transactional_capybara/rspec" # so we can do in-memory
+  require "transactional_capybara/rspec" # so we can do in-memory sqlite
 else
-  require "transactional_capybara/ajax_helpers"
+  require "transactional_capybara/ajax_helpers" # so we can wait for ajax (only!)
 end
+
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara::Webkit.configure(&:block_unknown_urls)
 
