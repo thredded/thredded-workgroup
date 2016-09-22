@@ -47,14 +47,13 @@ describe "Clicking to follow / unfollow topics", type: :feature do
     end
   end
 
-
   describe "all_topics_nav_path" do
     let(:path) { all_topics_nav_path }
     it_behaves_like "follow and unfollow from list"
   end
 
   describe "messageboards_nav_path" do
-    let(:path) { thredded_messageboard_path(messageboard)}
+    let(:path) { thredded_messageboard_path(messageboard) }
     it_behaves_like "follow and unfollow from list"
   end
 end
