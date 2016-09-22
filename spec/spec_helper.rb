@@ -37,42 +37,52 @@ end
 
 Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |f| require f }
 
-counter = -1
-
 FileUtils.mkdir("log") unless File.directory?("log")
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", "w"))
 
+require "capybara-webkit"
+
+sqlite_source = ENV.fetch("SQLITE", ENV["TRAVIS"] ? "file" : "memory")
+puts "DB: #{db}"
+puts "    #{sqlite_source}" if db == "sqlite3"
+if db == "sqlite3" && sqlite_source == "memory"
+  require "transactional_capybara/rspec" # so we can do in-memory sqlite
+else
+  require "transactional_capybara/ajax_helpers" # so we can wait for ajax (only!)
+end
+
+Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
+Capybara::Webkit.configure(&:block_unknown_urls)
+
+dbcleaner_strategy = ENV.fetch("DBCLEANER", ENV["TRAVIS"] && "truncation").try(:to_sym)
+
 RSpec.configure do |config|
+  config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
+    puts "dbcleaner_strategy: #{dbcleaner_strategy}"
+    DatabaseCleaner.strategy = dbcleaner_strategy || :transaction
     DatabaseCleaner.clean_with(:truncation)
-    if Rails::VERSION::MAJOR < 5
-      # after_commit testing is baked into rails 5.
-      require "test_after_commit"
-      TestAfterCommit.enabled = true
-    end
+    # if Rails::VERSION::MAJOR < 5
+    #   # after_commit testing is baked into rails 5.
+    #   require "test_after_commit"
+    #   TestAfterCommit.enabled = true
+    # end
     ActiveJob::Base.queue_adapter = :inline
   end
 
-  config.after(:suite) do
-    counter = 0
-  end
-
-  config.before(:each) do
+  config.before(:each) do |example|
+    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction unless dbcleaner_strategy
     DatabaseCleaner.start
     Time.zone = "UTC"
   end
 
-  config.after(:each) do
+  config.after :each do |example|
+    TransactionalCapybara::AjaxHelpers.wait_for_ajax(page) if example.metadata[:js]
+  end
+
+  config.append_after(:each) do
     DatabaseCleaner.clean
-    counter += 1
-    if counter > 9
-      GC.enable
-      GC.start
-      GC.disable
-      counter = 0
-    end
   end
 end

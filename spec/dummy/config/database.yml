@@ -3,12 +3,14 @@ db_adapter = ENV.fetch('DB', 'sqlite3')
 db_host    = ENV.fetch('DB_HOST', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost'))
 db_port    = ENV['DB_PORT'] || ENV['THREDDED_DB_1_PORT_5432_TCP_ADDR'] ||
   {'postgresql' => 5432, 'mysql2' => 3306}[db_adapter]
+sqlite_source = ENV.fetch('SQLITE', ENV['TRAVIS'] ? 'file' : 'memory')
 require 'etc'
 pool_size =
   # Web: max workers * max threads
   ENV.fetch('WEB_CONCURRENCY', 3).to_i * ENV.fetch('MAX_THREADS', 5).to_i +
   # ActiveJob Async max thread pool size
   Etc.nprocessors
+puts "pool_size: #{pool_size}"
 %>
 
 defaults: &defaults
@@ -27,7 +29,19 @@ development:
 
 test:
   <<: *defaults
-  database: <%= db_adapter == 'sqlite3' ? "':memory:'" : 'thredded_gem_test' %>
+  pool_size: 1
+  <% if db_adapter == 'sqlite3'
+       case sqlite_source
+       when 'file' %>
+  database: 'db/test.sqlite3'
+  <%   when 'memory' %>
+  database: ':memory:'
+  <%   else
+         fail "unexepcted sqlite_source '#{sqlite_source}'"
+       end %>
+  <% else %>
+  database: 'thredded_gem_test'
+  <% end %>
 
 production:
   <<: *defaults

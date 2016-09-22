@@ -1,3 +1,8 @@
+<div class="thredded--svg-definitions">
+  <%= inline_svg 'thredded/follow.svg', id:"thredded-follow-icon" %>
+  <%= inline_svg 'thredded/unfollow.svg', id:"thredded-unfollow-icon" %>
+</div>
+
 <%= thredded_page do %>
   <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
     <%= render partial: 'thredded/topics/topic_with_last_post', collection: @topics, as: :topic %>
