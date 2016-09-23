@@ -11,7 +11,10 @@ ActiveRecord::Tasks::DatabaseTasks.create_current
 begin
   verbose_was = ActiveRecord::Migration.verbose
   ActiveRecord::Migration.verbose = false
-  ActiveRecord::Migrator.migrate(["#{Gem.loaded_specs['thredded'].full_gem_path}/db/migrate/", File.join(Rails.root, "db/migrate/")])
+  ActiveRecord::Migrator.migrate([
+                                   "#{Gem.loaded_specs['thredded'].full_gem_path}/db/migrate/",
+                                   File.join(Rails.root, "db/migrate/")
+                                 ])
 ensure
   ActiveRecord::Migration.verbose = verbose_was
 end
