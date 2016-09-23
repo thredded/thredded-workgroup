@@ -22,7 +22,7 @@ module Thredded
         Thredded::TopicsPageView.new(
           thredded_current_user,
           scope
-            .order_recently_updated_first
+            .order_recently_posted_first
             .includes(:categories, :last_user, :user, :last_post)
             .page(current_page),
           topic_view_class: Thredded::PersonalizedNavigation::TopicView
