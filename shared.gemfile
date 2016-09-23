@@ -3,6 +3,12 @@ gem 'thredded', github: 'red56/thredded', branch: 'integration-201609220900'
 
 if ENV['TRAVIS']
   gem 'codeclimate-test-reporter', group: :test, require: false
+else
+  group :development do
+    gem 'guard'
+    gem 'guard-rails'
+    gem 'guard-livereload'
+  end
 end
 
 group :debug do
