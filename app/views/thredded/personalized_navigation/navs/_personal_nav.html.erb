@@ -10,7 +10,7 @@
     <%= link_to t('thredded.personalized_navigation.all_topics.link'), Thredded::PersonalizedNavigation::Engine
         .routes.url_helpers.all_topics_nav_path %>
   </li>
-  <li class="<%= Thredded::PersonalizedNavigation.navbar_class(params, :awaiting_reply) %>">
+  <li class="<%= Thredded::PersonalizedNavigation.navbar_class(params, :awaiting) %>">
     <%= link_to "Awaiting reply", Thredded::PersonalizedNavigation::Engine
         .routes.url_helpers.awaiting_nav_path %>
   </li>

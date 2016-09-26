@@ -16,7 +16,7 @@ module Thredded
         @topics = gather_topics(Thredded::Topic.all)
       end
 
-      def awaiting_reply
+      def awaiting
         @topics = gather_topics(Thredded::Topic.where(last_user_id: current_user.id))
       end
 
