@@ -107,11 +107,21 @@ describe "Views navs", type: :feature do
   context "awaiting_reply" do
     let!(:topic) { create(:topic, messageboard: messageboard) }
     let!(:post) { create(:post, postable: topic, user_id: user.id) }
+    before { topic.update_last_user_and_time_from_last_post! } # cos we're not doing test_after_commit
 
-    it "shows topics I have posted last on and that are awaiting reply" do
-      topic.update_last_user_and_time_from_last_post! # cos we're not doing test_after_commit
-      visit awaiting_nav_path
-      expect(page).to have_link_to(thredded_topic_path(topic))
+    context "when I am following a topic" do
+      before { Thredded::UserTopicFollow.create_unless_exists(user.id, topic.id) }
+      it "shows topic if have posted last on and that are awaiting reply" do
+        visit awaiting_nav_path
+        expect(page).to have_link_to(thredded_topic_path(topic))
+      end
+    end
+
+    context "when I am not following a topic" do
+      it "doesn't show topics I have posted last on and that are awaiting reply" do
+        visit awaiting_nav_path
+        expect(page).not_to have_link_to(thredded_topic_path(topic))
+      end
     end
 
     it "is linked from messageboards" do

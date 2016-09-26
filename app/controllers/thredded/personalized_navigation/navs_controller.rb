@@ -17,7 +17,7 @@ module Thredded
       end
 
       def awaiting
-        @topics = gather_topics(Thredded::Topic.where(last_user_id: current_user.id))
+        @topics = gather_topics(Thredded::Topic.followed_by(current_user).where(last_user_id: current_user.id))
       end
 
       protected
