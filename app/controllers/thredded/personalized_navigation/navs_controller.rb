@@ -16,6 +16,10 @@ module Thredded
         @topics = gather_topics(Thredded::Topic.all)
       end
 
+      def awaiting
+        @topics = gather_topics(Thredded::Topic.followed_by(current_user).where(last_user_id: current_user.id))
+      end
+
       protected
 
       def gather_topics(scope)

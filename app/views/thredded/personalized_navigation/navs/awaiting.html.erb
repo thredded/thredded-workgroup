@@ -1,0 +1,9 @@
+<% content_for :thredded_page_title, "Topics awaiting reply" %>
+<% content_for :thredded_page_id, 'thredded--awaiting-reply' %>
+<% content_for :thredded_breadcrumbs do %>
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><%= "Topics you are following which are awaiting a reply"%></li>
+  </ul>
+<% end %>
+
+<%= render partial: 'thredded/topics/topics_with_last_post'%>
