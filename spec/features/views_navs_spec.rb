@@ -104,6 +104,22 @@ describe "Views navs", type: :feature do
     end
   end
 
+  context "awaiting_reply" do
+    let!(:topic) { create(:topic, messageboard: messageboard) }
+    let!(:post) { create(:post, postable: topic, user_id: user.id) }
+
+    it "shows topics I have posted last on and that are awaiting reply" do
+      topic.update_last_user_and_time_from_last_post! # cos we're not doing test_after_commit
+      visit awaiting_nav_path
+      expect(page).to have_link_to(thredded_topic_path(topic))
+    end
+
+    it "is linked from messageboards" do
+      visit messageboards_nav_path
+      expect(page).to have_link_to(awaiting_nav_path)
+    end
+  end
+
   # context "messageboards" do
   #   it "can navigate to others" do
   #     visit messageboards_nav_path
