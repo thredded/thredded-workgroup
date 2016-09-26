@@ -132,11 +132,18 @@ describe "Views navs", type: :feature do
     end
   end
 
-  # context "messageboards" do
-  #   it "can navigate to others" do
-  #     visit messageboards_nav_path
-  #     expect(page).to have_link_to(unread_nav_path)
-  #   end
-  # end
+  context "messageboards" do
+    it "can navigate to others" do
+      visit messageboards_nav_path
+      expect(page).to have_link_to(unread_nav_path)
+    end
+    context "specific messageboard" do
+      it "shows last post" do
+        create(:post, content: "Something new in sandwiches", postable: unread_followed_topic)
+        visit thredded_messageboard_path(unread_followed_topic.messageboard)
+        expect(page).to have_content("Something new in sandwiches")
+      end
+    end
+  end
 end
 # rubocop:enable Style/Semicolon
