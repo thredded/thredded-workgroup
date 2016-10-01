@@ -5,7 +5,7 @@ describe "Clicking to follow / unfollow topics", type: :feature do
   let(:messageboard) { create(:messageboard, name: "Some message board") }
   let(:user) { create(:user) }
   let(:log_in) do
-    visit new_user_session_path
+    visit main_app.new_user_session_path
     fill_in "name", with: user
     click_button "Sign in"
   end

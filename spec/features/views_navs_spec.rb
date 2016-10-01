@@ -8,7 +8,7 @@ describe "Views navs", type: :feature do
   let!(:post) { create(:post, postable: topic) }
   let(:user) { create(:user) }
   let(:log_in) do
-    visit new_user_session_path
+    visit main_app.new_user_session_path
     fill_in "name", with: user
     click_button "Sign in"
   end
