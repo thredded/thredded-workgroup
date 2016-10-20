@@ -7,9 +7,11 @@
 
   <h1 class="thredded--topics--title">
     <span class="thredded--topic-title"><%= link_to topic.title, topic.path %></span>
-    <cite class="thredded--messageboard-name">
-      <%= messageboard_link topic.messageboard %>
-    </cite>
+    <% unless messageboard_or_nil #don't show if being viewed in the context of a messageboard%>
+      <cite class="thredded--messageboard-name">
+        <%= link_to topic.messageboard_name, topic.messageboard_path %>
+      </cite>
+    <% end %>
     <svg viewBox="0 0 116 121" class="thredded--topics--follow-icon">
       <% if topic.followed? %>
         <use xlink:href="#thredded-follow-icon"/>

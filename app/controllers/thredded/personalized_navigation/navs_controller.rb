@@ -28,8 +28,7 @@ module Thredded
           scope
             .order_recently_posted_first
             .includes(:categories, :last_user, :user, :last_post, :messageboard, :followers)
-            .page(current_page),
-          topic_view_class: Thredded::PersonalizedNavigation::TopicView
+            .page(current_page)
         )
       end
 
