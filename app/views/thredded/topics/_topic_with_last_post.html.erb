@@ -10,16 +10,14 @@
       <%= messageboard_link topic.messageboard %>:
     </cite>
     <%= link_to topic.title, topic.path %>
-    <div class="thredded--topic-follow-icon">
-      <svg viewBox="0 0 116 121">
-        <% if thredded_current_user.following?(topic) %>
-          <use xlink:href="#thredded-follow-icon"/>
-        </svg>
-        <% else %>
-          <use xlink:href="#thredded-unfollow-icon"/>
-        <% end %>
+    <svg viewBox="0 0 116 121" class="thredded--topics--follow-icon">
+      <% if topic.followed? %>
+        <use xlink:href="#thredded-follow-icon"/>
       </svg>
-    </div>
+      <% else %>
+        <use xlink:href="#thredded-unfollow-icon"/>
+      <% end %>
+    </svg>
   </h1>
 
   <% if topic.categories.any? %>
