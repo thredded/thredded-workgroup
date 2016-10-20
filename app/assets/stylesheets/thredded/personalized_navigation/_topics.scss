@@ -11,5 +11,31 @@ cite.thredded--messageboard-name {
   color: #a5aab6;
   font-size: 0.875rem;
   font-style: normal;
+  white-space: nowrap;
 }
 
+.thredded--topic-post-and-last-user {
+  max-width: 35rem;
+  margin: auto;
+  margin-top: 1rem;
+  boarder-style: solid;
+}
+
+.thredded--topics--topic .thredded--topics--follow-icon {
+  &:hover {
+    cursor: pointer;
+    opacity: 0.7;
+    color: #4a90e2;
+  }
+}
+
+.thredded--topics--topic.thredded--rollover{
+  cursor: pointer;
+
+  .thredded--topic-title a {
+    color: #4a90e2;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

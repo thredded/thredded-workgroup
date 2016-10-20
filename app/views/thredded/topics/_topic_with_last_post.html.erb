@@ -6,10 +6,10 @@
   <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
 
   <h1 class="thredded--topics--title">
+    <span class="thredded--topic-title"><%= link_to topic.title, topic.path %></span>
     <cite class="thredded--messageboard-name">
-      <%= messageboard_link topic.messageboard %>:
+      <%= messageboard_link topic.messageboard %>
     </cite>
-    <%= link_to topic.title, topic.path %>
     <svg viewBox="0 0 116 121" class="thredded--topics--follow-icon">
       <% if topic.followed? %>
         <use xlink:href="#thredded-follow-icon"/>
@@ -33,16 +33,18 @@
   <% end %>
 
   <%= render partial: 'thredded/topics/followers', locals: {topic: topic} %>
-  <div class="thredded--topic-source">
-    <cite class="thredded--topics--updated-by">
-      <%= user_link topic.last_user %>,
-      <%= time_ago topic.last_post_at %>
-    </cite>
-  </div>
 
-  <div class="thredded--last-post">
-    <%= render 'thredded/posts_common/content', post: topic.last_post if topic.last_post %>
-  </div>
+  <div class='thredded--topic-post-and-last-user'>
+    <div class="thredded--topic-source">
+      <cite class="thredded--topics--updated-by">
+        <%= user_link topic.last_user %>,
+        <%= time_ago topic.last_post_at %>
+      </cite>
+    </div>
 
+    <div class="thredded--last-post">
+      <%= render 'thredded/posts_common/content', post: topic.last_post if topic.last_post %>
+    </div>
+  </div>
 
 <% end %>
