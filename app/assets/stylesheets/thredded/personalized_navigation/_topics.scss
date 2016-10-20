@@ -18,7 +18,18 @@ cite.thredded--messageboard-name {
   max-width: 35rem;
   margin: auto;
   margin-top: 1rem;
-  boarder-style: solid;
+
+  &.thredded--condensed {
+    max-height: 100px;
+    overflow: hidden;
+    opacity: 0.8;
+    &.thredded--hovering {
+      opacity: 1;
+    }
+  }
+  &.thredded--hovering {
+    cursor: pointer;
+  }
 }
 
 .thredded--topics--topic .thredded--topics--follow-icon {
