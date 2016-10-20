@@ -118,6 +118,8 @@ describe "Views navs", type: :feature do
     end
 
     context "when I am not following a topic" do
+      before { Thredded::UserTopicFollow.delete_all }
+
       it "doesn't show topics I have posted last on and that are awaiting reply" do
         visit awaiting_nav_path
         expect(page).not_to have_link_to(thredded_topic_path(topic))
