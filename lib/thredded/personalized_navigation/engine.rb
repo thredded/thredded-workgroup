@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "thredded/engine"
+require_dependency "thredded/personalized_navigation/thredded_route_delegator"
 module Thredded
   module PersonalizedNavigation
     class Engine < ::Rails::Engine
@@ -9,6 +10,10 @@ module Thredded
         config.autoload_paths << File.expand_path("../../#{path}", File.dirname(__FILE__))
       end
 
+      config.to_prepare do
+        Rails.application.reload_routes!
+        ::Thredded::PersonalizedNavigation::ThreddedRouteDelegator.add_thredded_proxies
+      end
       initializer "thredded.setup_assets" do
         Thredded::PersonalizedNavigation::Engine.config.assets.precompile += %w(
           thredded-personalized-navigation.css

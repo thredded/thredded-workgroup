@@ -1,20 +1,17 @@
 <ul class="thredded--personalized-navigation">
   <li class="<%= Thredded::PersonalizedNavigation.navbar_class(params, :unread) %>">
-    <%= link_to t('thredded.personalized_navigation.unread.link'), Thredded::PersonalizedNavigation::Engine.routes.url_helpers.unread_nav_path%>
+    <%= link_to t('thredded.personalized_navigation.unread.link'), thredded_personalized_navigation.unread_nav_path%>
   </li>
   <li class="<%= Thredded::PersonalizedNavigation.navbar_class(params, :awaiting) %>">
-    <%= link_to "Awaiting reply", Thredded::PersonalizedNavigation::Engine
-        .routes.url_helpers.awaiting_nav_path %>
+    <%= link_to "Awaiting reply", thredded_personalized_navigation.awaiting_nav_path %>
   </li>
   <li class="<%= Thredded::PersonalizedNavigation.navbar_class(params, :following) %>">
-    <%= link_to t('thredded.personalized_navigation.following.link'), Thredded::PersonalizedNavigation::Engine
-      .routes.url_helpers.following_nav_path %>
+    <%= link_to t('thredded.personalized_navigation.following.link'), thredded_personalized_navigation.following_nav_path %>
   </li>
   <li class="<%= Thredded::PersonalizedNavigation.navbar_class(params, :all_topics) %>">
-    <%= link_to t('thredded.personalized_navigation.all_topics.link'), Thredded::PersonalizedNavigation::Engine
-        .routes.url_helpers.all_topics_nav_path %>
+    <%= link_to t('thredded.personalized_navigation.all_topics.link'), thredded_personalized_navigation.all_topics_nav_path %>
   </li>
   <li class="<%= Thredded::PersonalizedNavigation.navbar_class(params, :messageboards) %>">
-    <%= link_to t('thredded.personalized_navigation.messageboards.link'), Thredded::Engine.routes.url_helpers.root_path %>
+    <%= link_to t('thredded.personalized_navigation.messageboards.link'), thredded.root_path %>
   </li>
 </ul>

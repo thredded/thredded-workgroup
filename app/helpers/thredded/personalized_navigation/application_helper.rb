@@ -2,11 +2,8 @@
 module Thredded
   module PersonalizedNavigation
     module ApplicationHelper
-      include Thredded::Engine.routes.url_helpers
-      include Thredded::PersonalizedNavigation::Engine.routes.url_helpers
-
       def messageboard_link(messageboard)
-        link_to messageboard.name, Thredded::Engine.routes.url_helpers.messageboard_topics_path(messageboard)
+        link_to messageboard.name, thredded.messageboard_topics_path(messageboard)
       end
     end
   end
