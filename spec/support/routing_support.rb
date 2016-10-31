@@ -20,7 +20,8 @@ module RoutingSupport
   end
 
   def thredded_topic_path(topic)
-    thredded.messageboard_topic_path(topic.messageboard, topic)
+    anchor = "post_#{topic.last_post.id}" if topic.last_post
+    thredded.messageboard_topic_path(topic.messageboard, topic, anchor: anchor)
   end
 end
 
