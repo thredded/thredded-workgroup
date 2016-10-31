@@ -15,7 +15,6 @@ module Thredded
         Rails.application.reload_routes!
         ::Thredded::PersonalizedNavigation::ThreddedRouteDelegator.add_thredded_proxies
         ::Thredded::PersonalizedNavigation::RouteDelegator.add_my_proxies_to_thredded
-
       end
       initializer "thredded.setup_assets" do
         Thredded::PersonalizedNavigation::Engine.config.assets.precompile += %w(
