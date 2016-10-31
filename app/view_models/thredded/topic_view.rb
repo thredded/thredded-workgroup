@@ -3,7 +3,8 @@ require_dependency File.expand_path("../../app/view_models/thredded/topic_view",
 module Thredded
   class TopicView < Thredded::BaseTopicView
     def path
-      Thredded::UrlsHelper.topic_path(@topic, page: @read_state.page, anchor: @topic.last_post && "post_#{@topic.last_post.id}")
+      anchor = "post_#{@topic.last_post.id}" if @topic.last_post
+      Thredded::UrlsHelper.topic_path(@topic, page: @read_state.page, anchor: anchor)
     end
   end
 end
