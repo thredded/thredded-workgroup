@@ -4,7 +4,7 @@ module Thredded
   module TopicsPageViewWithLastPost
     protected
 
-    def decorate_scope(topics_page_scope)
+    def refine_scope(topics_page_scope)
       super.includes(:last_post)
     end
   end
