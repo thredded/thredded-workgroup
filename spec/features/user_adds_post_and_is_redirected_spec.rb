@@ -9,19 +9,38 @@ describe "Getting referred back", type: :feature do
     fill_in "name", with: user
     click_button "Sign in"
   end
-  before { log_in }
 
-  let!(:topic) { create(:topic).tap { |topic| topic.followers << user } }
+  if Rails::VERSION::MAJOR < 5
+    around do |example|
+      TestAfterCommit.with_commits(true) do
+        example.run
+      end
+    end
+  end
+
+  before do
+    log_in
+  end
+
+  let(:topic) { create(:topic).tap { |topic| topic.followers << user } }
   let!(:post) { create(:post, postable: topic) }
+
+  def topic_is_read
+    readstate = Thredded::UserTopicReadState.find_by(user_id: user.id, postable_id: topic.id)
+    readstate && readstate.read?
+  end
 
   describe "from unread" do
     it "works" do
-      visit unread_nav_path
-      click_on topic.title
-      fill_in "Content", with: "reply"
-      click_on "Submit Reply"
-      expect(current_path).to eq unread_nav_path
-      expect(page).to have_css".thredded--flash-message"
+      travel 1.hour do
+        visit unread_nav_path
+        click_on topic.title
+        fill_in "Content", with: "reply"
+        click_on "Submit Reply"
+        expect(current_path).to eq unread_nav_path
+        expect(page).to have_css ".thredded--flash-message"
+        expect(topic_is_read).to be_truthy
+      end
     end
   end
 
@@ -32,7 +51,8 @@ describe "Getting referred back", type: :feature do
       fill_in "Content", with: "reply"
       click_on "Submit Reply"
       expect(current_path).to eq following_nav_path
-      expect(page).to have_css".thredded--flash-message"
+      expect(page).to have_css ".thredded--flash-message"
+      expect(topic_is_read).to be_truthy
     end
   end
 
@@ -42,6 +62,7 @@ describe "Getting referred back", type: :feature do
       fill_in "Content", with: "reply"
       click_on "Submit Reply"
       expect(current_path).to eq unread_nav_path
+      expect(topic_is_read).to be_truthy
     end
   end
 end

@@ -7,6 +7,8 @@ module Thredded
       post = parent_topic.posts.build(post_params)
       authorize_creating post
       post.save!
+      user = thredded_current_user
+      UserTopicReadState.touch!(user.id, post.postable_id, post, post.page(user: user))
       flash[:notice] = generate_flash_for(post)
 
       if params[:post_referer].present?
