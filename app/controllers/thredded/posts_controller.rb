@@ -2,7 +2,7 @@
 require_dependency File.expand_path("../../app/controllers/thredded/posts_controller", Thredded::Engine.called_from)
 
 module Thredded
-  class PostsController < Thredded::ApplicationController
+  module PostsControllerWhichRedirects
     def create
       post = parent_topic.posts.build(post_params)
       authorize_creating post
@@ -26,5 +26,9 @@ module Thredded
       "Successfully replied to #{view_context.link_to(parent_topic.title, path_to_post)}".html_safe
       # rubocop:enable Rails/OutputSafety
     end
+  end
+
+  class PostsController
+    prepend ::Thredded::PostsControllerWhichRedirects
   end
 end
