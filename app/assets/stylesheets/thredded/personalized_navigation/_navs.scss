@@ -21,5 +21,15 @@ ul.thredded--personalized-navigation {
         text-decoration: underline;
       }
     }
+    .expanded {
+      @include thredded-media-mobile {
+        display: none;
+      }
+    }
+    .condensed {
+      @include thredded-media-tablet-and-up {
+        display: none;
+      }
+    }
   }
 }

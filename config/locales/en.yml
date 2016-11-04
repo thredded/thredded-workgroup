@@ -5,11 +5,16 @@ en:
       unread:
         title: Unread topics you are following
         link: Unread
+      awaiting_reply:
+        title: Topics you are following where you made the last post
+        link: Awaiting reply
+        condensed-link: Await
       following:
         title: Topics you are following
-        link: Following
+        link: Follow
       messageboards:
         link: Messageboards
+        condensed-link: M'boards
       all_topics:
         title: All topics
         link: All
