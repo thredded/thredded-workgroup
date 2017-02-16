@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Tim Diggins"]
   spec.email         = ["tim@red56.uk"]
 
-  spec.summary       = "Extension to Thredded with features useful to workgroup messaging (Unread, Unreplied, Following)."
+  spec.summary       = "Extension to Thredded with features for workgroup messaging (Unread, Unreplied, Following)."
   spec.description   = "Write a longer description or delete this line."
   spec.homepage      = "https://github.com/red56/thredded-workgroup."
   spec.license       = "MIT"
@@ -57,10 +57,15 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "puma"
   spec.add_development_dependency "rails_email_preview", ">= 2.0.1"
   spec.add_development_dependency "i18n-tasks"
+  spec.add_development_dependency "web-console"
 
   # dummy app frontend
   spec.add_development_dependency "jquery-turbolinks"
   # TODO: upgrade once Turbolinks 5 is supported by jquery-turbolinks:
   # https://github.com/kossnocorp/jquery.turbolinks/pull/58
   spec.add_development_dependency "turbolinks", "~> 2.5"
+
+  # add some plugins to the dummy app demo
+  spec.add_development_dependency "thredded-markdown_coderay"
+  spec.add_development_dependency "thredded-markdown_katex"
 end

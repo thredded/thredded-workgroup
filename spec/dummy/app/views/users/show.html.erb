@@ -4,7 +4,7 @@
 %>
 <div class="thredded--main-container">
   <h1>
-    <%= image_tag Thredded.avatar_url.call(user), class: 'thredded--user--avatar' %><%= user %>
+    <%= image_tag Thredded.avatar_url.call(user), class: 'thredded--user--avatar' %><%= user.thredded_display_name %>
   </h1>
   <ul>
     <li><%= t 'thredded.users.user_since_html', time_ago: time_ago(user.created_at) %></li>
@@ -22,5 +22,5 @@
   <%= render 'thredded/users/posts',
              posts: Thredded.posts_page_view(
                  scope: user.thredded_posts.order_newest_first.limit(5),
-                 current_user: current_user) %>
+                 current_user: the_current_user) %>
 </div>

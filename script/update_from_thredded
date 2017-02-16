@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -e
 # quick hacky script that assumes you've got thredded checked out next to thredded-workgroup
 # and updates the relevant parts of this plugin that need it from thredded
 # not 100% sure what the less hacky version might be (probably changes to thredded to include some of this in the gem
@@ -7,15 +8,29 @@
 # at very least should make this a more structured file
 # and then also add a notice to the top of the copied files that they have been copied from thredded
 
-# update db from thredded
-rm -fR ./spec/dummy/db/migrate
-cp -pR ../thredded/db/migrate ./spec/dummy/db
-cp -pR ../thredded/spec/dummy/db/migrate/* ./spec/dummy/db/migrate
-rubocop -a ./spec/factories/thredded.rb
-git add ./spec/dummy/db/migrate/*
+# store thredded-workgroup config
+mkdir -p tmp
+cp ./spec/dummy/config/initializers/thredded_workgroup.rb ./tmp/
+
+# update spec/dummy from thredded
+rm -fR ./spec/dummy/
+cp -pR ../thredded/spec/dummy ./spec/dummy
+
+# update some standard helpful files
+cp ../thredded/spec/support/features/fake_content.rb spec/support/features/fake_content.rb
+
+# restore thredded-workgroup config
+mv ./tmp/thredded_workgroup.rb ./spec/dummy/config/initializers/
+
 
 # update factories from thredded
 cp ../thredded/spec/factories.rb ./spec/factories/thredded.rb
-rubocop -a ./spec/factories/thredded.rb
+rubocop -o /dev/null -a ./spec
+
 git add ./spec/factories/thredded.rb
-# what about the rest of dummy? obviously we've added something to the initializer
+git add ./spec/dummy
+echo have a look at some of these...
+git reset spec/dummy/config/application.rb spec/dummy/config/routes.rb
+
+echo remember to drop and recreate db
+echo rake db:drop db:create db:migrate db:seed

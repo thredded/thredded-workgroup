@@ -5,11 +5,11 @@ module Thredded
       before_action :thredded_require_login!, except: :root
 
       def unread
-        @topics = gather_topics(Thredded::Topic.unread_followed_by(current_user))
+        @topics = gather_topics(Thredded::Topic.unread_followed_by(thredded_current_user))
       end
 
       def following
-        @topics = gather_topics(Thredded::Topic.followed_by(current_user))
+        @topics = gather_topics(Thredded::Topic.followed_by(thredded_current_user))
       end
 
       def all_topics
@@ -17,7 +17,8 @@ module Thredded
       end
 
       def awaiting
-        @topics = gather_topics(Thredded::Topic.followed_by(current_user).where(last_user_id: current_user.id))
+        @topics = gather_topics(Thredded::Topic.followed_by(thredded_current_user)
+          .where(last_user_id: thredded_current_user.id))
       end
 
       protected
