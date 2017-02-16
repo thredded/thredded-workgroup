@@ -6,7 +6,8 @@ module Thredded
   module PersonalizedNavigation
     module RouteDelegator
       def self.add_my_proxies_to_thredded
-        thredded_methods = Thredded::Engine.routes.url_helpers.methods
+        thredded_methods = (Thredded::Engine.routes.url_helpers.methods + Thredded::UrlsHelper.instance_methods)
+          .select { |s| s.to_s.ends_with?("_path", "_url") }
         my_route_helpers = Thredded::PersonalizedNavigation::Engine.routes.url_helpers
         path_methods = my_route_helpers.methods.select { |s| s.to_s.ends_with?("_path", "_url") }
           .reject { |s| thredded_methods.include?(s) }
