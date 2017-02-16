@@ -1,6 +1,7 @@
 # Thredded::Workgroup
 
-Workgroup for [Thredded](http://github.com/thredded/thredded)
+Extension to [Thredded](http://github.com/thredded/thredded) with features useful to workgroup messaging (Unread,
+Unreplied, Following).
 
 originated in https://github.com/thredded/thredded/issues/347
 
@@ -8,7 +9,7 @@ Out the box enables a homepage with a top-level nav menu consisting of:
 
 * Unread: a list of unread topics (ordered by last post) across all messageboards
 * Following: a list of followed topics (ordered by last post) across all messageboards
-* ~~Posted: a list of topics you've posted to (ordered by your last post) across all messageboards~~ (not yet implemented)
+* Awaiting reply: a list of all topics you follow where yours is the last post
 * All topics: a list of all topics (ordered by last post) across all messageboards
 * All messageboards: a list of messageboards (as present)
 

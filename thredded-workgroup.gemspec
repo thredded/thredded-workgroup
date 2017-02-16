@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Tim Diggins"]
   spec.email         = ["tim@red56.uk"]
 
-  spec.summary       = "Extension to Thredded with features useful to workgroup messaging (Unread, Following)."
+  spec.summary       = "Extension to Thredded with features useful to workgroup messaging (Unread, Unreplied, Following)."
   spec.description   = "Write a longer description or delete this line."
   spec.homepage      = "https://github.com/red56/thredded-workgroup."
   spec.license       = "MIT"
