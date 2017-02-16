@@ -3,7 +3,7 @@ require_dependency File.expand_path("../../app/helpers/thredded/application_help
 module Thredded
   module ApplicationHelper
     #     include Thredded::Engine.routes.url_helpers
-    #     include Thredded::PersonalizedNavigation::Engine.routes.url_helpers
+    #     include Thredded::Workgroup::Engine.routes.url_helpers
     #
   end
 end

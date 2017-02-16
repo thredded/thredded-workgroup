@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# quick hacky script that assumes you've got thredded checked out next to thredded-personalized-navigation
+# quick hacky script that assumes you've got thredded checked out next to thredded-workgroup
 # and updates the relevant parts of this plugin that need it from thredded
 # not 100% sure what the less hacky version might be (probably changes to thredded to include some of this in the gem
 #

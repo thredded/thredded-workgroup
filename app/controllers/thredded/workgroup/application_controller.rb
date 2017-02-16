@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Thredded
-  module PersonalizedNavigation
+  module Workgroup
     class ApplicationController < Thredded::ApplicationController
     end
   end

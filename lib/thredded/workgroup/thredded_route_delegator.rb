@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Thredded
-  module PersonalizedNavigation
+  module Workgroup
     module ThreddedRouteDelegator
       def self.add_thredded_proxies
         thredded = Thredded::Engine.routes.url_helpers
@@ -10,8 +10,8 @@ module Thredded
             thredded.send(method_name, *args)
           end
         end
-        ::Thredded::PersonalizedNavigation::ApplicationController.helper(
-          ::Thredded::PersonalizedNavigation::ThreddedRouteDelegator
+        ::Thredded::Workgroup::ApplicationController.helper(
+          ::Thredded::Workgroup::ThreddedRouteDelegator
         )
       end
     end

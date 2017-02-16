@@ -1,7 +1,7 @@
 ---
 en:
   thredded:
-    personalized_navigation:
+    workgroup:
       unread:
         title: Unread topics you are following
         link: Unread

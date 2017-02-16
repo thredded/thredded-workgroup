@@ -3,7 +3,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require thredded
-//= require thredded-personalized-navigation
+//= require thredded-workgroup
 //= require locales/jquery.timeago.pt-br
 //= require_tree ./app
 // Must be required last:

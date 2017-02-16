@@ -3,17 +3,17 @@
 # rubocop:disable Style/GuardClause
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "thredded/personalized_navigation/version"
+require "thredded/workgroup/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "thredded-personalized-navigation"
-  spec.version       = Thredded::PersonalizedNavigation::VERSION
+  spec.name          = "thredded-workgroup"
+  spec.version       = Thredded::Workgroup::VERSION
   spec.authors       = ["Tim Diggins"]
   spec.email         = ["tim@red56.uk"]
 
-  spec.summary       = "Extension to Thredded with Personalized navigation (Unread, Posted, Following)."
+  spec.summary       = "Extension to Thredded with features useful to workgroup messaging (Unread, Following)."
   spec.description   = "Write a longer description or delete this line."
-  spec.homepage      = "https://github.com/red56/thredded-personalized-navigation."
+  spec.homepage      = "https://github.com/red56/thredded-workgroup."
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'

@@ -3,11 +3,11 @@
 # This includes this module into Thredded Application Controller so we can use
 # url helpers from Thredded PN like unread_nav_path in controllers.
 module Thredded
-  module PersonalizedNavigation
+  module Workgroup
     module RouteDelegator
       def self.add_my_proxies_to_thredded
         thredded_methods = Thredded::Engine.routes.url_helpers.methods
-        my_route_helpers = Thredded::PersonalizedNavigation::Engine.routes.url_helpers
+        my_route_helpers = Thredded::Workgroup::Engine.routes.url_helpers
         path_methods = my_route_helpers.methods.select { |s| s.to_s.ends_with?("_path", "_url") }
           .reject { |s| thredded_methods.include?(s) }
         path_methods.each do |method_name|
@@ -16,9 +16,9 @@ module Thredded
           end
         end
         ::Thredded::ApplicationController.send(:include,
-                                               ::Thredded::PersonalizedNavigation::RouteDelegator)
+                                               ::Thredded::Workgroup::RouteDelegator)
         # if we need to use in views, then we add
-        # ::Thredded::ApplicationController.helper(::Thredded::PersonalizedNavigation::RouteDelegator)
+        # ::Thredded::ApplicationController.helper(::Thredded::Workgroup::RouteDelegator)
       end
     end
   end

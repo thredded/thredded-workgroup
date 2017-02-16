@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Thredded
-  module PersonalizedNavigation
-    class NavsController < Thredded::PersonalizedNavigation::ApplicationController
+  module Workgroup
+    class NavsController < Thredded::Workgroup::ApplicationController
       before_action :thredded_require_login!, except: :root
 
       def unread
