@@ -7,17 +7,22 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 require "http_accept_language"
 require "rails-i18n"
-require "jquery-turbolinks"
 require "turbolinks"
 require "rails_email_preview"
 require "thredded"
-require "thredded/personalized_navigation"
+require "thredded/markdown_coderay"
+require "thredded/markdown_katex"
+
+# IMPORTANT: Mandatory for Thredded::Workgroup
+require "thredded/workgroup"
 
 if ENV["HEROKU"]
   require "rack/canonical_host"
   require "newrelic_rpm"
   require "dalli"
 end
+
+require "web-console" if Rails.env.development?
 
 module Dummy
   class Application < Rails::Application
@@ -27,9 +32,6 @@ module Dummy
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
-
-    # Add migrate path from Thredded. Could also put the dummy paths into here as well
-    config.paths["db/migrate"] << "#{Gem.loaded_specs['thredded'].full_gem_path}/db/migrate"
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.

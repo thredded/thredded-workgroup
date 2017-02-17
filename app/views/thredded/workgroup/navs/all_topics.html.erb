@@ -1,0 +1,9 @@
+<% content_for :thredded_page_title, t('thredded.workgroup.all_topics.title') %>
+<% content_for :thredded_page_id, 'thredded--all_topics' %>
+<% content_for :thredded_breadcrumbs do %>
+  <ul class="thredded--navigation-breadcrumbs">
+    <li><a><%= t('thredded.workgroup.all_topics.title')%></a></li>
+  </ul>
+<% end %>
+
+<%= render partial: 'thredded/topics/topics_with_last_post'%>

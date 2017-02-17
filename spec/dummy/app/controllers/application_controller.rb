@@ -2,21 +2,18 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   include SetLocale
-  helper_method :signed_in?, :current_user
-
-  def index
-    @messageboard = Thredded::Messageboard.first
-  end
+  include StoreLocationFullpath
+  helper_method :signed_in?, :the_current_user
 
   protected
 
   def signed_in?
-    current_user.present?
+    the_current_user.present?
   end
 
-  def current_user
+  def the_current_user
     return unless session[:user_id]
-    @current_user ||= Thredded.user_class.find_by_id(session[:user_id]).tap do |user|
+    @the_current_user ||= Thredded.user_class.find_by(id: session[:user_id]).tap do |user|
       # If the database has been recreated, user_id may be invalid.
       session.delete(:user_id) if user.nil?
     end

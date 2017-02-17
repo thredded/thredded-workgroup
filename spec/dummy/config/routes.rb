@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 Rails.application.routes.draw do
-  root to: "application#index"
+  root to: "home#show"
 
   resources :user_sessions,
             only: [:new, :create],
@@ -11,5 +11,5 @@ Rails.application.routes.draw do
   resources :users, only: [:show], path: "u"
 
   mount RailsEmailPreview::Engine, at: "/emails"
-  mount Thredded::PersonalizedNavigation::Engine => "/thredded"
+  mount Thredded::Workgroup::Engine => "/thredded"
 end

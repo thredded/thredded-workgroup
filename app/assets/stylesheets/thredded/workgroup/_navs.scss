@@ -1,0 +1,35 @@
+ul.thredded--workgroup {
+  border-bottom: 1px solid #eee;
+  font-size: 0.875rem;
+  margin-left: 0;
+  margin-bottom: 1rem;
+  text-align: left;
+  list-style-type: none;
+  padding-left: 0;
+  li {
+    display: inline-block;
+    margin-right: 1rem;
+    &.active {
+      font-weight: bold;
+    }
+    a {
+      display: inline-block;
+      color: #a5aab6;
+      padding: 0.75rem 0;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .expanded {
+      @include thredded-media-mobile {
+        display: none;
+      }
+    }
+    .condensed {
+      @include thredded-media-tablet-and-up {
+        display: none;
+      }
+    }
+  }
+}

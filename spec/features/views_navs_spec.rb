@@ -9,7 +9,7 @@ describe "Views navs", type: :feature do
   let(:user) { create(:user) }
   let(:log_in) do
     visit main_app.new_user_session_path
-    fill_in "name", with: user
+    fill_in "name", with: user.name
     click_button "Sign in"
   end
   before { log_in }

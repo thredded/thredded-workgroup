@@ -1,6 +1,7 @@
-# Thredded::PersonalizedNavigation
+# Thredded::Workgroup
 
-PersonalizedNavigation for [Thredded](http://github.com/thredded/thredded)
+Extension to [Thredded](http://github.com/thredded/thredded) with features useful to workgroup messaging (Unread,
+Unreplied, Following).
 
 originated in https://github.com/thredded/thredded/issues/347
 
@@ -8,7 +9,7 @@ Out the box enables a homepage with a top-level nav menu consisting of:
 
 * Unread: a list of unread topics (ordered by last post) across all messageboards
 * Following: a list of followed topics (ordered by last post) across all messageboards
-* ~~Posted: a list of topics you've posted to (ordered by your last post) across all messageboards~~ (not yet implemented)
+* Awaiting reply: a list of all topics you follow where yours is the last post
 * All topics: a list of all topics (ordered by last post) across all messageboards
 * All messageboards: a list of messageboards (as present)
 
@@ -22,7 +23,7 @@ It adds a navbar like this:
 Add this line to your application's Gemfile (along with thredded if you want to specify a specific fork):
 
 ```ruby
-gem 'thredded-personalized-navigation'
+gem 'thredded-workgroup'
 ```
 
 And then execute:
@@ -31,32 +32,32 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install thredded-personalized-navigation
+    $ gem install thredded-workgroup
 
 ## Usage
 
 add to routes.rb (**instead** of mounting Thredded)
 
 ```
-  mount Thredded::PersonalizedNavigation::Engine => "/thredded"
+  mount Thredded::Workgroup::Engine => "/thredded"
 ```
 
 You will also need to follow the guidelines for installing Thredded, see https://github
 .com/thredded/thredded#installation.
 
-If you use an application layout (see Add thredded styles to your `application.scss` (see https://github.com/thredded/thredded#application-layout) below for customizing the styles), you will need to  include thredded **and** thredded-personalized-navigation:
+If you use an application layout (see Add thredded styles to your `application.scss` (see https://github.com/thredded/thredded#application-layout) below for customizing the styles), you will need to  include thredded **and** thredded-workgroup:
 
 
 ```scss
 @import "thredded";
-@import "thredded-personalized-navigation";
+@import "thredded-workgroup";
 ```
 
 Include thredded JavaScripts in your `application.js`:
 
 ```js
 //= require thredded
-//= require thredded-personalized-navigation
+//= require thredded-workgroup
 ```
 
 
@@ -87,7 +88,7 @@ run `script/update_from_thredded`
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/thredded-personalized-navigation. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/thredded-workgroup. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 
 ## License

@@ -11,9 +11,6 @@ Dummy::Application.configure do
   config.action_mailer.default_url_options = { host: "localhost:3000" }
   config.action_mailer.delivery_method = :test
   config.action_mailer.perform_deliveries = true
-  config.active_support.deprecation = if Rails::VERSION::MAJOR >= 5
-                                        :stderr
-                                      else
-                                        :raise
-                                      end
+  config.active_support.deprecation = :stderr
+  config.action_controller.action_on_unpermitted_parameters = :raise
 end

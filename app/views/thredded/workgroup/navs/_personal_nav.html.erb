@@ -1,0 +1,23 @@
+<ul class="thredded--workgroup">
+  <li class="<%= Thredded::Workgroup.navbar_class(params, :unread) %>">
+    <%= link_to t('thredded.workgroup.unread.link'), thredded_workgroup.unread_nav_path%>
+  </li>
+  <li class="<%= Thredded::Workgroup.navbar_class(params, :awaiting) %>">
+    <%= link_to thredded_workgroup.awaiting_nav_path do %>
+      <span class="expanded"><%= t('thredded.workgroup.awaiting_reply.link') %></span>
+      <span class="condensed"><%= t('thredded.workgroup.awaiting_reply.condensed-link') %></span>
+    <% end %>
+  </li>
+  <li class="<%= Thredded::Workgroup.navbar_class(params, :following) %>">
+    <%= link_to t('thredded.workgroup.following.link'), thredded_workgroup.following_nav_path %>
+  </li>
+  <li class="<%= Thredded::Workgroup.navbar_class(params, :all_topics) %>">
+    <%= link_to t('thredded.workgroup.all_topics.link'), thredded_workgroup.all_topics_nav_path %>
+  </li>
+  <li class="<%= Thredded::Workgroup.navbar_class(params, :messageboards) %>">
+    <%= link_to thredded.root_path do %>
+      <span class="expanded"><%= t('thredded.workgroup.messageboards.link') %></span>
+      <span class="condensed"><%= t('thredded.workgroup.messageboards.condensed-link') %></span>
+    <% end %>
+  </li>
+</ul>

@@ -27,16 +27,22 @@ FactoryGirl.define do
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
     description "This is a description of the messageboard"
-    closed false
+  end
+
+  factory :messageboard_group, class: Thredded::MessageboardGroup do
+    sequence(:name) { |n| "#{Faker::Lorem.word} #{n}" }
   end
 
   factory :post, class: Thredded::Post do
     user
     postable { association :topic, user: user }
-    messageboard
 
-    content { Faker::Hacker.say_something_smart }
+    content { FakeContent.post_content }
     ip "127.0.0.1"
+
+    after :build do |post|
+      post.messageboard = post.postable.messageboard
+    end
   end
 
   factory :private_post, class: Thredded::PrivatePost do
@@ -62,9 +68,25 @@ FactoryGirl.define do
     messageboard
   end
 
+  factory :messageboard_notifications_for_followed_topics,
+          class: Thredded::MessageboardNotificationsForFollowedTopics do
+    user
+    messageboard
+    notifier_key "email"
+  end
+  factory :notifications_for_followed_topics, class: Thredded::NotificationsForFollowedTopics do
+    user
+    notifier_key "email"
+  end
+  factory :notifications_for_private_topics, class: Thredded::NotificationsForPrivateTopics do
+    user
+    notifier_key "email"
+  end
+
   factory :topic, class: Thredded::Topic do
     transient do
       with_posts 0
+      post_interval 1.hour
       with_categories 0
     end
 
@@ -77,8 +99,11 @@ FactoryGirl.define do
 
     after(:create) do |topic, evaluator|
       if evaluator.with_posts
+        ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
         evaluator.with_posts.times do
-          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard)
+          ago += evaluator.post_interval
+          create(:post, postable: topic, user: topic.user, messageboard: topic.messageboard, created_at: ago,
+                        updated_at: ago, moderation_state: topic.moderation_state)
         end
 
         topic.posts_count = evaluator.with_posts
@@ -160,6 +185,7 @@ FactoryGirl.define do
     user
     association :postable, factory: :private_topic
     page 1
+    read_at { Time.now.utc }
   end
 
   factory :user_topic_follow, class: Thredded::UserTopicFollow do
