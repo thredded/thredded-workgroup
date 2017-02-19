@@ -12,6 +12,7 @@ addons:
 language: ruby
 rvm:
   - 2.3.1
+  - 2.4
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
