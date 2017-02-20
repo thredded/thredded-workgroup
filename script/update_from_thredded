@@ -1,16 +1,18 @@
 #!/usr/bin/env bash
 
 set -e
-# quick hacky script that assumes you've got thredded checked out next to thredded-workgroup
-# and updates the relevant parts of this plugin that need it from thredded
-# not 100% sure what the less hacky version might be (probably changes to thredded to include some of this in the gem
+# quick relatively hacky script that assumes you've just done a bundle update thredded using a github rather
+# than a normal gem version reference (e.g branch, tag) for thredded
+# and updates the relevant parts of this plugin that need it from the thredded gem
+# not 100% sure what the less hacky version might be
 #
 # at very least should make this a more structured file
 # and then also add a notice to the top of the copied files that they have been copied from thredded
 
-# store thredded-workgroup config
+# store thredded-workgroup config, emoji
 mkdir -p tmp
 cp ./spec/dummy/config/initializers/thredded_workgroup.rb ./tmp/
+mv ./spec/dummy/public/emoji ./tmp/
 
 # update spec/dummy from thredded
 rm -fR ./spec/dummy/
@@ -19,9 +21,11 @@ cp -pR ../thredded/spec/dummy ./spec/dummy
 # update some standard helpful files
 cp ../thredded/spec/support/features/fake_content.rb spec/support/features/fake_content.rb
 
-# restore thredded-workgroup config
+# restore thredded-workgroup config, emoji
 mv ./tmp/thredded_workgroup.rb ./spec/dummy/config/initializers/
-
+mkdir -p ./spec/dummy/public/emoji
+mv ./tmp/emoji/* ./spec/dummy/public/emoji
+rmdir ./tmp/emoji
 
 # update factories from thredded
 cp ../thredded/spec/factories.rb ./spec/factories/thredded.rb
@@ -30,7 +34,11 @@ rubocop -o /dev/null -a ./spec
 git add ./spec/factories/thredded.rb
 git add ./spec/dummy
 echo have a look at some of these...
-git reset spec/dummy/config/application.rb spec/dummy/config/routes.rb
-
+git reset <<-RESET
+             spec/dummy/config/application.rb
+             spec/dummy/config/routes.rb
+             spec/dummy/app/assets/stylesheets/_dummy_app.scss
+             spec/dummy/app/assets/javascripts/application.js
+RESET
 echo remember to drop and recreate db
 echo rake db:drop db:create db:migrate db:seed
