@@ -13,7 +13,7 @@ require "thredded"
 require "thredded/markdown_coderay"
 require "thredded/markdown_katex"
 
-# IMPORTANT: Mandatory for Thredded::Workgroup
+# IMPORTANT: Mandatory for Thredded::Workgroup dummy
 require "thredded/workgroup"
 
 if ENV["HEROKU"]
@@ -26,6 +26,10 @@ require "web-console" if Rails.env.development?
 
 module Dummy
   class Application < Rails::Application
+    # IMPORTANT: Mandatory for Thredded::Workgroup dummy
+    # Add migrate path from Thredded.
+    config.paths["db/migrate"] << "#{Gem.loaded_specs['thredded'].full_gem_path}/db/migrate"
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
