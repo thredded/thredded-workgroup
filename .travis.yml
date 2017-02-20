@@ -24,7 +24,7 @@ env:
     - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
   matrix:
   # Username and password from http://docs.travis-ci.com/user/database-setup/
-  - DB=sqlite3 SQLITE=file
+  - DB=sqlite3 SQLITE=file DBC_VERBOSE=true
 #  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
 #  - DB=postgresql DB_USERNAME=postgres DB_PASSWORD="" DBCLEANER=deletion
   - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""

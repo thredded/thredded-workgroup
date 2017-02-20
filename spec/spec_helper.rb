@@ -88,25 +88,25 @@ RSpec.configure do |config|
 
   config.before(:each) do |example|
     msg, strategy = if example.metadata[:js]
-      ["JS strategy",  dbcleaner_strategy || :truncation]
-    else
-      ["strategy", dbcleaner_strategy || :transaction]
+                      ["JS strategy", dbcleaner_strategy || :truncation]
+                    else
+                      ["strategy", dbcleaner_strategy || :transaction]
     end
-    puts "setting #{msg} to #{strategy} #{example}" if ENV['DB_VERBOSE']
+    puts "setting #{msg} to #{strategy} #{example}" if ENV["DBC_VERBOSE"]
     DatabaseCleaner.strategy = strategy
   end
 
   config.before(:each) do |example|
     DatabaseCleaner.start
-    puts "DatabaseCleaner.start #{example}" if ENV['DB_VERBOSE']
+    puts "DatabaseCleaner.start #{example}" if ENV["DBC_VERBOSE"]
   end
 
   config.after(:each) do |example|
     if example.metadata[:js]
-      puts "AjaxHelpers.wait_for_ajax #{example}" if ENV['DB_VERBOSE']
+      puts "AjaxHelpers.wait_for_ajax #{example}" if ENV["DBC_VERBOSE"]
       TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
     end
-    puts "DatabaseCleaner.clean #{example}" if ENV['DB_VERBOSE']
+    puts "DatabaseCleaner.clean #{example}" if ENV["DBC_VERBOSE"]
     DatabaseCleaner.clean
   end
 end
