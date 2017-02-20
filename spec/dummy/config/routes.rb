@@ -11,5 +11,7 @@ Rails.application.routes.draw do
   resources :users, only: [:show], path: "u"
 
   mount RailsEmailPreview::Engine, at: "/emails"
+
+  # IMPORTANT: Mandatory for Thredded::Workgroup dummy
   mount Thredded::Workgroup::Engine => "/thredded"
 end
