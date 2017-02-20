@@ -45,7 +45,7 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(Fi
 
 require "capybara-webkit"
 
-sqlite_source = ENV.fetch("SQLITE", ENV["TRAVIS"] ? "file" : "memory")
+sqlite_source = ENV.fetch("SQLITE", "memory")
 puts "DB: #{db}"
 puts "    #{sqlite_source}" if db == "sqlite3"
 if db == "sqlite3" && sqlite_source == "memory"
@@ -57,16 +57,14 @@ end
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara::Webkit.configure(&:block_unknown_urls)
 
-dbcleaner_strategy = ENV.fetch("DBCLEANER", ENV["TRAVIS"] && "truncation").try(:to_sym)
+dbcleaner_strategy = ENV["DBCLEANER"]&.to_sym
+puts "dbcleaner_strategy: #{dbcleaner_strategy}"
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    puts "dbcleaner_strategy: #{dbcleaner_strategy}"
-    DatabaseCleaner.strategy = dbcleaner_strategy || :transaction
-    DatabaseCleaner.clean_with(:truncation)
     if Rails::VERSION::MAJOR < 5
       # after_commit testing is baked into rails 5.
       require "test_after_commit"
@@ -77,13 +75,28 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do |example|
-    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction unless dbcleaner_strategy
-    DatabaseCleaner.start
     Time.zone = "UTC"
   end
 
-  config.after :each do |example|
-    TransactionalCapybara::AjaxHelpers.wait_for_ajax(page) if example.metadata[:js]
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do |example|
+    Time.zone = "UTC"
+    DatabaseCleaner.strategy = dbcleaner_strategy || :transaction
+  end
+
+  config.before(:each, js:true) do |example|
+    DatabaseCleaner.strategy = dbcleaner_strategy || :truncation
+  end
+
+  config.before(:each) do |example|
+    DatabaseCleaner.start
+  end
+
+  config.after(:each, js:true) do |example|
+    TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
   end
 
   config.append_after(:each) do
