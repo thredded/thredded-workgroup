@@ -1,3 +1,4 @@
+gem 'rake'
 gem 'test_after_commit', group: :test
 gem 'thredded', github: 'red56/thredded', branch: 'master'
 
