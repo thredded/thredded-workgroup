@@ -74,7 +74,7 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter = :inline
   end
 
-  config.before(:each) do |example|
+  config.before(:each) do
     Time.zone = "UTC"
   end
 
@@ -82,20 +82,20 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do |example|
+  config.before(:each) do
     Time.zone = "UTC"
     DatabaseCleaner.strategy = dbcleaner_strategy || :transaction
   end
 
-  config.before(:each, js:true) do |example|
+  config.before(:each, js: true) do
     DatabaseCleaner.strategy = dbcleaner_strategy || :truncation
   end
 
-  config.before(:each) do |example|
+  config.before(:each) do
     DatabaseCleaner.start
   end
 
-  config.after(:each, js:true) do |example|
+  config.after(:each, js: true) do
     TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
   end
 
