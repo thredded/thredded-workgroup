@@ -28,8 +28,6 @@ env:
 #  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
   - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
 
-before_install:
-  - gem update --system
 before_script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate
 
