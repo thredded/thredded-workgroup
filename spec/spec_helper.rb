@@ -2,12 +2,26 @@
 
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment", __FILE__)
+db_config   = Rails.configuration.database_configuration["test"]
+db_adapter = db_config["adapter"]
+db_database = db_config["database"]
+db = ENV.fetch("DB", db_adapter)
+db_is_memory = db_adapter == 'sqlite' && db_database == ':memory:'
+puts "-"*40
+puts "DB: #{ENV['DB']}"
+puts "DB: adapter: #{db_adapter}"
+puts "    database: #{db_database}"
+puts "    db_is_memory: #{db_is_memory}"
+dbcleaner_strategy_override = ENV["DBCLEANER"]&.to_sym
+puts "    dbcleaner_strategy_override: #{dbcleaner_strategy_override}" if dbcleaner_strategy_override
+puts "-"*40
 
 # Re-create the test database and run the migrations
-db = ENV.fetch("DB", "sqlite3")
 system({ "DB" => db }, "script/create-db-users") unless ENV["TRAVIS"]
-ActiveRecord::Tasks::DatabaseTasks.drop_current
-ActiveRecord::Tasks::DatabaseTasks.create_current
+
+ActiveRecord::Tasks::DatabaseTasks.drop_current unless db_is_memory
+ActiveRecord::Tasks::DatabaseTasks.create_current unless db_is_memory
+
 begin
   verbose_was = ActiveRecord::Migration.verbose
   ActiveRecord::Migration.verbose = false
@@ -45,20 +59,19 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(Fi
 
 require "capybara-webkit"
 
-sqlite_source = ENV.fetch("SQLITE", "memory")
-puts "DB: #{db}"
-puts "    #{sqlite_source}" if db == "sqlite3"
-if db == "sqlite3" && sqlite_source == "memory"
-  require "transactional_capybara/rspec" # so we can do in-memory sqlite
+if db == "sqlite3"
+  require "transactional_capybara/rspec" # so we can do sqlite (memory requires only one db obs,
+                                         # but actually file is a problem with write access across two threads)
+  dbcleaner_js_strategy = :deletion
+  # see http://stackoverflow.com/questions/29387097/capybara-and-chrome-driver-sqlite3busyexception-database-is-locked
 else
   require "transactional_capybara/ajax_helpers" # so we can wait for ajax (only!)
+  dbcleaner_js_strategy = :truncation
 end
 
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara::Webkit.configure(&:block_unknown_urls)
 
-dbcleaner_strategy = ENV["DBCLEANER"]&.to_sym
-puts "dbcleaner_strategy: #{dbcleaner_strategy}"
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
@@ -88,9 +101,9 @@ RSpec.configure do |config|
 
   config.before(:each) do |example|
     msg, strategy = if example.metadata[:js]
-                      ["JS strategy", dbcleaner_strategy || :truncation]
+                      ["JS strategy", dbcleaner_strategy_override || dbcleaner_js_strategy]
                     else
-                      ["strategy", dbcleaner_strategy || :transaction]
+                      ["strategy", dbcleaner_strategy_override || :transaction]
     end
     puts "setting #{msg} to #{strategy} #{example}" if ENV["DBC_VERBOSE"]
     DatabaseCleaner.strategy = strategy
