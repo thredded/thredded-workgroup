@@ -2,19 +2,19 @@
 
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment", __FILE__)
-db_config   = Rails.configuration.database_configuration["test"]
+db_config = Rails.configuration.database_configuration["test"]
 db_adapter = db_config["adapter"]
 db_database = db_config["database"]
 db = ENV.fetch("DB", db_adapter)
-db_is_memory = db_adapter == 'sqlite' && db_database == ':memory:'
-puts "-"*40
+db_is_memory = db_adapter == "sqlite" && db_database == ":memory:"
+puts "-" * 40
 puts "DB: #{ENV['DB']}"
 puts "DB: adapter: #{db_adapter}"
 puts "    database: #{db_database}"
 puts "    db_is_memory: #{db_is_memory}"
 dbcleaner_strategy_override = ENV["DBCLEANER"]&.to_sym
 puts "    dbcleaner_strategy_override: #{dbcleaner_strategy_override}" if dbcleaner_strategy_override
-puts "-"*40
+puts "-" * 40
 
 # Re-create the test database and run the migrations
 system({ "DB" => db }, "script/create-db-users") unless ENV["TRAVIS"]
@@ -60,8 +60,9 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(Fi
 require "capybara-webkit"
 
 if db == "sqlite3"
-  require "transactional_capybara/rspec" # so we can do sqlite (memory requires only one db obs,
-                                         # but actually file is a problem with write access across two threads)
+  require "transactional_capybara/rspec"
+  # (memory requires shared connection to 1 db obvs, but actually file is a problem because need write access from
+  # both server and test (for at least setup))
   dbcleaner_js_strategy = :deletion
   # see http://stackoverflow.com/questions/29387097/capybara-and-chrome-driver-sqlite3busyexception-database-is-locked
 else
@@ -71,7 +72,6 @@ end
 
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara::Webkit.configure(&:block_unknown_urls)
-
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
