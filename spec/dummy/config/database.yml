@@ -18,6 +18,7 @@ else
 end
 require 'etc'
 pool_size =
+  ENV['DB_POOL_SIZE'] ||
   # Web: max workers * max threads
   ENV.fetch('WEB_CONCURRENCY', 3).to_i * ENV.fetch('MAX_THREADS', 5).to_i +
   # ActiveJob Async max thread pool size
@@ -40,7 +41,7 @@ development:
 test:
   <<: *defaults
   database: <%= database[:test] %>
-
+  <% if adapter == 'sqlite3'%>options: "PRAGMA journal_mode = MEMORY"<% end%>
 production:
   <<: *defaults
   encoding: utf8
