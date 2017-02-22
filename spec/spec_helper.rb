@@ -128,6 +128,9 @@ RSpec.configure do |config|
     end
   end
   config.append_after(:each) do |example|
+    # https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
+    # > It's also recommended to use append_after to ensure DatabaseCleaner.clean runs after the after-test cleanup
+    # > capybara/rspec installs.
     puts "DatabaseCleaner.clean #{example}" if ENV["DBC_VERBOSE"]
     DatabaseCleaner.clean
   end
