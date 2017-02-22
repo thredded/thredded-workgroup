@@ -13,10 +13,13 @@ describe "Clicking to follow / unfollow topics", type: :feature do
 
   shared_examples_for "follow and unfollow from list" do
     context "with an unfollowed topic" do
-      let!(:topic) { create(:topic, messageboard: messageboard) }
-      let!(:post) { create(:post, postable: topic) }
+      let(:topic) { create(:topic, messageboard: messageboard) }
+      let(:post) { create(:post, postable: topic) }
 
       specify "you can click to follow", js: true do
+        puts "about to create post"
+        post
+        puts "created post"
         visit path
         within "#topic_#{topic.id}.thredded--topic-notfollowing" do
           find("svg.thredded--topics--follow-icon").click

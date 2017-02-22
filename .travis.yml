@@ -12,6 +12,7 @@ addons:
 language: ruby
 rvm:
   - 2.3.1
+#  - 2.4 # not till rails 4.2.8 is released
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
@@ -20,18 +21,12 @@ gemfile:
 
 env:
   global:
-    - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake SQLITE=memory DBCLEANER=deletion
+    - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
   matrix:
   # Username and password from http://docs.travis-ci.com/user/database-setup/
-  - DB=sqlite3
+  - DB=sqlite3 DBC_VERBOSE=true
 #  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
   - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
-
-#before_install:
-#  - ls -al /usr/lib
-#  - ls -al /usr/lib/x86_64-linux-gnu/
-#  - ls -al /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
-#  - gem install bundler -v 1.12.3
 
 before_script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate

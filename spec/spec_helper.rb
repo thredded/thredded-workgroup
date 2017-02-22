@@ -2,12 +2,30 @@
 
 ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment", __FILE__)
+db_config = Rails.configuration.database_configuration["test"]
+db_adapter = db_config["adapter"]
+db_database = db_config["database"]
+db = ENV.fetch("DB", db_adapter)
+db_is_memory = db_adapter == "sqlite" && db_database == ":memory:"
+puts "-" * 40
+puts "DB: #{ENV['DB']}"
+puts "DB: adapter: #{db_adapter}"
+puts "    database: #{db_database}"
+puts "    db_is_memory: #{db_is_memory}"
+dbcleaner_strategy_override = ENV["DBCLEANER"]&.to_sym
+puts "    dbcleaner_strategy_override: #{dbcleaner_strategy_override}" if dbcleaner_strategy_override
+puts "-" * 40
 
 # Re-create the test database and run the migrations
-db = ENV.fetch("DB", "sqlite3")
 system({ "DB" => db }, "script/create-db-users") unless ENV["TRAVIS"]
-ActiveRecord::Tasks::DatabaseTasks.drop_current
-ActiveRecord::Tasks::DatabaseTasks.create_current
+
+def drop_recreate_db
+  ActiveRecord::Tasks::DatabaseTasks.drop_current
+  ActiveRecord::Tasks::DatabaseTasks.create_current
+end
+
+drop_recreate_db unless db_is_memory
+
 begin
   verbose_was = ActiveRecord::Migration.verbose
   ActiveRecord::Migration.verbose = false
@@ -41,52 +59,79 @@ end
 Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |f| require f }
 
 FileUtils.mkdir("log") unless File.directory?("log")
+
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", "w"))
 
 require "capybara-webkit"
 
-sqlite_source = ENV.fetch("SQLITE", ENV["TRAVIS"] ? "file" : "memory")
-puts "DB: #{db}"
-puts "    #{sqlite_source}" if db == "sqlite3"
-if db == "sqlite3" && sqlite_source == "memory"
-  require "transactional_capybara/rspec" # so we can do in-memory sqlite
+if db == "sqlite3"
+  require "transactional_capybara"
+  TransactionalCapybara.share_connection
+  # (memory requires shared connection to 1 db obvs, but actually file is a problem because need write access from
+  # both server and test (for at least setup))
+
+  dbcleaner_js_strategy = :deletion
+  # see http://stackoverflow.com/questions/29387097/capybara-and-chrome-driver-sqlite3busyexception-database-is-locked
 else
   require "transactional_capybara/ajax_helpers" # so we can wait for ajax (only!)
+  dbcleaner_js_strategy = :truncation
 end
 
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara::Webkit.configure(&:block_unknown_urls)
-
-dbcleaner_strategy = ENV.fetch("DBCLEANER", ENV["TRAVIS"] && "truncation").try(:to_sym)
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    puts "dbcleaner_strategy: #{dbcleaner_strategy}"
-    DatabaseCleaner.strategy = dbcleaner_strategy || :transaction
-    DatabaseCleaner.clean_with(:truncation)
     if Rails::VERSION::MAJOR < 5
       # after_commit testing is baked into rails 5.
       require "test_after_commit"
       # causes many problems with capybara-webkit, so we turn it off generally
       TestAfterCommit.enabled = false
     end
-    ActiveJob::Base.queue_adapter = :inline
+    ActiveJob::Base.queue_adapter = :test
   end
 
-  config.before(:each) do |example|
-    DatabaseCleaner.strategy = example.metadata[:js] ? :truncation : :transaction unless dbcleaner_strategy
-    DatabaseCleaner.start
+  config.before(:each) do
     Time.zone = "UTC"
   end
 
-  config.after :each do |example|
-    TransactionalCapybara::AjaxHelpers.wait_for_ajax(page) if example.metadata[:js]
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.append_after(:each) do
+  config.before(:each) do
+    Time.zone = "UTC"
+  end
+
+  config.before(:each) do |example|
+    msg, strategy = if example.metadata[:js]
+                      ["JS strategy", dbcleaner_strategy_override || dbcleaner_js_strategy]
+                    else
+                      ["strategy", dbcleaner_strategy_override || :transaction]
+                    end
+    puts "setting #{msg} to #{strategy} #{example}" if ENV["DBC_VERBOSE"]
+    DatabaseCleaner.strategy = strategy
+  end
+
+  config.before(:each) do |example|
+    DatabaseCleaner.start
+    puts "DatabaseCleaner.start #{example}" if ENV["DBC_VERBOSE"]
+  end
+
+  config.after(:each) do |example|
+    if example.metadata[:js]
+      puts "AjaxHelpers.wait_for_ajax #{example}" if ENV["DBC_VERBOSE"]
+      TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
+    end
+  end
+  config.append_after(:each) do |example|
+    # https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
+    # > It's also recommended to use append_after to ensure DatabaseCleaner.clean runs after the after-test cleanup
+    # > capybara/rspec installs.
+    puts "DatabaseCleaner.clean #{example}" if ENV["DBC_VERBOSE"]
     DatabaseCleaner.clean
   end
 end
