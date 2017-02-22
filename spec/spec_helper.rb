@@ -6,7 +6,7 @@ db_config = Rails.configuration.database_configuration["test"]
 db_adapter = db_config["adapter"]
 db_database = db_config["database"]
 db = ENV.fetch("DB", db_adapter)
-db_is_memory = db_adapter == "sqlite" && db_database == ":memory:"
+db_is_memory = (db_adapter == "sqlite3") && (db_database == ":memory:")
 puts "-" * 40
 puts "DB: #{ENV['DB']}"
 puts "DB: adapter: #{db_adapter}"

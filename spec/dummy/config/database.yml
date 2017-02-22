@@ -5,9 +5,9 @@ db_port    = ENV['THREDDED_DB_1_PORT_5432_TCP_PORT'] || ENV['DB_PORT'] ||
   {'postgresql' => 5432, 'mysql2' => 3306}[adapter]
 if adapter == 'sqlite3'
   database =  {
-    development: ENV.fetch('DATABASE_FILE', 'db/development.sqlite3').inspect,
-    test: ENV.fetch('DATABASE_FILE', 'db/test.sqlite3').inspect,
-    production: 'db/production.sqlite3'
+    development: ENV.fetch('SQLITE_FILE', 'db/development.sqlite3'),
+    test: ENV.fetch('SQLITE_FILE', 'db/test.sqlite3'),
+    production: ENV.fetch('SQLITE_FILE', 'db/production.sqlite3') #really?
   }
 else
   database = {
@@ -37,14 +37,14 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: <%= database[:development] %>
+  database: <%= database[:development].inspect %>
 test:
   <<: *defaults
-  database: <%= database[:test] %>
+  database: <%= database[:test].inspect %>
   <% if adapter == 'sqlite3'%>options: "PRAGMA journal_mode = MEMORY"<% end%>
 production:
   <<: *defaults
   encoding: utf8
   min_messages: WARNING
   url: <%= ENV['DATABASE_URL'].inspect if ENV['DATABASE_URL'] %>
-  database: <%= database[:production] %>
+  database: <%= database[:production].inspect %>
