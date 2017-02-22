@@ -19,8 +19,12 @@ puts "-" * 40
 # Re-create the test database and run the migrations
 system({ "DB" => db }, "script/create-db-users") unless ENV["TRAVIS"]
 
-ActiveRecord::Tasks::DatabaseTasks.drop_current unless db_is_memory
-ActiveRecord::Tasks::DatabaseTasks.create_current unless db_is_memory
+def drop_recreate_db
+  ActiveRecord::Tasks::DatabaseTasks.drop_current
+  ActiveRecord::Tasks::DatabaseTasks.create_current
+end
+
+drop_recreate_db unless db_is_memory
 
 begin
   verbose_was = ActiveRecord::Migration.verbose
@@ -55,14 +59,17 @@ end
 Dir[Rails.root.join("../../spec/support/**/*.rb")].each { |f| require f }
 
 FileUtils.mkdir("log") unless File.directory?("log")
+
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", "w"))
 
 require "capybara-webkit"
 
 if db == "sqlite3"
-  require "transactional_capybara/rspec"
+  require "transactional_capybara"
+  TransactionalCapybara.share_connection
   # (memory requires shared connection to 1 db obvs, but actually file is a problem because need write access from
   # both server and test (for at least setup))
+
   dbcleaner_js_strategy = :deletion
   # see http://stackoverflow.com/questions/29387097/capybara-and-chrome-driver-sqlite3busyexception-database-is-locked
 else
@@ -84,7 +91,7 @@ RSpec.configure do |config|
       # causes many problems with capybara-webkit, so we turn it off generally
       TestAfterCommit.enabled = false
     end
-    ActiveJob::Base.queue_adapter = :inline
+    ActiveJob::Base.queue_adapter = :test
   end
 
   config.before(:each) do
@@ -104,7 +111,7 @@ RSpec.configure do |config|
                       ["JS strategy", dbcleaner_strategy_override || dbcleaner_js_strategy]
                     else
                       ["strategy", dbcleaner_strategy_override || :transaction]
-    end
+                    end
     puts "setting #{msg} to #{strategy} #{example}" if ENV["DBC_VERBOSE"]
     DatabaseCleaner.strategy = strategy
   end
@@ -119,6 +126,8 @@ RSpec.configure do |config|
       puts "AjaxHelpers.wait_for_ajax #{example}" if ENV["DBC_VERBOSE"]
       TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
     end
+  end
+  config.append_after(:each) do |example|
     puts "DatabaseCleaner.clean #{example}" if ENV["DBC_VERBOSE"]
     DatabaseCleaner.clean
   end
