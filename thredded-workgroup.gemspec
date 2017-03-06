@@ -29,8 +29,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  # needs thredded, you can specify a specific fork or version if you need to!
-  spec .add_dependency "thredded", "~> 0.6"
+  # needs thredded, you can specify a specific fork or version (in **your** gemfile) if you need to!
+  spec.add_dependency "thredded", ">= 0.10.0"
 
   # bundler added dependencies
   spec.add_development_dependency "bundler", "~> 1.12"

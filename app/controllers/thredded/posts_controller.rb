@@ -20,6 +20,14 @@ module Thredded
 
     private
 
+    def after_mark_as_unread
+      if post.private_topic_post?
+        redirect_to private_topics_path
+      else
+        redirect_to thredded_workgroup.unread_nav_path
+      end
+    end
+
     def generate_flash_for(post)
       path_to_post = messageboard_topic_path(parent_topic.messageboard, parent_topic, anchor: "post_#{post.id}")
       # rubocop:disable Rails/OutputSafety
