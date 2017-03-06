@@ -26,6 +26,8 @@ Add this line to your application's Gemfile (along with thredded if you want to 
 gem 'thredded-workgroup'
 ```
 
+__NB: (see below for using master vs a released version)__
+
 And then execute:
 
     $ bundle
@@ -59,6 +61,21 @@ Include thredded JavaScripts in your `application.js`:
 //= require thredded
 //= require thredded-workgroup
 ```
+
+## Master vs Released versions
+
+NB: if you are using the master version rather than a release version
+(and as no release has been made yet you must be! :) ) then you may well need
+also to use the latest master release of thredded. So your gem file may need to say:
+
+```ruby
+ gem 'thredded', github: 'thredded/thredded', branch: 'master'
+ gem 'thredded-workgroup', github: 'red56/thredded-workgroup', branch: 'master'
+```
+
+and you need to update both at the same time: `gem update thredded thredded-workgroup`
+
+In the future we will be releasing thredded-workgroup versions soon after thredded versions.
 
 
 ## Development

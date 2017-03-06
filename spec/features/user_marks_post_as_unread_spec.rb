@@ -18,7 +18,7 @@ feature "Logged in user" do
     visit thredded_topic_path(topic)
     post = topic.first_post
     within("article#post_#{post.id}") do
-      click_link("Mark as unread")
+      click_on("Mark unread from here", visible: false)
     end
     expect(page.current_path).to eq thredded_workgroup.unread_nav_path
   end
