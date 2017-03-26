@@ -55,17 +55,17 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pg"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "puma"
-  s.add_development_dependency 'rails_email_preview', '>= 2.0.1'
-  s.add_development_dependency 'roadie-rails'
-  s.add_development_dependency 'i18n-tasks'
-  s.add_development_dependency 'web-console'
+  s.add_development_dependency "rails_email_preview", ">= 2.0.1"
+  s.add_development_dependency "roadie-rails"
+  s.add_development_dependency "i18n-tasks"
+  s.add_development_dependency "web-console"
 
   # add some plugins to the dummy app demo
-  s.add_development_dependency 'thredded-markdown_coderay'
-  s.add_development_dependency 'thredded-markdown_katex'
+  s.add_development_dependency "thredded-markdown_coderay"
+  s.add_development_dependency "thredded-markdown_katex"
 
   # dummy app frontend
-  s.add_development_dependency 'turbolinks'
+  s.add_development_dependency "turbolinks"
   # required by the turbolinks gem
-  s.add_development_dependency 'coffee-rails'
+  s.add_development_dependency "coffee-rails"
 end
