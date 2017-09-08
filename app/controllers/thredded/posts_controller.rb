@@ -4,17 +4,13 @@ require_dependency File.expand_path("../../app/controllers/thredded/posts_contro
 module Thredded
   module PostsControllerWhichRedirects
     def create
-      post = parent_topic.posts.build(post_params)
-      authorize_creating post
-      post.save!
-      user = thredded_current_user
-      UserTopicReadState.touch!(user.id, post.postable_id, post, post.page(user: user))
-      flash[:notice] = generate_flash_for(post)
-
-      if params[:post_referer].present?
-        redirect_to params[:post_referer]
+      @post_form = PostForm.new(user: thredded_current_user, topic: parent_topic, post_params: new_post_params)
+      authorize_creating @post_form.post
+      if @post_form.save
+        # TODO: extract as a hook on thredded#posts_controller `after_create(post)`
+        redirect_after_create(@post_form.post)
       else
-        redirect_to unread_nav_path
+        return render :new
       end
     end
 
@@ -25,6 +21,15 @@ module Thredded
         redirect_to private_topics_path
       else
         redirect_to thredded_workgroup.unread_nav_path
+      end
+    end
+
+    def redirect_after_create(post)
+      UserTopicReadState.touch!(thredded_current_user.id, post.postable_id, post, post.page(user: thredded_current_user))
+      if params[:post_referer].present?
+        redirect_to params[:post_referer], notice: generate_flash_for(post)
+      else
+        redirect_to unread_nav_path, notice: generate_flash_for(post)
       end
     end
 
