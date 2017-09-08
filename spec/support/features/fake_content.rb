@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module FakeContent # rubocop:disable Metrics/ModuleLength
   module_function
 
