@@ -35,5 +35,5 @@ before_script:
 script:
   - xvfb-run bundle exec rspec
   - bundle show rubocop
-  - which rubocop
+  - type -p rubocop
   - bundle exec rubocop
