@@ -1,17 +1,18 @@
 # use travis defaults from capybara-webkit
 sudo: required
 dist: trusty
+
 addons:
   apt:
     sources:
-      - ubuntu-sdk-team
+    - ubuntu-sdk-team
     packages:
-      - libqt5webkit5-dev
-      - qtdeclarative5-dev
+    - libqt5webkit5-dev
+    - qtdeclarative5-dev
 
 language: ruby
 rvm:
-  - 2.3.1
+  - 2.3
 #  - 2.4 # not till rails 4.2.8 is released
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
@@ -23,14 +24,15 @@ env:
   global:
     - QMAKE=/usr/lib/x86_64-linux-gnu/qt5/bin/qmake
   matrix:
-  # Username and password from http://docs.travis-ci.com/user/database-setup/
-  - DB=sqlite3 DBC_VERBOSE=true
-#  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
-  - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+    # Username and password from http://docs.travis-ci.com/user/database-setup/
+    - DB=sqlite3 DBC_VERBOSE=true
+    #  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
+    - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
 
 before_script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate
 
 script:
   - xvfb-run bundle exec rspec
+  - bundle show rubocop
   - bundle exec rubocop

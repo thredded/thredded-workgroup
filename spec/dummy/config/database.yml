@@ -1,24 +1,10 @@
 <%
-adapter = ENV.fetch('DB', 'sqlite3')
+db_adapter = ENV.fetch('DB', 'sqlite3')
 db_host    = ENV.fetch('DB_HOST', ENV.fetch('THREDDED_DB_1_PORT_5432_TCP_ADDR', 'localhost'))
 db_port    = ENV['THREDDED_DB_1_PORT_5432_TCP_PORT'] || ENV['DB_PORT'] ||
-  {'postgresql' => 5432, 'mysql2' => 3306}[adapter]
-if adapter == 'sqlite3'
-  database =  {
-    development: ENV.fetch('DATABASE_FILE', 'db/development.sqlite3').inspect,
-    test: ENV.fetch('DATABASE_FILE', 'db/test.sqlite3').inspect,
-    production: 'db/production.sqlite3'
-  }
-else
-  database = {
-    development: 'thredded_workgroup_dev',
-    test: 'thredded_workgroup_test',
-    production: 'thredded_workgroup_production'
-  }
-end
+  {'postgresql' => 5432, 'mysql2' => 3306}[db_adapter]
 require 'etc'
 pool_size =
-  ENV['DB_POOL_SIZE'] ||
   # Web: max workers * max threads
   ENV.fetch('WEB_CONCURRENCY', 3).to_i * ENV.fetch('MAX_THREADS', 5).to_i +
   # ActiveJob Async max thread pool size
@@ -28,7 +14,7 @@ pool_size =
 defaults: &defaults
   host: <%= db_host %>
   port: <%= db_port %>
-  adapter: <%= adapter %>
+  adapter: <%= db_adapter %>
   encoding: utf8
   min_messages: WARNING
   pool: <%= pool_size %>
@@ -37,14 +23,15 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: <%= database[:development] %>
+  database: <%= db_adapter == 'sqlite3' ? ENV.fetch('DATABASE_FILE', 'db/development.sqlite3') : 'thredded_gem_dev' %>
+
 test:
   <<: *defaults
-  database: <%= database[:test] %>
-  <% if adapter == 'sqlite3'%>options: "PRAGMA journal_mode = MEMORY"<% end%>
+  database: <%= db_adapter == 'sqlite3' ? ENV.fetch('DATABASE_FILE', 'db/test.sqlite3') : 'thredded_gem_test' %>
+
 production:
   <<: *defaults
   encoding: utf8
   min_messages: WARNING
   url: <%= ENV['DATABASE_URL'].inspect if ENV['DATABASE_URL'] %>
-  database: <%= database[:production] %>
+  database: <%= (db_adapter == 'sqlite3' ? 'db/production.sqlite3' : 'thredded_gem_production') unless ENV['DATABASE_URL'] %>

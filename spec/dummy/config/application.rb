@@ -7,8 +7,10 @@ require "action_mailer/railtie"
 require "sprockets/railtie"
 require "http_accept_language"
 require "rails-i18n"
+require "kaminari-i18n"
 require "turbolinks"
 require "rails_email_preview"
+require "roadie-rails"
 require "thredded"
 require "thredded/markdown_coderay"
 require "thredded/markdown_katex"
@@ -17,6 +19,7 @@ require "thredded/markdown_katex"
 require "thredded/workgroup"
 
 if ENV["HEROKU"]
+  require "tunemygc"
   require "rack/canonical_host"
   require "newrelic_rpm"
   require "dalli"
@@ -55,7 +58,7 @@ module Dummy
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    config.i18n.available_locales = [:en, :'pt-BR']
+    config.i18n.available_locales = [:en, :es, :pl, "pt-BR", :ru]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

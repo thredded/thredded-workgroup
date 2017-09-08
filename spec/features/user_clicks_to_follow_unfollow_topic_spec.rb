@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "spec_helper"
 
-describe "Clicking to follow / unfollow topics", type: :feature do
+describe "Clicking to follow / unfollow topics", type: :feature, with_db_transactions: true do
   let(:messageboard) { create(:messageboard, name: "Some message board") }
   let(:user) { create(:user) }
   let(:log_in) do
@@ -14,19 +14,17 @@ describe "Clicking to follow / unfollow topics", type: :feature do
   shared_examples_for "follow and unfollow from list" do
     context "with an unfollowed topic" do
       let(:topic) { create(:topic, messageboard: messageboard) }
-      let(:post) { create(:post, postable: topic) }
+      let!(:post) { create(:post, postable: topic) }
 
       specify "you can click to follow", js: true do
-        puts "about to create post"
-        post
-        puts "created post"
         visit path
         within "#topic_#{topic.id}.thredded--topic-notfollowing" do
           find("svg.thredded--topics--follow-icon").click
         end
         TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
         expect(page).to have_css("#topic_#{topic.id}.thredded--topic-following")
-        expect(topic.reload.followers).to include(user)
+        visit path # even after reload
+        expect(page).to have_css("#topic_#{topic.id}.thredded--topic-following")
       end
     end
 
@@ -45,7 +43,8 @@ describe "Clicking to follow / unfollow topics", type: :feature do
         end
         TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
         expect(page).to have_css("#topic_#{topic.id}.thredded--topic-notfollowing")
-        expect(topic.reload.followers).to_not include(user)
+        visit path # even after reload
+        expect(page).to have_css("#topic_#{topic.id}.thredded--topic-notfollowing")
       end
     end
   end

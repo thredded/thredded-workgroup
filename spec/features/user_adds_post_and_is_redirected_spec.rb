@@ -10,14 +10,6 @@ describe "Getting referred back", type: :feature do
     click_button "Sign in"
   end
 
-  if Rails::VERSION::MAJOR < 5
-    around do |example|
-      TestAfterCommit.with_commits(true) do
-        example.run
-      end
-    end
-  end
-
   before do
     log_in
   end
