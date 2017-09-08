@@ -12,8 +12,6 @@ puts "DB: #{ENV['DB']}"
 puts "DB: adapter: #{db_adapter}"
 puts "    database: #{db_database}"
 puts "    db_is_memory: #{db_is_memory}"
-dbcleaner_strategy_override = ENV["DBCLEANER"]&.to_sym
-puts "    dbcleaner_strategy_override: #{dbcleaner_strategy_override}" if dbcleaner_strategy_override
 puts "-" * 40
 
 # Re-create the test database and run the migrations
@@ -85,12 +83,6 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
-    if Rails::VERSION::MAJOR < 5
-      # after_commit testing is baked into rails 5.
-      require "test_after_commit"
-      # causes many problems with capybara-webkit, so we turn it off generally
-      TestAfterCommit.enabled = false
-    end
     ActiveJob::Base.queue_adapter = :test
   end
 
@@ -107,31 +99,24 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do |example|
-    msg, strategy = if example.metadata[:js]
-                      ["JS strategy", dbcleaner_strategy_override || dbcleaner_js_strategy]
-                    else
-                      ["strategy", dbcleaner_strategy_override || :transaction]
-                    end
-    puts "setting #{msg} to #{strategy} #{example}" if ENV["DBC_VERBOSE"]
+    strategy = if example.metadata[:js] || example.metadata[:with_db_transactions]
+                 dbcleaner_js_strategy
+               else
+                 :transaction
+               end
     DatabaseCleaner.strategy = strategy
   end
 
-  config.before(:each) do |example|
+  config.before(:each) do |_example|
     DatabaseCleaner.start
-    puts "DatabaseCleaner.start #{example}" if ENV["DBC_VERBOSE"]
   end
 
   config.after(:each) do |example|
     if example.metadata[:js]
-      puts "AjaxHelpers.wait_for_ajax #{example}" if ENV["DBC_VERBOSE"]
       TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
     end
   end
-  config.append_after(:each) do |example|
-    # https://github.com/DatabaseCleaner/database_cleaner#rspec-with-capybara-example
-    # > It's also recommended to use append_after to ensure DatabaseCleaner.clean runs after the after-test cleanup
-    # > capybara/rspec installs.
-    puts "DatabaseCleaner.clean #{example}" if ENV["DBC_VERBOSE"]
+  config.append_after(:each) do |_example|
     DatabaseCleaner.clean
   end
 end
