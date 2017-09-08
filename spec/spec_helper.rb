@@ -62,17 +62,14 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(Fi
 
 require "capybara-webkit"
 
+require "transactional_capybara/ajax_helpers" # so we can wait for ajax (only!)
 if db == "sqlite3"
-  require "transactional_capybara"
-  TransactionalCapybara.share_connection
-  # (memory requires shared connection to 1 db obvs, but actually file is a problem because need write access from
-  # both server and test (for at least setup))
-
-  dbcleaner_js_strategy = :deletion
   # see http://stackoverflow.com/questions/29387097/capybara-and-chrome-driver-sqlite3busyexception-database-is-locked
+  dbcleaner_js_strategy = :deletion
+  dbcleaner_nonjs_strategy = :truncation
 else
-  require "transactional_capybara/ajax_helpers" # so we can wait for ajax (only!)
   dbcleaner_js_strategy = :truncation
+  dbcleaner_nonjs_strategy = :transaction
 end
 
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
@@ -102,7 +99,7 @@ RSpec.configure do |config|
     strategy = if example.metadata[:js] || example.metadata[:with_db_transactions]
                  dbcleaner_js_strategy
                else
-                 :transaction
+                 dbcleaner_nonjs_strategy
                end
     DatabaseCleaner.strategy = strategy
   end
