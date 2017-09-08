@@ -12,7 +12,7 @@ addons:
 
 language: ruby
 rvm:
-  - 2.3.1
+  - 2.3
 #  - 2.4 # not till rails 4.2.8 is released
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
