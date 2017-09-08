@@ -50,6 +50,7 @@ Gem::Specification.new do |s|
 
   # dummy app dependencies
   s.add_development_dependency "rails-i18n"
+  s.add_development_dependency "kaminari-i18n"
   s.add_development_dependency "http_accept_language"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 set -e
-# quick relatively hacky script that assumes you've just done a bundle update thredded using a github rather
-# than a normal gem version reference (e.g branch, tag) for thredded
+# quick relatively hacky script that assumes you've just done a bundle update thredded using a github (e.g branch, tag) rather
+# than a normal gem version reference for thredded (so you have access to spec/ directory)
 # and updates the relevant parts of this plugin that need it from the thredded gem
 # not 100% sure what the less hacky version might be
 #
