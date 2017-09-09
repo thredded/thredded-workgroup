@@ -6,7 +6,9 @@ describe "Clicking to follow / unfollow topics", type: :feature, with_db_transac
   let(:user) { create(:user) }
   around js: true do |example|
     example.run
-    sleep(0.2) if ENV["TRAVIS"]
+    if ENV["TRAVIS"] && Rails.configuration.database_configuration["test"]["adapter"].starts_with?("sqlite")
+      sleep(0.2)
+    end
     # because otherwise it sporadically seems to overrun and you get locked sqlite or can't start a transaction within
     # a tranaxtion
   end
