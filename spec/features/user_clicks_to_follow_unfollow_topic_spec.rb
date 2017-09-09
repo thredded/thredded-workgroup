@@ -45,6 +45,7 @@ describe "Clicking to follow / unfollow topics", type: :feature, with_db_transac
         expect(page).to have_css("#topic_#{topic.id}.thredded--topic-notfollowing")
         visit path # even after reload
         expect(page).to have_css("#topic_#{topic.id}.thredded--topic-notfollowing")
+        expect(page).not_to have_content("any old nonsense -- hack to make capybara wait")
       end
     end
   end
