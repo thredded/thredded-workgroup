@@ -4,6 +4,12 @@ require "spec_helper"
 describe "Clicking to follow / unfollow topics", type: :feature, with_db_transactions: true do
   let(:messageboard) { create(:messageboard, name: "Some message board") }
   let(:user) { create(:user) }
+  around js: true do |example|
+    example.run
+    sleep(0.2) if ENV["TRAVIS"]
+    # because otherwise it sporadically seems to overrun and you get locked sqlite or can't start a transaction within
+    # a tranaxtion
+  end
   let(:log_in) do
     visit main_app.new_user_session_path
     fill_in "name", with: user.name
