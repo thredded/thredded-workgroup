@@ -29,6 +29,11 @@ env:
     #  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
     - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
 
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: DB=sqlite3 DBC_VERBOSE=true
+
 before_script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate
 
