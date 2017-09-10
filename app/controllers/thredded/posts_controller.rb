@@ -6,7 +6,7 @@ module Thredded
     def create
       @post_form = PostForm.new(user: thredded_current_user, topic: parent_topic, post_params: new_post_params)
       authorize_creating @post_form.post
-      if @post_form.save
+      if @post_form.save # rubocop:disable Style/GuardClause
         # TODO: extract as a hook on thredded#posts_controller `after_create(post)`
         redirect_after_create(@post_form.post)
       else
@@ -25,7 +25,8 @@ module Thredded
     end
 
     def redirect_after_create(post)
-      UserTopicReadState.touch!(thredded_current_user.id, post.postable_id, post, post.page(user: thredded_current_user))
+      post_page = post.page(user: thredded_current_user)
+      UserTopicReadState.touch!(thredded_current_user.id, post.postable_id, post, post_page)
       if params[:post_referer].present?
         redirect_to params[:post_referer], notice: generate_flash_for(post)
       else
