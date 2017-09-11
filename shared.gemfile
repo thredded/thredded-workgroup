@@ -1,4 +1,5 @@
 gem 'rake'
+gem 'test_after_commit', group: :test #only enabled on rails v4
 gem 'thredded', github: 'thredded/thredded', tag: 'v0.12.4'
 
 if ENV['TRAVIS']

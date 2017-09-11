@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "spec_helper"
 
-describe "Clicking to follow / unfollow topics", type: :feature, with_db_transactions: true do
+describe "Clicking to follow / unfollow topics", type: :feature do
   let(:messageboard) { create(:messageboard, name: "Some message board") }
   let(:user) { create(:user) }
   around js: true do |example|
