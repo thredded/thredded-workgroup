@@ -16,7 +16,7 @@ end
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = "rdoc"
-  rdoc.title    = "Thredded PersonalisedNavigation"
+  rdoc.title    = "Thredded Workgroup"
   rdoc.options << "--line-numbers"
   rdoc.rdoc_files.include("README.rdoc")
   rdoc.rdoc_files.include("lib/**/*.rb")

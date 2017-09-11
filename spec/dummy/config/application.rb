@@ -15,6 +15,9 @@ require "roadie-rails"
 require "thredded"
 require "thredded/markdown_coderay"
 require "thredded/markdown_katex"
+require "rails-ujs" unless Thredded.rails_gte_51?
+# IMPORTANT: Mandatory for Thredded::Workgroup dummy
+require "jquery-rails"
 
 # IMPORTANT: Mandatory for Thredded::Workgroup dummy
 require "thredded/workgroup"

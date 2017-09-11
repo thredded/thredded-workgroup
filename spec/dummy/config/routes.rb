@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post "/settings/set-locale/:locale" => "settings#update_locale", as: :update_locale
   post "/settings/set-theme/:theme" => "settings#update_theme", as: :update_theme
 
+  mount RailsEmailPreview::Engine, at: "/emails"
+
   # IMPORTANT: Mandatory for Thredded::Workgroup dummy
   mount Thredded::Workgroup::Engine => "/thredded"
 end

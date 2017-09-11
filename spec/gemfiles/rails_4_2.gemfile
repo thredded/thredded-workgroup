@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 gemspec path: '../../'
-eval_gemfile './shared.gemfile'
+eval_gemfile File.expand_path('../../../shared.gemfile', __FILE__)
 gem 'rails', '~> 4.2.5'
+gem 'rails-ujs'
