@@ -66,7 +66,8 @@ module TestTasks
   end
 
   def dbs
-    %w(sqlite3 mysql2 postgresql)
+    %w(sqlite3 postgresql)
+    # %w(sqlite3 mysql2 postgresql)
   end
 
   def to_bash_cmd_with_env(cmd, env)
