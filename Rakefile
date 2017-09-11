@@ -16,7 +16,7 @@ end
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = "rdoc"
-  rdoc.title    = "Thredded PersonalisedNavigation"
+  rdoc.title    = "Thredded Workgroup"
   rdoc.options << "--line-numbers"
   rdoc.rdoc_files.include("README.rdoc")
   rdoc.rdoc_files.include("lib/**/*.rb")
@@ -66,7 +66,8 @@ module TestTasks
   end
 
   def dbs
-    %w(sqlite3 mysql2 postgresql)
+    %w(sqlite3 postgresql)
+    # %w(sqlite3 mysql2 postgresql)
   end
 
   def to_bash_cmd_with_env(cmd, env)

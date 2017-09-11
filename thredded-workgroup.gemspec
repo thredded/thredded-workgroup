@@ -60,6 +60,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "roadie-rails"
   s.add_development_dependency "i18n-tasks"
   s.add_development_dependency "web-console"
+  s.add_development_dependency "jquery-rails"
 
   # add some plugins to the dummy app demo
   s.add_development_dependency "thredded-markdown_coderay"

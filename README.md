@@ -26,6 +26,15 @@ Add this line to your application's Gemfile (along with thredded if you want to 
 gem 'thredded-workgroup'
 ```
 
+### Jquery 
+
+Since thredded v0.13.0, thredded doesn't need jquery, but thredded-workgroup (still) does.
+So you need to include jquery and its ujs file, for example in your Gemfile: 
+
+```ruby
+gem "jquery-rails"
+```
+ 
 __NB: (see below for using master vs a released version)__
 
 And then execute:
@@ -59,6 +68,8 @@ Include thredded JavaScripts in your `application.js`:
 
 ```js
 //= require thredded
+//= require jquery3  
+//= require jquery_ujs  
 //= require thredded-workgroup
 ```
 
@@ -99,7 +110,7 @@ dummy-rails s -p 3012
 ### Updating when thredded changes
 
 For now, there are some copied resources from Thredded. When Thredded changes you need to update these too.
-You need to have thredded checked out next to this repo.
+You need to have thredded installed with a github reference (check shared.gemfile)
 
 run `script/update_from_thredded`
 

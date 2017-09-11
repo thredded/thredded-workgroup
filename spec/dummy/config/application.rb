@@ -15,6 +15,9 @@ require "roadie-rails"
 require "thredded"
 require "thredded/markdown_coderay"
 require "thredded/markdown_katex"
+require "rails-ujs" unless Thredded.rails_gte_51?
+# IMPORTANT: Mandatory for Thredded::Workgroup dummy
+require "jquery-rails"
 
 # IMPORTANT: Mandatory for Thredded::Workgroup dummy
 require "thredded/workgroup"
@@ -59,7 +62,7 @@ module Dummy
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    config.i18n.available_locales = [:en, :es, :pl, "pt-BR", :ru]
+    config.i18n.available_locales = [:en, :es, :fr, :pl, "pt-BR", :ru]
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]

@@ -1,13 +1,19 @@
-//= require jquery3
-//= require jquery_ujs
+//= require rails-ujs
 //= require turbolinks
-//= require thredded/dependencies
-//= require locales/jquery.timeago.es
-//= require locales/jquery.timeago.pl
-//= require locales/jquery.timeago.pt-br
-//= require locales/jquery.timeago.ru
-//= require thredded/thredded
+//= require thredded/dependencies/timeago
+//= require timeago/locales/es
+//= require timeago/locales/fr
+//= require timeago/locales/pl
+//= require timeago/locales/pt_BR
+//= require timeago/locales/ru
+//= require thredded
 
+// # IMPORTANT: Mandatory for Thredded::Workgroup dummy
+//= require thredded
+// # IMPORTANT: Mandatory for Thredded::Workgroup dummy
+//= require jquery3
+// # IMPORTANT: Mandatory for Thredded::Workgroup dummy
+//= require jquery_ujs
 // # IMPORTANT: Mandatory for Thredded::Workgroup dummy
 //= require thredded-workgroup
 
