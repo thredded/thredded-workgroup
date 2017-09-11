@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ApplicationHelper
   VALID_THEMES = %w(day night).freeze
 

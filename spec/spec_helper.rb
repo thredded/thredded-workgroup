@@ -88,7 +88,12 @@ RSpec.configure do |config|
   end
 
   config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:truncation, reset_ids: true)
+    if Rails::VERSION::MAJOR < 5
+      # after_commit testing is baked into rails 5.
+      require "test_after_commit"
+      TestAfterCommit.enabled = true
+    end
   end
 
   config.before(:each) do
@@ -96,7 +101,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do |example|
-    strategy = if example.metadata[:js] || example.metadata[:with_db_transactions]
+    strategy = if example.metadata[:js]
                  dbcleaner_js_strategy
                else
                  dbcleaner_nonjs_strategy
