@@ -38,7 +38,7 @@ end
 require "rspec/rails"
 require "capybara/rspec"
 require "pundit/rspec"
-require "factory_girl_rails"
+require "factory_bot_rails"
 require "database_cleaner"
 require "fileutils"
 require "active_support/testing/time_helpers"
@@ -77,7 +77,7 @@ Capybara::Webkit.configure(&:block_unknown_urls)
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
     ActiveJob::Base.queue_adapter = :test
