@@ -4,8 +4,11 @@ require_dependency File.expand_path("../../app/controllers/thredded/posts_contro
 module Thredded
   module PostsControllerWhichRedirects
     def create
-      @post_form = PostForm.new(user: thredded_current_user, topic: parent_topic, post_params: new_post_params)
+      @post_form = Thredded::PostForm.new(
+        user: thredded_current_user, topic: parent_topic, post_params: new_post_params
+      )
       authorize_creating @post_form.post
+
       if @post_form.save # rubocop:disable Style/GuardClause
         # TODO: extract as a hook on thredded#posts_controller `after_create(post)`
         redirect_after_create(@post_form.post)
