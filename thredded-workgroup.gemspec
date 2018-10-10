@@ -65,7 +65,7 @@ Gem::Specification.new do |s|
   # add some plugins to the dummy app demo
   s.add_development_dependency "thredded-markdown_coderay"
   s.add_development_dependency "thredded-markdown_katex"
-  s.add_development_dependency 'twemoji'
+  s.add_development_dependency "twemoji"
 
   # dummy app frontend
   s.add_development_dependency "turbolinks"
