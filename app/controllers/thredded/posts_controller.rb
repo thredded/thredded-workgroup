@@ -28,8 +28,7 @@ module Thredded
     end
 
     def redirect_after_create(post)
-      post_page = post.page(user: thredded_current_user)
-      UserTopicReadState.touch!(thredded_current_user.id, post.postable_id, post, post_page)
+      UserTopicReadState.touch!(thredded_current_user.id, post.postable_id, post)
       if params[:post_referer].present?
         redirect_to params[:post_referer], notice: generate_flash_for(post)
       else

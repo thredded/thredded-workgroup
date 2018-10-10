@@ -36,10 +36,9 @@ FactoryBot.define do
 
   factory :post, class: Thredded::Post do
     user
-    postable { association :topic, user: user }
+    postable { association :topic, user: user, last_user: user }
 
     content { FakeContent.post_content }
-    ip "127.0.0.1"
 
     after :build do |post|
       post.messageboard = post.postable.messageboard
@@ -48,10 +47,9 @@ FactoryBot.define do
 
   factory :private_post, class: Thredded::PrivatePost do
     user
-    postable { association :private_topic, user: user }
+    postable { association :private_topic, user: user, last_user: user }
 
     content { Faker::Hacker.say_something_smart }
-    ip "127.0.0.1"
   end
 
   factory :user_preference, class: Thredded::UserPreference do
@@ -124,12 +122,28 @@ FactoryBot.define do
   end
 
   factory :private_topic, class: Thredded::PrivateTopic do
+    transient do
+      with_posts 0
+      post_interval 1.hour
+    end
     user
     users { build_list :user, 1 }
     association :last_user, factory: :user
 
     title { Faker::Lorem.sentence[0..-2] }
     hash_id { generate(:topic_hash) }
+
+    after(:create) do |topic, evaluator|
+      if evaluator.with_posts
+        ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
+        evaluator.with_posts.times do
+          ago += evaluator.post_interval
+          create(:private_post, postable: topic, user: topic.user, created_at: ago, updated_at: ago)
+        end
+        topic.posts_count = evaluator.with_posts
+        topic.save
+      end
+    end
   end
 
   factory :private_user, class: Thredded::PrivateUser do
@@ -139,7 +153,7 @@ FactoryBot.define do
 
   factory :user, aliases: %i(email_confirmed_user last_user), class: ::User do
     sequence(:email) { |n| "user#{n}@example.com" }
-    name { Faker::Name.name }
+    name { [true, false].sample ? Faker::Name.name : Faker::Name.first_name }
 
     trait :admin do
       admin true
@@ -174,12 +188,10 @@ FactoryBot.define do
   factory :user_topic_read_state, class: Thredded::UserTopicReadState do
     user
     association :postable, factory: :topic
-    page 1
   end
   factory :user_private_topic_read_state, class: Thredded::UserPrivateTopicReadState do
     user
     association :postable, factory: :private_topic
-    page 1
     read_at { Time.now.utc }
   end
 

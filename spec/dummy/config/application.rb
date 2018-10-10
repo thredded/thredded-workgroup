@@ -62,7 +62,7 @@ module Dummy
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    config.i18n.available_locales = [:en, :es, :fr, :pl, "pt-BR", :ru]
+    config.i18n.available_locales = %i(en) + %i(es fr de it pl pt-BR ru zh-CN).sort
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -77,6 +77,10 @@ module Dummy
 
     if Rails::VERSION::MAJOR < 5
       config.active_record.raise_in_transactional_callbacks = true
+    end
+
+    if Rails.gem_version >= Gem::Version.new("5.2.0.beta2")
+      config.active_record.sqlite3.represent_boolean_as_integer = true
     end
 
     # Enable the asset pipeline
