@@ -85,7 +85,7 @@ describe "Views navs", type: :feature do
     it "shows followed but not read topics" do
       visit following_nav_path
       expect(page).to have_link_to(thredded_topic_path(unread_followed_topic))
-      expect(page).to have_link_to(thredded_topic_path(read_followed_topic))
+      expect(page).to have_link_to(thredded_topic_path(read_followed_topic, page: 0))
       expect(page).not_to have_link_to(thredded_topic_path(unread_unfollowed_topic))
     end
   end

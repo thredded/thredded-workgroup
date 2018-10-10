@@ -12,6 +12,8 @@ require "kaminari-i18n"
 require "turbolinks"
 require "rails_email_preview"
 require "roadie-rails"
+require "twemoji"
+require "twemoji/svg"
 require "thredded"
 require "thredded/markdown_coderay"
 require "thredded/markdown_katex"
@@ -30,6 +32,7 @@ if ENV["HEROKU"]
   require "dalli"
 end
 
+require "sassc" unless Rails.env.production?
 require "web-console" if Rails.env.development?
 
 module Dummy
