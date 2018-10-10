@@ -1,6 +1,6 @@
 gem 'rake'
 gem 'test_after_commit', group: :test #only enabled on rails v4
-gem 'thredded', github: 'thredded/thredded', tag: 'v0.15.0'
+gem 'thredded', github: 'thredded/thredded', tag: 'v0.15.5'
 
 if ENV['TRAVIS']
   gem 'codeclimate-test-reporter', group: :test, require: false
