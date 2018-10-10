@@ -74,6 +74,7 @@ end
 
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara::Webkit.configure(&:block_unknown_urls)
+Capybara.asset_host = "http://localhost:3012" unless ENV["CI"]
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false
