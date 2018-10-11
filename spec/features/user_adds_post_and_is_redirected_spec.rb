@@ -14,7 +14,7 @@ describe "Getting referred back", type: :feature do
     log_in
   end
 
-  let(:topic) { create(:topic).tap { |topic| topic.followers << user } }
+  let(:topic) { create(:topic, title: "Something simple").tap { |topic| topic.followers << user } }
   let!(:post) { create(:post, postable: topic) }
 
   def topic_is_read
