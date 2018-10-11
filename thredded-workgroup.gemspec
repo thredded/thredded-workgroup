@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "faker", ">= 1.6.2"
   s.add_development_dependency "launchy"
   s.add_development_dependency "rspec-rails", ">= 3.5.0"
-  s.add_development_dependency "rubocop", "~> 0.49.0"
+  s.add_development_dependency "rubocop", '= 0.58.2'
   s.add_development_dependency "transactional_capybara"
 
   # dummy app dependencies
