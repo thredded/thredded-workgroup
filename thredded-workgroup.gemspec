@@ -15,15 +15,6 @@ Gem::Specification.new do |s|
   s.description   = "Write a longer description or delete this line."
   s.homepage      = "https://github.com/red56/thredded-workgroup."
   s.license       = "MIT"
-
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if s.respond_to?(:metadata)
-    s.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    fail "RubyGems 2.0 or newer is required to protect against public gem pushes."
-  end
-
   s.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   s.bindir        = "exe"
   s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
