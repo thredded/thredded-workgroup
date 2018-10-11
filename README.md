@@ -112,7 +112,7 @@ dummy-rails s -p 3012
 For now, there are some copied resources from Thredded. When Thredded changes you need to update these too.
 You need to have thredded installed with a github reference (check shared.gemfile)
 
-run `script/update_from_thredded`
+run `bin/update_from_thredded`
 
 ## Contributing
 

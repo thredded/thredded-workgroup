@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require File.expand_path("../boot", __FILE__)
+require File.expand_path("boot", __dir__)
 
 require "active_record/railtie"
 require "action_controller/railtie"
@@ -12,6 +12,8 @@ require "kaminari-i18n"
 require "turbolinks"
 require "rails_email_preview"
 require "roadie-rails"
+require "twemoji"
+require "twemoji/svg"
 require "thredded"
 require "thredded/markdown_coderay"
 require "thredded/markdown_katex"
@@ -21,6 +23,7 @@ require "jquery-rails"
 
 # IMPORTANT: Mandatory for Thredded::Workgroup dummy
 require "thredded/workgroup"
+require "backport_new_renderer" if Rails::VERSION::MAJOR < 5
 
 if ENV["HEROKU"]
   require "tunemygc"
@@ -29,6 +32,7 @@ if ENV["HEROKU"]
   require "dalli"
 end
 
+require "sassc" unless Rails.env.production?
 require "web-console" if Rails.env.development?
 
 module Dummy
@@ -62,7 +66,7 @@ module Dummy
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    config.i18n.available_locales = [:en, :es, :fr, :pl, "pt-BR", :ru]
+    config.i18n.available_locales = %i(en) + %i(es fr de it pl pt-BR ru zh-CN).sort
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -75,8 +79,10 @@ module Dummy
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
-    if Rails::VERSION::MAJOR < 5
-      config.active_record.raise_in_transactional_callbacks = true
+    config.active_record.raise_in_transactional_callbacks = true if Rails::VERSION::MAJOR < 5
+
+    if Rails.gem_version >= Gem::Version.new("5.2.0.beta2")
+      config.active_record.sqlite3.represent_boolean_as_integer = true
     end
 
     # Enable the asset pipeline

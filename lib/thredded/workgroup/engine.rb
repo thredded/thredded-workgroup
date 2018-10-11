@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "thredded/engine"
-require_dependency "thredded/workgroup/thredded_route_delegator"
-require_dependency "thredded/workgroup/route_delegator"
+require "thredded/workgroup/thredded_route_delegator"
+require "thredded/workgroup/route_delegator"
 module Thredded
   module Workgroup
     class Engine < ::Rails::Engine

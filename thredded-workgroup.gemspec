@@ -30,7 +30,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # needs thredded, you can specify a specific fork or version (in **your** gemfile) if you need to!
-  s.add_dependency "thredded", "~> 0.12"
+  s.add_dependency "thredded", "~> 0.16"
 
   # bundler added dependencies
   s.add_development_dependency "bundler", "~> 1.12"
@@ -65,6 +65,7 @@ Gem::Specification.new do |s|
   # add some plugins to the dummy app demo
   s.add_development_dependency "thredded-markdown_coderay"
   s.add_development_dependency "thredded-markdown_katex"
+  s.add_development_dependency "twemoji"
 
   # dummy app frontend
   s.add_development_dependency "turbolinks"

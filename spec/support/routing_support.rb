@@ -19,9 +19,9 @@ module RoutingSupport
     thredded.messageboard_topics_path(messageboard)
   end
 
-  def thredded_topic_path(topic)
-    anchor = "post_#{topic.last_post.id}" if topic.last_post
-    thredded.messageboard_topic_path(topic.messageboard, topic, anchor: anchor)
+  def thredded_topic_path(topic, **args)
+    args[:anchor] ||= "post_#{topic.last_post.id}" if topic.last_post
+    thredded.messageboard_topic_path(topic.messageboard, topic, **args)
   end
 end
 

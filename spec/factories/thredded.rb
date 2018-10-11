@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 require "faker"
-I18n.reload!
-include ActionDispatch::TestProcess
 
 FactoryBot.define do
   sequence(:topic_hash) { |n| "hash#{n}" }
 
   factory :email, class: OpenStruct do
-    to "email-token"
-    from "user@email.com"
-    subject "email subject"
-    body "Hello!"
+    to { "email-token" }
+    from { "user@email.com" }
+    subject { "email subject" }
+
+    body { "Hello!" }
   end
 
   factory :category, class: Thredded::Category do
@@ -20,14 +19,14 @@ FactoryBot.define do
     messageboard
 
     trait :beer do
-      name "beer"
-      description "a delicious adult beverage"
+      name { "beer" }
+      description { "a delicious adult beverage" }
     end
   end
 
   factory :messageboard, class: Thredded::Messageboard do
     sequence(:name) { |n| "messageboard#{n}" }
-    description "This is a description of the messageboard"
+    description { "This is a description of the messageboard" }
   end
 
   factory :messageboard_group, class: Thredded::MessageboardGroup do
@@ -36,10 +35,9 @@ FactoryBot.define do
 
   factory :post, class: Thredded::Post do
     user
-    postable { association :topic, user: user }
+    postable { association :topic, user: user, last_user: user }
 
     content { FakeContent.post_content }
-    ip "127.0.0.1"
 
     after :build do |post|
       post.messageboard = post.postable.messageboard
@@ -48,10 +46,9 @@ FactoryBot.define do
 
   factory :private_post, class: Thredded::PrivatePost do
     user
-    postable { association :private_topic, user: user }
+    postable { association :private_topic, user: user, last_user: user }
 
     content { Faker::Hacker.say_something_smart }
-    ip "127.0.0.1"
   end
 
   factory :user_preference, class: Thredded::UserPreference do
@@ -67,22 +64,22 @@ FactoryBot.define do
           class: Thredded::MessageboardNotificationsForFollowedTopics do
     user
     messageboard
-    notifier_key "email"
+    notifier_key { "email" }
   end
   factory :notifications_for_followed_topics, class: Thredded::NotificationsForFollowedTopics do
     user
-    notifier_key "email"
+    notifier_key { "email" }
   end
   factory :notifications_for_private_topics, class: Thredded::NotificationsForPrivateTopics do
     user
-    notifier_key "email"
+    notifier_key { "email" }
   end
 
   factory :topic, class: Thredded::Topic do
     transient do
-      with_posts 0
-      post_interval 1.hour
-      with_categories 0
+      with_posts { 0 }
+      post_interval { 1.hour }
+      with_categories { 0 }
     end
 
     title { Faker::StarWars.quote }
@@ -111,25 +108,42 @@ FactoryBot.define do
     end
 
     trait :locked do
-      locked true
+      locked { true }
     end
 
     trait :pinned do
-      sticky true
+      sticky { true }
     end
 
     trait :sticky do
-      sticky true
+      sticky { true }
     end
   end
 
   factory :private_topic, class: Thredded::PrivateTopic do
+    transient do
+      with_posts { 0 }
+      post_interval { 1.hour }
+    end
     user
-    users { build_list :user, 1 }
+    users { [user] + build_list(:user, rand(1..3)) }
     association :last_user, factory: :user
 
     title { Faker::Lorem.sentence[0..-2] }
     hash_id { generate(:topic_hash) }
+
+    after :create do |topic, evaluator|
+      if evaluator.with_posts
+        ago = topic.updated_at - evaluator.with_posts * evaluator.post_interval
+        evaluator.with_posts.times do |i|
+          ago += evaluator.post_interval
+          user = i == 0 ? topic.user : topic.users.sample
+          create(:private_post, postable: topic, user: user, created_at: ago, updated_at: ago)
+        end
+        topic.posts_count = evaluator.with_posts
+        topic.save
+      end
+    end
   end
 
   factory :private_user, class: Thredded::PrivateUser do
@@ -139,10 +153,10 @@ FactoryBot.define do
 
   factory :user, aliases: %i(email_confirmed_user last_user), class: ::User do
     sequence(:email) { |n| "user#{n}@example.com" }
-    name { Faker::Name.name }
+    name { [true, false].sample ? Faker::Name.name : Faker::Name.first_name }
 
     trait :admin do
-      admin true
+      admin { true }
       after(:create) do |user, _|
         user.thredded_user_detail.save!
       end
@@ -174,13 +188,20 @@ FactoryBot.define do
   factory :user_topic_read_state, class: Thredded::UserTopicReadState do
     user
     association :postable, factory: :topic
-    page 1
+    read_at { Time.now.utc }
+    after :build do |read_state|
+      read_state.messageboard = read_state.postable.messageboard
+      read_state.assign_attributes(read_state.calculate_post_counts)
+    end
   end
+
   factory :user_private_topic_read_state, class: Thredded::UserPrivateTopicReadState do
     user
     association :postable, factory: :private_topic
-    page 1
     read_at { Time.now.utc }
+    after :build do |read_state|
+      read_state.assign_attributes(read_state.calculate_post_counts)
+    end
   end
 
   factory :user_topic_follow, class: Thredded::UserTopicFollow do

@@ -24,15 +24,17 @@ end
 
 drop_recreate_db unless db_is_memory
 
-begin
-  verbose_was = ActiveRecord::Migration.verbose
-  ActiveRecord::Migration.verbose = false
-  ActiveRecord::Migrator.migrate([
-                                   "#{Gem.loaded_specs['thredded'].full_gem_path}/db/migrate/",
-                                   File.join(Rails.root, "db/migrate/")
-                                 ])
-ensure
-  ActiveRecord::Migration.verbose = verbose_was
+require File.expand_path("../../lib/thredded/db_tools", Thredded::Engine.called_from)
+if ENV["MIGRATION_SPEC"]
+  Thredded::DbTools.restore
+else
+  Thredded::DbTools.migrate(
+    paths: [
+      "#{Gem.loaded_specs['thredded'].full_gem_path}/db/migrate/",
+      Rails.root.join("db", "migrate")
+    ],
+    quiet: true
+  )
 end
 
 require "rspec/rails"
@@ -74,6 +76,7 @@ end
 
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara::Webkit.configure(&:block_unknown_urls)
+Capybara.asset_host = "http://localhost:3012" unless ENV["CI"]
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = false

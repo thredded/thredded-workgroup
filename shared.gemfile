@@ -12,6 +12,8 @@ else
   end
 end
 
+gem 'sassc', '>= 1.12.1'
+
 group :debug do
   gem 'derailed'
   gem 'pry-rails'
