@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module RoutingSupport
   extend RSpec::SharedContext
   include Rails.application.routes.mounted_helpers

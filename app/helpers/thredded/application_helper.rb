@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_dependency File.expand_path("../../app/helpers/thredded/application_helper", Thredded::Engine.called_from)
 module Thredded
   module ApplicationHelper
