@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require_dependency File.expand_path("../../app/view_models/thredded/topic_view", Thredded::Engine.called_from)
 module Thredded
   class TopicView < Thredded::BaseTopicView

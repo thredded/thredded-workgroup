@@ -1,5 +1,6 @@
 # coding: utf-8
 # frozen_string_literal: true
+
 # rubocop:disable Style/GuardClause
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -36,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "faker", ">= 1.6.2"
   s.add_development_dependency "launchy"
   s.add_development_dependency "rspec-rails", ">= 3.5.0"
-  s.add_development_dependency "rubocop", "= 0.41.2"
+  s.add_development_dependency "rubocop", '= 0.58.2'
   s.add_development_dependency "transactional_capybara"
 
   # dummy app dependencies

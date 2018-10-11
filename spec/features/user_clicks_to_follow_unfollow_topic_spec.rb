@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "spec_helper"
 
 describe "Clicking to follow / unfollow topics", type: :feature do

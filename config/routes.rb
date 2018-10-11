@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 Thredded::Workgroup::Engine.routes.draw do
   controller "navs" do
     get "unread", action: :unread, as: :unread_nav

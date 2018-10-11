@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "thredded/engine"
 require "thredded/workgroup/thredded_route_delegator"
 require "thredded/workgroup/route_delegator"

@@ -1,3 +1,5 @@
+inherit_from:
+  - .rubocop_todo.yml
 AllCops:
   TargetRubyVersion: 2.3
   Exclude:
@@ -29,10 +31,10 @@ Style/CollectionMethods:
 Style/Documentation:
   Enabled: false
 
-Style/MultilineMethodCallIndentation:
+Layout/MultilineMethodCallIndentation:
   EnforcedStyle: indented
 
-Style/PredicateName:
+Naming/PredicateName:
   Exclude:
   - spec/**/*.rb
 
@@ -42,7 +44,10 @@ Style/SignalException:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
   Enabled: false
 
 Style/TrailingCommaInArguments:
@@ -61,5 +66,5 @@ Rails/FindBy:
   - app/models/**/*.rb
   - app/view_models/**/*.rb
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   AutoCorrect: true

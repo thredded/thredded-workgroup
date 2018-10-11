@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 RSpec::Matchers.define :have_link_to do |expected_path|
   match do |actual_page|
     actual_page.has_css?(%(a[href="#{expected_path}"]))
