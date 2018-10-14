@@ -16,6 +16,8 @@
 #
 # and, you'll have to watch "config/Guardfile" instead of "Guardfile"
 
+interactor :off unless ENV["GUARD_USE_INTERACTOR"]
+
 guard "livereload" do
   extensions = {
     css: :css,

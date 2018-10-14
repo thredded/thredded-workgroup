@@ -26,13 +26,14 @@ Dummy::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
+  # Generate digests for assets URLs?
+  config.assets.digest = false
 
   # Expands the lines which load the assets
   config.assets.debug = true
-
-  config.reload_plugins = true
+  config.assets.compile = true
 
   config.action_mailer.default_url_options = {
-    host: "localhost:9292"
+    host: "localhost:3012"
   }
 end
