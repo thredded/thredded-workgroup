@@ -16,6 +16,9 @@ Thredded.content_visible_while_pending_moderation = true
 Thredded.parent_mailer = "ApplicationMailer"
 Thredded::ContentFormatter.after_markup_filters.insert(1, HTMLPipelineTwemoji)
 
+# Whether private messaging functionality is enabled.
+Thredded.private_messaging_enabled = false
+
 Rails.application.config.to_prepare do
   # Thredded.notifiers = [Thredded::EmailNotifier.new]
 

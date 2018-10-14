@@ -8,17 +8,33 @@ ul.thredded--workgroup {
   padding-left: 0;
   li {
     display: inline-block;
-    margin-right: 1rem;
-    &.active {
-      font-weight: bold;
-    }
     a {
       display: inline-block;
-      color: #a5aab6;
-      padding: 0.75rem 0;
+      color: $thredded-secondary-nav-color;
+      padding: 0.75rem 0.5rem;
+      @include thredded-media-tablet-and-up {
+        padding: 0.75rem 1rem;
+      }
+      @include thredded-media-desktop-and-up {
+        padding: 0.75rem 1.5rem;
+      }
       text-decoration: none;
       &:hover {
-        text-decoration: underline;
+        text-decoration: none;
+        background-color: #eeeeee;
+      }
+    }
+    &.active {
+      font-weight: bold;
+      position: relative;
+      top: 1px;
+      border: 1px solid #eee;
+      border-bottom: 1px solid white;
+      a {
+        color: $thredded-brand;
+        &:hover{
+          background-color: white;
+        }
       }
     }
     .expanded {
@@ -29,6 +45,12 @@ ul.thredded--workgroup {
     .condensed {
       @include thredded-media-tablet-and-up {
         display: none;
+      }
+    }
+    .thredded--user-navigation--unread-topics--followed-count{
+      display: none;
+      @include thredded-media-desktop-and-up{
+        display: inline-block;
       }
     }
   }
