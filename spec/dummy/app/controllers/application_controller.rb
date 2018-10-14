@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
     render template: "shared/not_found", status: :not_found
   end
 
+  include Thredded::Workgroup::AllUnreadFollowedTopics
+
   protected
 
   def the_current_user

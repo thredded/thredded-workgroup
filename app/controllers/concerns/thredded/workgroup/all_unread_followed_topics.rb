@@ -3,9 +3,9 @@
 module Thredded
   module Workgroup
     module AllUnreadFollowedTopics
-      include Pundit
       extend ActiveSupport::Concern
       included do
+        include Pundit
         helper_method :all_unread_followed_topics_count
       end
 

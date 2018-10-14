@@ -1,6 +1,9 @@
 <header role="banner" class="app-header">
   <span class="app-nav-auth">
     <% if the_current_user %>
+      <span class="all-unread-followed-topics-count">
+        Unread: <%= all_unread_followed_topics_count %>
+      </span>
       <%= link_to the_current_user.name, user_path(the_current_user) %>
       |
       <%= link_to 'Sign out', main_app.destroy_user_session_path,
