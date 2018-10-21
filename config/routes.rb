@@ -8,5 +8,11 @@ Thredded::Workgroup::Engine.routes.draw do
     get "awaiting", action: :awaiting, as: :awaiting_nav
   end
 
+  resources :topics, path: "w/topics", controller: "topics", only: [] do
+    member do
+      post "kick"
+    end
+  end
+
   mount Thredded::Engine => "/"
 end
