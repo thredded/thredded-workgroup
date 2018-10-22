@@ -19,15 +19,17 @@
   display: inline-block;
   line-height: 1rem;
 
-  a {
+  button {
     color: rgba(0, 0, 0, 0.54);
-
+    background: inherit;
+    padding: 0;
+    border-style: none;
     .thredded--topics--follow-icon,
     .thredded--topics--unfollow-icon {
       position: static;
       opacity: 0.5;
-      height: 0.8rem;
-      width: 0.8rem;
+      height: 0.75rem;
+      width: 0.75rem;
     }
 
     & .thredded--topics--follow-icon,

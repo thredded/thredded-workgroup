@@ -23,7 +23,7 @@ feature "Logged in user" do
     visit thredded_topic_path(topic)
     expect(page).to have_content "@SomeoneElse"
     within ".user-#{follower.id}" do
-      find("a").trigger("click")
+      find("button").trigger("click")
     end
     expect(page).not_to have_content "@SomeoneElse"
   end

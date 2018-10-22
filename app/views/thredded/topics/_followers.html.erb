@@ -1,4 +1,5 @@
 <% if Thredded.show_topic_followers %>
+  <%= define_svg_icons "thredded/follow.svg", "thredded/unfollow.svg" %>
   <div class="thredded--topic-followers">
     <% if topic.followers.present? %>
       <%= t('thredded.topics.followed_by')%>
@@ -6,11 +7,11 @@
         <%- if user != thredded_current_user %>
           <span class="thredded--follower user-<%= user.id %>">
             <%= user_mention(user) %>
-              <a class="thredded--follower--remove" href="#" data-kick-path="<%= thredded_workgroup.kick_topic_path(topic.to_model.id, user_id: user.id) %>">
+              <button class="thredded--follower--remove" data-kick-path="<%= thredded_workgroup.kick_topic_path(topic.to_model.id, user_id: user.id) %>">
                 <%= shared_inline_svg "thredded/follow.svg", class: "thredded--topics--follow-icon", role: "img" %>
                 <%= shared_inline_svg "thredded/unfollow.svg", class: "thredded--topics--unfollow-icon", role: "img" %>
                 <span class="thredded--sr-only">Remove</span>
-              </a>
+              </button>
           </span>
         <%- end %>
       <% end %>
