@@ -16,8 +16,7 @@ Out the box enables a homepage with a top-level nav menu consisting of:
 
 ![Screenshot of navbar](docs/navbar.png)
 
-It also allows shows you the followers before you post, and allows you to remove unneeded followers from conversations. (The logic for this is that as you continue a thread 
-it may become less relevant to existing followers. The person adding the message is able to adjust this,
+It also shows you the followers of the current topic before you post, and allows you to remove unneeded followers. (The logic for this is that (unlike a social forum) you need to broadcast as little as possible (because the aim is to reduce unnecessary noise, because people can find messages they need to). When you are adding to a topic it may become less relevant to existing followers. The person adding the message is able to adjust followers,
 like you might adjust the cc-list of conversation).
      
 ![Screenshot of post form](docs/followers-above-post.png)
@@ -108,8 +107,9 @@ bundle exec rake db:create db:migrate db:seed
 Run the server
 
 ```
-dummy-rails s -p 3012
+guard
 ```
+(you can alternatively run `dummy-rails s -p 3012` but guard runs livereload for you too, which makes development much more pleasant)
 
 ### Updating when thredded changes
 
