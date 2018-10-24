@@ -6,6 +6,7 @@
 
     function clickRemoveFollower(e) {
       e.preventDefault();
+      e.stopPropagation();
       var $this = $(this);
       var $followerSelector = $this.closest('.thredded--follower');
       var path = $this.data('kickPath');
