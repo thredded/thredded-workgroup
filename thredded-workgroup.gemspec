@@ -54,11 +54,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "web-console"
   s.add_development_dependency "jquery-rails"
 
-  # add some plugins to the dummy app demo
-  s.add_development_dependency "thredded-markdown_coderay"
-  s.add_development_dependency "thredded-markdown_katex"
-  s.add_development_dependency "twemoji"
-
   # dummy app frontend
   s.add_development_dependency "turbolinks"
   # required by the turbolinks gem
