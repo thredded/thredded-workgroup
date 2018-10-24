@@ -4,16 +4,18 @@
     <% if topic.followers.length > 0 %>
       <%= t('thredded.topics.followed_by')%>
       <% topic.followers.each do |user| %>
-        <%- if user != thredded_current_user %>
-          <span class="thredded--follower user-<%= user.id %>">
-            <%= user_mention(user) %>
-              <button class="thredded--follower--remove" data-kick-path="<%= thredded_workgroup.kick_topic_path(topic.to_model.id, user_id: user.id) %>">
-                <%= shared_inline_svg "thredded/follow.svg", class: "thredded--topics--follow-icon", role: "img" %>
-                <%= shared_inline_svg "thredded/unfollow.svg", class: "thredded--topics--unfollow-icon", role: "img" %>
-                <span class="thredded--sr-only">Remove</span>
-              </button>
-          </span>
-        <%- end %>
+        <span class="thredded--follower user-<%= user.id %>">
+          <%= user_mention(user) %>
+          <%- if user == thredded_current_user %>
+            (You)
+          <%- else %>
+            <button class="thredded--follower--remove" data-kick-path="<%= thredded_workgroup.kick_topic_path(topic.to_model.id, user_id: user.id) %>">
+              <%= shared_inline_svg "thredded/follow.svg", class: "thredded--topics--follow-icon", role: "img" %>
+              <%= shared_inline_svg "thredded/unfollow.svg", class: "thredded--topics--unfollow-icon", role: "img" %>
+              <span class="thredded--sr-only">Remove</span>
+            </button>
+          <%- end %>
+        </span>
       <% end %>
     <% else %>
       <%= t('thredded.topics.followed_by_noone')%>
