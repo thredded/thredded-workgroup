@@ -1,3 +1,0 @@
-<%- if form.object.is_a?(Thredded::PostForm) && form.object.topic.persisted? %>
-  <%= render partial: 'thredded/topics/followers', locals: {topic: form.object.topic} %>
-<%- end %>

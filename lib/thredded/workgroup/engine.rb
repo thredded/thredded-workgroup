@@ -16,6 +16,15 @@ module Thredded
         Rails.application.reload_routes!
         ::Thredded::Workgroup::ThreddedRouteDelegator.add_thredded_proxies
         ::Thredded::Workgroup::RouteDelegator.add_my_proxies_to_thredded
+
+        Thredded::ApplicationController.module_eval do
+          Thredded.view_hooks.post_form.content_text_area.config.before do |form:, **args|
+            # This is render in the Thredded view context, so all Thredded helpers and URLs are accessible here directly.
+            if form.object.is_a?(Thredded::PostForm) && form.object.topic.persisted?
+              render partial: 'thredded/topics/followers', locals: { topic: form.object.topic }
+            end
+          end
+        end
       end
       initializer "thredded.setup_assets" do
         Thredded::Workgroup::Engine.config.assets.precompile += %w(
