@@ -18,10 +18,10 @@ module Thredded
         ::Thredded::Workgroup::RouteDelegator.add_my_proxies_to_thredded
 
         Thredded::ApplicationController.module_eval do
-          Thredded.view_hooks.post_form.content_text_area.config.before do |form:, **args|
+          Thredded.view_hooks.post_form.content_text_area.config.before do |form:, **_args|
             # This is render in the Thredded view context, so all Thredded helpers and URLs are accessible here directly.
             if form.object.is_a?(Thredded::PostForm) && form.object.topic.persisted?
-              render partial: 'thredded/topics/followers', locals: { topic: form.object.topic }
+              render partial: "thredded/topics/followers", locals: { topic: form.object.topic }
             end
           end
         end
