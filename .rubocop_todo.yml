@@ -13,7 +13,6 @@
 Bundler/OrderedGems:
   Exclude:
     - 'shared.gemfile'
-    - 'spec/gemfiles/rails_4_2.gemfile'
 
 # Offense count: 5
 # Cop supports --auto-correct.
@@ -95,7 +94,6 @@ Style/ExpandPathArguments:
   Exclude:
     - 'Rakefile'
     - 'bin/rails.rb'
-    - 'spec/gemfiles/rails_4_2.gemfile'
     - 'spec/gemfiles/rails_5_0.gemfile'
     - 'spec/gemfiles/rails_5_1.gemfile'
     - 'spec/gemfiles/rails_5_2.gemfile'
@@ -109,7 +107,6 @@ Style/ExpandPathArguments:
 Style/FrozenStringLiteralComment:
   Exclude:
     - 'shared.gemfile'
-    - 'spec/gemfiles/rails_4_2.gemfile'
     - 'spec/gemfiles/rails_5_0.gemfile'
     - 'spec/gemfiles/rails_5_1.gemfile'
     - 'spec/gemfiles/rails_5_2.gemfile'
@@ -158,7 +155,6 @@ Style/StderrPuts:
 Style/StringLiterals:
   Exclude:
     - 'shared.gemfile'
-    - 'spec/gemfiles/rails_4_2.gemfile'
     - 'spec/gemfiles/rails_5_0.gemfile'
     - 'spec/gemfiles/rails_5_1.gemfile'
     - 'spec/gemfiles/rails_5_2.gemfile'

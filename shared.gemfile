@@ -9,6 +9,10 @@ else
     gem 'guard'
     gem 'guard-rails'
     gem 'guard-livereload'
+    gem 'rack-livereload'
+  end
+  group :development, :test do
+    gem "capybara-webkit", '1.15.1'
   end
 end
 

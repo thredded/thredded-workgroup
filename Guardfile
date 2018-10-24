@@ -18,45 +18,6 @@
 
 interactor :off unless ENV["GUARD_USE_INTERACTOR"]
 
-guard "livereload" do
-  extensions = {
-    css: :css,
-    scss: :css,
-    sass: :css,
-    js: :js,
-    coffee: :js,
-    html: :html,
-    png: :png,
-    gif: :gif,
-    jpg: :jpg,
-    jpeg: :jpeg,
-    # less: :less, # uncomment if you want LESS stylesheets done in browser
-  }
-
-  rails_view_exts = %w(erb haml slim)
-
-  # file types LiveReload may optimize refresh for
-  compiled_exts = extensions.values.uniq
-  watch(%r{public/.+\.(#{compiled_exts * '|'})})
-
-  extensions.each do |ext, type|
-    watch(%r{
-          (?:app|vendor)
-          (?:/assets/\w+/(?<path>[^.]+) # path+base without extension
-           (?<ext>\.#{ext})) # matching extension (must be first encountered)
-          (?:\.\w+|$) # other extensions
-          }x) do |m|
-      path = m[1]
-      "/assets/#{path}.#{type}"
-    end
-  end
-
-  # file needing a full reload of the page anyway
-  watch(%r{app/views/.+\.(#{rails_view_exts * '|'})$})
-  watch(%r{app/helpers/.+\.rb})
-  watch(%r{config/locales/.+\.yml})
-end
-
 # Guard-Rails supports a lot options with default values:
 # daemon: false                        # runs the server as a daemon.
 # debugger: false                      # enable ruby-debug gem.
@@ -74,7 +35,18 @@ end
 # zeus: false                          # enables zeus gem.
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
 
-guard "rails", port: 3012, root: "spec/dummy" do
+guard "rails", port: ENV["RAILS_S_PORT"]&.to_i || 3012, root: "spec/dummy" do
   watch("Gemfile.lock")
   watch(%r{^(config|lib)/.*})
+end
+
+guard "livereload", port: ENV["LIVERELOAD_PORT"]&.to_i || 35_734 do
+  watch(%r{app/views/.+\.(erb|haml|slim)$})
+  watch(%r{app/helpers/.+\.rb})
+  watch(%r{public/.+\.(css|js|html)})
+  watch(%r{config/locales/.+\.yml})
+  # Rails Assets Pipeline
+  watch(%r{(app|vendor)/assets/\w+/(.+\.(js|html)).*}) { |m| "/assets/#{m[2]}" }
+  watch(%r{(app|vendor)/assets/\w+/(.+)\.scss.*}) { |m| "/assets/#{m[2]}.css" }
+  watch(%r{spec/javascripts/(.+\.js)}) { |m| "/assets/#{m[1]}" }
 end

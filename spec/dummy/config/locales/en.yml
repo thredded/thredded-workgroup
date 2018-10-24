@@ -4,8 +4,6 @@
 en:
   thredded_post_form_help_html: >-
     Markdown <a href="https://kramdown.gettalong.org/quickref.html" target="_blank">quick reference</a>.
-    Wrap KaTeX <a href="https://kramdown.gettalong.org/syntax.html#math-blocks" target="_blank">math</a>
-    in <code>$$</code>.
   views:
     pagination:
       first: "First"

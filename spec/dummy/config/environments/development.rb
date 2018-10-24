@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 Dummy::Application.configure do
+  require "rack-livereload"
+  # guard-livereload needs the rack middeleware:
+  config.middleware.insert_after(
+    ActionDispatch::Static, Rack::LiveReload,
+    port: ENV["LIVERELOAD_PORT"]&.to_i || 35_734
+  )
+
   config.eager_load = false
 
   # In the development environment your application's code is reloaded on

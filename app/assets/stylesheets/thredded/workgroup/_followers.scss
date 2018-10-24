@@ -1,0 +1,51 @@
+.thredded--topic-header {
+  .thredded--topic-header--follow-info form {
+    position: static;
+  }
+}
+
+.thredded--topic-followers {
+  line-height: 1.75rem;
+  @include thredded--clearfix;
+}
+
+.thredded--follower {
+  background-color: #eeeeee;
+  border: 1px solid #eeeeee;
+  border-radius: 5px;
+  padding: 2px;
+  margin: 2px;
+  white-space: nowrap;
+  display: inline-block;
+  line-height: 1rem;
+
+  button {
+    color: rgba(0, 0, 0, 0.54);
+    background: inherit;
+    padding: 0;
+    border-style: none;
+    .thredded--topics--follow-icon,
+    .thredded--topics--unfollow-icon {
+      position: static;
+      opacity: 0.5;
+      height: 0.75rem;
+      width: 0.75rem;
+    }
+
+    & .thredded--topics--follow-icon,
+    &:hover .thredded--topics--unfollow-icon {
+      display: inline-block;
+    }
+
+    & .thredded--topics--unfollow-icon,
+    &:hover .thredded--topics--follow-icon {
+      display: none;
+    }
+
+    &:hover .thredded--topics--unfollow-icon {
+      opacity: 0.75;
+    }
+  }
+
+}
+

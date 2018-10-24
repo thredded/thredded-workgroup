@@ -12,12 +12,10 @@ addons:
 
 language: ruby
 rvm:
-  - 2.3
-#  - 2.4 # not till rails 4.2.8 is released
+  - 2.5
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
-  - spec/gemfiles/rails_4_2.gemfile
   - spec/gemfiles/rails_5_0.gemfile
   - spec/gemfiles/rails_5_1.gemfile
   - spec/gemfiles/rails_5_2.gemfile

@@ -1,22 +1,25 @@
 # Thredded::Workgroup
 
-Extension to [Thredded](http://github.com/thredded/thredded) with features useful to workgroup messaging (Unread,
-Unreplied, Following).
-
+Extension to [Thredded](http://github.com/thredded/thredded) with features useful to workgroup messaging.
+ 
+The point of Thredded-workgroup is to enable migration of workgroup communication from non-shared email to shared opt-in communications -- everyone can see any of the workgroup communications.
+     
 originated in https://github.com/thredded/thredded/issues/347
 
 Out the box enables a homepage with a top-level nav menu consisting of:
 
 * Unread: a list of unread topics (ordered by last post) across all messageboards
-* Following: a list of followed topics (ordered by last post) across all messageboards
 * Awaiting reply: a list of all topics you follow where yours is the last post
-* All topics: a list of all topics (ordered by last post) across all messageboards
-* All messageboards: a list of messageboards (as present)
+* Following: a list of followed topics (ordered by last post) across all messageboards
+* All: a list of all topics (ordered by last post) across all messageboards
+* Messageboards: a list of messageboards (as Thredded's normal home page)
 
-It adds a navbar like this:
+![Screenshot of navbar](docs/navbar.png)
 
-<img width="898" alt="screenshot" src="https://cloud.githubusercontent.com/assets/18395/17519867/a07ca5e8-5e45-11e6-86e1-953fdc399168.png">
-
+It also shows you the followers of the current topic before you post, and allows you to remove unneeded followers. (The logic for this is that (unlike a social forum) you need to broadcast as little as possible (because the aim is to reduce unnecessary noise, because people can find messages they need to). When you are adding to a topic it may become less relevant to existing followers. The person adding the message is able to adjust followers,
+like you might adjust the cc-list of conversation).
+     
+![Screenshot of post form](docs/followers-above-post.png)
 
 ## Installation
 
@@ -104,8 +107,9 @@ bundle exec rake db:create db:migrate db:seed
 Run the server
 
 ```
-dummy-rails s -p 3012
+guard
 ```
+(you can alternatively run `dummy-rails s -p 3012` but guard runs livereload for you too, which makes development much more pleasant)
 
 ### Updating when thredded changes
 
