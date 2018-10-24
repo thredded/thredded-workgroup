@@ -1,7 +1,7 @@
 <% if Thredded.show_topic_followers %>
   <%= define_svg_icons "thredded/follow.svg", "thredded/unfollow.svg" %>
   <div class="thredded--topic-followers">
-    <% if topic.followers.present? %>
+    <% if topic.followers.length > 0 %>
       <%= t('thredded.topics.followed_by')%>
       <% topic.followers.each do |user| %>
         <%- if user != thredded_current_user %>
