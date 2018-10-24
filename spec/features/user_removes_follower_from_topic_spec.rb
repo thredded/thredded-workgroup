@@ -22,9 +22,11 @@ feature "Logged in user" do
   scenario "can remove a follower from a topic", js: true do
     visit thredded_topic_path(topic)
     expect(page).to have_content "@SomeoneElse"
-    within ".user-#{follower.id}" do
-      find("button").trigger("click")
+    within ".thredded--form.thredded--post-form" do
+      within ".user-#{follower.id}" do
+        find("button").trigger("click")
+      end
+      expect(page).not_to have_content "@SomeoneElse"
     end
-    expect(page).not_to have_content "@SomeoneElse"
   end
 end
