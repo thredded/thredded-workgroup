@@ -40,13 +40,13 @@ guard "rails", port: ENV["RAILS_S_PORT"]&.to_i || 3012, root: "spec/dummy" do
   watch(%r{^(config|lib)/.*})
 end
 
-guard 'livereload', :port => ENV["LIVERELOAD_PORT"]&.to_i || 35734 do
+guard "livereload", port: ENV["LIVERELOAD_PORT"]&.to_i || 35_734 do
   watch(%r{app/views/.+\.(erb|haml|slim)$})
   watch(%r{app/helpers/.+\.rb})
   watch(%r{public/.+\.(css|js|html)})
   watch(%r{config/locales/.+\.yml})
   # Rails Assets Pipeline
-  watch(%r{(app|vendor)/assets/\w+/(.+\.(js|html)).*})  { |m| "/assets/#{m[2]}" }
-  watch(%r{(app|vendor)/assets/\w+/(.+)\.scss.*})  { |m| "/assets/#{m[2]}.css" }
-  watch(%r{spec/javascripts/(.+\.js)})  { |m| "/assets/#{m[1]}" }
+  watch(%r{(app|vendor)/assets/\w+/(.+\.(js|html)).*}) { |m| "/assets/#{m[2]}" }
+  watch(%r{(app|vendor)/assets/\w+/(.+)\.scss.*}) { |m| "/assets/#{m[2]}.css" }
+  watch(%r{spec/javascripts/(.+\.js)}) { |m| "/assets/#{m[1]}" }
 end
