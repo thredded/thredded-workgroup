@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # needs thredded, you can specify a specific fork or version (in **your** gemfile) if you need to!
-  s.add_dependency "thredded", "~> 0.16"
+  s.add_dependency "thredded", "~> 0.16", ">= 0.16.1"
 
   # bundler added dependencies
   s.add_development_dependency "bundler", "~> 1.12"
