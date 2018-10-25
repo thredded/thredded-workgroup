@@ -11,13 +11,17 @@
         <%= link_to topic.messageboard_name, topic.messageboard_path %>
       </cite>
     <% end %>
-    <svg viewBox="0 0 116 121" class="thredded--topics--follow-icon">
-      <% if topic.followed? %>
-        <use xlink:href="#thredded-follow-icon"/>
-      <% else %>
-        <use xlink:href="#thredded-unfollow-icon"/>
-      <% end %>
-    </svg>
+    <a href="#" class="thredded-follow-toggle">
+      <%= shared_inline_svg "thredded/follow.svg", class: "thredded--topics--follow-icon", role: "img" %>
+      <%= shared_inline_svg "thredded/unfollow.svg", class: "thredded--topics--unfollow-icon", role: "img" %>
+    </a>
+<!--    <svg viewBox="0 0 116 121" class="thredded--topics--follow-icon">-->
+      <%# if topic.followed? %>
+<!--        <use xlink:href="#thredded-follow-icon"/>-->
+      <%# else %>
+<!--        <use xlink:href="#thredded-unfollow-icon"/>-->
+      <%# end %>
+<!--    </svg>-->
   </h1>
 
   <% if topic.categories.any? %>

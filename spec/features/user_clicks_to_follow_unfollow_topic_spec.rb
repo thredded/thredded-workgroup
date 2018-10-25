@@ -27,8 +27,8 @@ describe "Clicking to follow / unfollow topics", type: :feature do
 
       specify "you can click to follow", js: true do
         visit path
-        within "#topic_#{topic.id}.thredded--topic-notfollowing .thredded--topics--title" do
-          find("svg.thredded--topics--follow-icon").click
+        within "#topic_#{topic.id}.thredded--topic-notfollowing" do
+          find("a.thredded-follow-toggle").trigger("click")
         end
         TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
         expect(page).to have_css("#topic_#{topic.id}.thredded--topic-following")
@@ -47,8 +47,8 @@ describe "Clicking to follow / unfollow topics", type: :feature do
 
       specify "you can click to unfollow", js: true do
         visit path
-        within "#topic_#{topic.id}.thredded--topic-following .thredded--topics--title" do
-          find("svg.thredded--topics--follow-icon").click
+        within "#topic_#{topic.id}.thredded--topic-following" do
+          find("a.thredded-follow-toggle").trigger("click")
         end
         TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
         expect(page).to have_css("#topic_#{topic.id}.thredded--topic-notfollowing")
