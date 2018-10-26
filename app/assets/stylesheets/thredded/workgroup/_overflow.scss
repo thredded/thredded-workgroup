@@ -1,6 +1,7 @@
 $thredded-condensed-height: 100px;
 .thredded--condensable {
   box-sizing: border-box;
+
   &.thredded--condensable--condensed {
     max-height: $thredded-condensed-height;
     overflow: hidden;
@@ -8,16 +9,18 @@ $thredded-condensed-height: 100px;
     position: relative;
     top: 0;
     z-index: 1;
-    &.thredded--hovering {
-      opacity: 1;
-    }
-    &.thredded--hover-revealing{
+
+    &.thredded--hovering, &.thredded--condensable--hover {
       opacity: 1;
     }
   }
-  &.thredded--condensable--expanded {
+
+  &.thredded--condensable--expanded,
+  [data-thredded-condensable-hover=reveal] &.thredded--condensable--condensed.thredded--condensable--hover {
     max-height: unset;
+    overflow: unset;
   }
+
   cursor: pointer;
 }
 
@@ -25,7 +28,8 @@ $thredded-condensed-height: 100px;
   color: #cccccc;
   float: right;
   font-size: 0.75rem;
-  .thredded--condensable.thredded--hover-revealing & {
+
+  .thredded--condensable.thredded--condensable--hover & {
     color: $thredded-brand;
   }
 }
@@ -46,6 +50,7 @@ $thredded-condensed-height: 100px;
     z-index: 3;
     border-top: 1px dashed #cccccc;
   }
+
   &.thredded--condensable--condensed .thredded--condensable--overflow-only {
     position: absolute;
     top: $thredded-condensed-height - $overflow-only-height;
@@ -53,7 +58,9 @@ $thredded-condensed-height: 100px;
       display: none;
     }
   }
-  &.thredded--condensable--expanded .thredded--condensable--overflow-only {
+
+  &.thredded--condensable--expanded .thredded--condensable--overflow-only,
+  [data-thredded-condensable-hover=reveal] &.thredded--condensable--condensed.thredded--condensable--hover .thredded--condensable--overflow-only{
     position: static;
     border-top: none;
     .thredded--condensable--expand {
@@ -62,4 +69,3 @@ $thredded-condensed-height: 100px;
   }
 
 }
-

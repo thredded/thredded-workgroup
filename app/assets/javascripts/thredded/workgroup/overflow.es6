@@ -24,18 +24,14 @@
     console.log("hovering");
     let $elem = $(this);
     if ($elem.hasClass('thredded--condensable--condensed')) {
-      $elem.addClass('thredded--hover-revealing');
-      $elem.removeClass('thredded--condensable--condensed').addClass('thredded--condensable--expanded');
+      $elem.addClass('thredded--condensable--hover');
     }
   }
 
   function unhoverOverflow() {
     console.log("unhovering");
     let $elem = $(this);
-    if ($elem.hasClass('thredded--hover-revealing')) {
-      $elem.removeClass('thredded--hover-revealing');
-      $elem.addClass('thredded--condensable--condensed').removeClass('thredded--condensable--expanded');
-    }
+    $elem.removeClass('thredded--condensable--hover');
   }
 
   function clickOverflow(e) {
@@ -43,12 +39,11 @@
     e.stopPropagation();
     console.log("clicking");
     let $elem = $(this);
-    if ($elem.hasClass('thredded--hover-revealing')) {
-      // non touch
-      $elem.removeClass('thredded--hover-revealing');
+    if ($elem.hasClass('thredded--condensable--hover')) {
+      $elem.removeClass('thredded--condensable--hover');
       $elem.removeClass('thredded--condensable--condensed').addClass('thredded--condensable--expanded');
     } else {
-      // touch
+      // touch only or already condensed, so clicking again
       $elem.toggleClass('thredded--condensable--condensed').toggleClass('thredded--condensable--expanded');
     }
   }
