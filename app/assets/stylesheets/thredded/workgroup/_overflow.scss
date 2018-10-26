@@ -55,6 +55,7 @@ $thredded-condensed-height: 100px;
   }
   &.thredded--condensable--expanded .thredded--condensable--overflow-only {
     position: static;
+    border-top: none;
     .thredded--condensable--expand {
       display: none;
     }
