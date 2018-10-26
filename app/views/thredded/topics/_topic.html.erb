@@ -2,7 +2,11 @@
     id:    dom_id(topic),
     class: ['thredded--topics--topic', topic_css_classes(topic)],
     data: {topic: topic.id, messageboard: topic.messageboard_id} do %>
-  <div class="thredded--topics--posts-count"><%= topic.posts_count %></div>
+
+  <div class="thredded--topic--read-state-toggle">
+    <%= shared_inline_svg("thredded/workgroup/envelope-open-o", class: "thredded--topics--read-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
+    <%= shared_inline_svg("thredded/workgroup/envelope-o", class: "thredded--topics--unread-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
+  </div>
 
   <h1 class="thredded--topics--title">
     <span class="thredded--topic-title"><%= link_to topic.title, topic.path %></span>
@@ -40,6 +44,17 @@
   <%= render partial: 'thredded/topics/followers', locals: {topic: topic} %>
 
   <div class='thredded--topic-post-and-last-user thredded--condensable thredded--condensable--condensed'>
+    <div class="thredded--topic-controls">
+      <a class="thredded--topic--view-button thredded--button" href="<%= topic.reply_path %>">View/Reply</a>
+      <a class="thredded--topic--read-state-toggle thredded--topic--mark-as-read thredded--button" href="">
+        <%= shared_inline_svg("thredded/workgroup/envelope-open-o", class: "thredded--topics--read-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
+        Mark as Read
+      </a>
+      <a class="thredded--topic--read-state-toggle thredded--topic--mark-as-unread thredded--button" href="">
+        <%= shared_inline_svg("thredded/workgroup/envelope-o", class: "thredded--topics--unread-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
+        Mark as Unread
+      </a>
+    </div>
     <div class="thredded--topic-source">
       <cite class="thredded--topics--updated-by">
         <%= topic.last_user.thredded_display_name %>

@@ -1,6 +1,7 @@
 .thredded--topic-source cite a {
   color: #a5aab6;
   text-decoration: none;
+
   &:hover {
     color: #4a90e2;
 
@@ -25,6 +26,7 @@ cite.thredded--messageboard-name {
     position: absolute;
     right: -1.6rem;
     top: 0;
+
     svg, svg.thredded--topics--follow-icon {
       position: static;
       fill: currentColor;
@@ -34,37 +36,45 @@ cite.thredded--messageboard-name {
       height: 1.4rem;
       opacity: 0.4;
     }
+
     &:hover svg {
       cursor: pointer;
       opacity: 0.7;
       color: #4a90e2;
     }
   }
+
   &.thredded--topic-following a.thredded-follow-toggle {
     svg.thredded--topics--unfollow-icon {
       display: none;
     }
+
     &:hover {
       svg.thredded--topics--follow-icon {
-        display:none;
+        display: none;
       }
+
       svg.thredded--topics--unfollow-icon {
         display: inline-block;
         color: $thredded-brand;
       }
     }
   }
+
   &.thredded--topic-notfollowing a.thredded-follow-toggle {
     svg.thredded--topics--unfollow-icon {
       opacity: 0.2;
     }
+
     svg.thredded--topics--follow-icon {
       display: none;
     }
+
     &:hover {
       svg.thredded--topics--unfollow-icon {
-        display:none;
+        display: none;
       }
+
       svg.thredded--topics--follow-icon {
         display: inline-block;
         color: $thredded-brand;
@@ -74,13 +84,119 @@ cite.thredded--messageboard-name {
 }
 
 
-.thredded--topics--topic.thredded--rollover{
+.thredded--topics--topic.thredded--hovering {
   cursor: pointer;
 
   .thredded--topic-title a {
     color: #4a90e2;
+
     &:hover {
       cursor: pointer;
     }
+  }
+
+  .thredded--topic-controls {
+    .thredded--topic--view-button {
+      background-color: $thredded-button-hover-background;
+      color: $thredded-button-hover-color;
+    } }
+}
+
+.thredded--topic-controls {
+  .thredded--topic--read-state-toggle.thredded--hovering {
+    background-color: $thredded-button-hover-background;
+    color: $thredded-button-hover-color;
+  }
+}
+
+.thredded--topic-controls {
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 0;
+  z-index: 4;
+
+  .thredded--hovering & {
+    display: block;
+    background: #ffffff88;
+  }
+
+  .thredded--icon {
+    height: 0.85em;
+    margin: 0;
+  }
+}
+
+.thredded--topics--topic > .thredded--topic--read-state-toggle {
+  border-radius: 50%;
+  display: inline-block;
+  font-weight: 900;
+  font-size: 0.8rem;
+  height: 2rem;
+  left: -$thredded-topics-topic-posts-counter-width;
+  line-height: 2rem;
+  margin-right: $thredded-base-spacing;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 2rem;
+  transition: background 0.1s linear, color 0.1s linear;
+
+  .thredded--icon {
+    height: 1.25em;
+    position: relative;
+    top: 10%;
+  }
+}
+
+.thredded--topic-read {
+  > .thredded--topics--title a {
+    font-weight: lighter;
+  }
+  > .thredded--topic--read-state-toggle {
+    background: $thredded-badge-inactive-background;
+    color: $thredded-badge-inactive-color;
+    .thredded--topics--unread-icon {
+      display: none;
+    }
+    &.thredded--hovering {
+      background: darken(opacify($thredded-badge-inactive-background, 0.25), 20%);
+      .thredded--topics--unread-icon {
+        display: inline-block;
+      }
+      .thredded--topics--read-icon {
+        display: none;
+      }
+    }
+  }
+
+  .thredded--topic--read-state-toggle.thredded--topic--mark-as-read {
+    display: none
+  }
+
+}
+
+.thredded--topic-unread {
+  > .thredded--topics--title a {
+    font-weight: bold;
+  }
+  > .thredded--topic--read-state-toggle {
+    background: $thredded-badge-active-background;
+    color: $thredded-badge-active-color;
+    .thredded--topics--read-icon {
+      display: none;
+    }
+    &.thredded--hovering {
+      background: darken($thredded-badge-active-background, 20%);
+      .thredded--topics--read-icon {
+        display: inline-block;
+      }
+      .thredded--topics--unread-icon {
+        display: none;
+      }
+    }
+  }
+  .thredded--topic--read-state-toggle.thredded--topic--mark-as-unread {
+    display: none
   }
 }

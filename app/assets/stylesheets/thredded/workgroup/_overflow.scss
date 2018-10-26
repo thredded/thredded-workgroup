@@ -1,16 +1,16 @@
 $thredded-condensed-height: 100px;
 .thredded--condensable {
   box-sizing: border-box;
+  position: relative;
+  top: 0;
+  z-index: 1;
 
   &.thredded--condensable--condensed {
     max-height: $thredded-condensed-height;
     overflow: hidden;
     opacity: 0.7;
-    position: relative;
-    top: 0;
-    z-index: 1;
 
-    &.thredded--hovering, &.thredded--condensable--hover {
+    &.thredded--hovering, &.thredded--condensable--hover, .thredded--hovering & {
       opacity: 1;
     }
   }
