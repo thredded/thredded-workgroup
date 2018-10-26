@@ -7,11 +7,6 @@
       var $a = $(this).closest('.thredded--topics--topic').find(".thredded--topic-title a");
       window.location.href = $a.attr('href');
     });
-
-    $('.thredded--topic-post-and-last-user').hover(
-      function(){ $(this).addClass('thredded--hovering')},
-      function(){ $(this).removeClass('thredded--hovering')}
-    ).click(function(){$(this).toggleClass('thredded--condensed')});
   });
 })(jQuery);
 

@@ -17,19 +17,7 @@ cite.thredded--messageboard-name {
 .thredded--topic-post-and-last-user {
   max-width: 35rem;
   margin: auto;
-  margin-top: 1rem;
-
-  &.thredded--condensed {
-    max-height: 100px;
-    overflow: hidden;
-    opacity: 0.8;
-    &.thredded--hovering {
-      opacity: 1;
-    }
-  }
-  &.thredded--hovering {
-    cursor: pointer;
-  }
+  padding-top: 1rem;
 }
 
 .thredded--topics--topic {
