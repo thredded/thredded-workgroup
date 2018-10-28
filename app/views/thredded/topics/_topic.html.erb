@@ -4,8 +4,8 @@
     data: {topic: topic.id, messageboard: topic.messageboard_id} do %>
 
   <div class="thredded--topic--read-state-toggle">
-    <%= shared_inline_svg("thredded/workgroup/envelope-open-o", class: "thredded--topics--read-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792",  title: "Mark as read") %>
-    <%= shared_inline_svg("thredded/workgroup/envelope-o", class: "thredded--topics--unread-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792", title: "Mark as unread") %>
+    <%= shared_inline_svg("thredded/workgroup/envelope-open-o.svg", class: "thredded--topics--read-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792",  title: "Mark as read") %>
+    <%= shared_inline_svg("thredded/workgroup/envelope-o.svg", class: "thredded--topics--unread-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792", title: "Mark as unread") %>
   </div>
 
   <h1 class="thredded--topics--title">
@@ -48,11 +48,11 @@
       <div class="thredded--topic-controls">
         <a class="thredded--topic--view-button thredded--button" href="<%= topic.reply_path %>">View/Reply</a>
         <a class="thredded--topic--read-state-toggle thredded--topic--mark-as-read thredded--button" data-post-path="<%= topic.mark_as_read_path %>">
-          <%= shared_inline_svg("thredded/workgroup/envelope-open-o", class: "thredded--topics--read-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
+          <%= shared_inline_svg("thredded/workgroup/envelope-open-o.svg", class: "thredded--topics--read-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
           Mark as Read
         </a>
         <a class="thredded--topic--read-state-toggle thredded--topic--mark-as-unread thredded--button" data-post-path="<%= topic.mark_as_unread_path %>">
-          <%= shared_inline_svg("thredded/workgroup/envelope-o", class: "thredded--topics--unread-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
+          <%= shared_inline_svg("thredded/workgroup/envelope-o.svg", class: "thredded--topics--unread-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
           Mark as Unread
         </a>
       </div>
