@@ -28,4 +28,10 @@ feature "Logged in user" do
     expect(page).not_to have_css("article#topic_#{topic.id} [title='Mark as read'] ")
     expect(page).to have_css("article#topic_#{topic.id} [title='Mark as unread']")
   end
+
+  scenario "can mark all topics as read" do
+    visit all_topics_nav_path
+    expect(Thredded::Workgroup::MarkAllTopicsReadJob).to receive(:perform_later)
+    click_on "Mark all topics as read"
+  end
 end

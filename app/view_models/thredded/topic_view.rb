@@ -18,11 +18,11 @@ module Thredded
     end
 
     def mark_as_unread_path
-      Thredded::UrlsHelper.mark_as_unread_post_path(last_post, format: :json)
+      Thredded::UrlsHelper.mark_as_unread_post_path(id: last_post.id, format: :json)
     end
 
     def mark_as_read_path
-      Thredded::UrlsHelper.mark_as_read_post_path(last_post, format: :json)
+      Thredded::UrlsHelper.mark_as_read_post_path(id: last_post.id, format: :json)
     end
 
     def last_page
