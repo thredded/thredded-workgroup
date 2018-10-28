@@ -84,7 +84,7 @@ cite.thredded--messageboard-name {
 }
 
 
-.thredded--topics--topic.thredded--hovering {
+.thredded--topics--topic.thredded--topic-hovering {
   cursor: pointer;
 
   .thredded--topic-title a {
@@ -103,10 +103,15 @@ cite.thredded--messageboard-name {
 }
 
 .thredded--topic-controls {
-  .thredded--topic--read-state-toggle.thredded--hovering {
+  .thredded--topic--read-state-toggle.thredded--topic-hovering {
     background-color: $thredded-button-hover-background;
     color: $thredded-button-hover-color;
   }
+}
+
+.thredded--topic-last-post-with-controls {
+  position: relative;
+  top: 0;
 }
 
 .thredded--topic-controls {
@@ -116,7 +121,7 @@ cite.thredded--messageboard-name {
   right: 0;
   z-index: 4;
 
-  .thredded--hovering & {
+  .thredded--topic-hovering & {
     display: block;
     background: #ffffff88;
   }
@@ -159,7 +164,7 @@ cite.thredded--messageboard-name {
     .thredded--topics--unread-icon {
       display: none;
     }
-    &.thredded--hovering {
+    &.thredded--topic-hovering {
       background: darken(opacify($thredded-badge-inactive-background, 0.25), 20%);
       .thredded--topics--unread-icon {
         display: inline-block;
@@ -186,7 +191,7 @@ cite.thredded--messageboard-name {
     .thredded--topics--read-icon {
       display: none;
     }
-    &.thredded--hovering {
+    &.thredded--topic-hovering {
       background: darken($thredded-badge-active-background, 20%);
       .thredded--topics--read-icon {
         display: inline-block;

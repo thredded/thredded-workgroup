@@ -48,18 +48,9 @@
     }
   }
 
-  function hoverHighlight() {
-    $(this).addClass('thredded--hovering');
-  }
-
-  function unhoverHighlight() {
-    $(this).removeClass('thredded--hovering');
-  }
-
   $(document).ready(() => {
     console.log("topic_last_post.es6 running");
     findOverflows();
     $('.thredded--condensable.thredded--condensable--overflowing').hover(hoverOverflow, unhoverOverflow).click(clickOverflow);
-    $('.thredded--condensable').hover(hoverHighlight, unhoverHighlight);
   })
 })(jQuery);
