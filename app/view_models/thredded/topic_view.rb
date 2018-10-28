@@ -17,6 +17,14 @@ module Thredded
       Thredded::UrlsHelper.topic_path(@topic, page: last_page, anchor: "new_post")
     end
 
+    def mark_as_unread_path
+      Thredded::UrlsHelper.mark_as_unread_post_path(last_post, format: :json)
+    end
+
+    def mark_as_read_path
+      Thredded::UrlsHelper.mark_as_read_post_path(last_post, format: :json)
+    end
+
     def last_page
       (@topic.posts_count / Thredded.posts_per_page.to_f).ceil # TODO: doesn't account for visibility
     end
