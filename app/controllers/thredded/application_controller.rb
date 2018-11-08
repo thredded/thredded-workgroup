@@ -4,9 +4,7 @@ require_dependency File.expand_path("../../app/controllers/thredded/application_
                                     Thredded::Engine.called_from)
 
 module Thredded
-  class ApplicationController
-    include Thredded::Workgroup::AllUnreadFollowedTopics
-
+  module ApplicationControllerRetaining
     def topics_scope
       return super if messageboard_or_nil
       all_topics_scope
@@ -16,5 +14,10 @@ module Thredded
       return super if messageboard_or_nil
       all_unread_followed_topics_count
     end
+  end
+  class ApplicationController
+    include Thredded::Workgroup::AllUnreadFollowedTopics
+
+    prepend ::Thredded::ApplicationControllerRetaining
   end
 end
