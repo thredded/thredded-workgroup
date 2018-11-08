@@ -41,5 +41,5 @@ script:
   - xvfb-run bundle exec rspec
   - bundle show rubocop
   - bundle exec rubocop
-  - bundle exec bundle-audit update
-  - bundle exec bundle-audit -v
+  - cp $BUNDLE_GEMFILE Gemfile.lock
+  - bundle exec bundle-audit check --update -v
