@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-rails", ">= 3.5.0"
   s.add_development_dependency "rubocop", '= 0.58.2'
   s.add_development_dependency "transactional_capybara"
+  s.add_development_dependency "bundle-audit"
 
   # dummy app dependencies
   s.add_development_dependency "rails-i18n"
