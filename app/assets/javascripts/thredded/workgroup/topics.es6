@@ -24,12 +24,10 @@
   }
 
   function hoverTopicReadToggle() {
-    console.log("hoverTopicReadToggle");
     $(this).closest('.thredded--topics--topic').find('.thredded--topic--read-state-toggle').addClass("thredded--topic-hovering");
   }
 
   function unhoverTopicReadToggle() {
-    console.log("unhoverTopicReadToggle");
     $(this).closest('.thredded--topics--topic').find('.thredded--topic--read-state-toggle').removeClass("thredded--topic-hovering");
   }
 
@@ -42,7 +40,6 @@
   }
 
   function readToggle() {
-    console.log("readToggle");
     let $topic = $(this).closest('.thredded--topics--topic');
     let path;
     if($topic.hasClass("thredded--topic-read")) {
@@ -50,11 +47,8 @@
     } else{
       path = $topic.find('a.thredded--topic--read-state-toggle.thredded--topic--mark-as-read').data("postPath");
     }
-    console.log({path, find: $topic.find('a.thredded--topic--read-state-toggle.thredded--topic--mark-as-unread')})
     $.ajax({
       url: path, type: "POST", success: function (data) {
-        console.log("success: ");
-        console.log(data);
         updateReadStatus($topic, data["read"]);
       }
     });
@@ -70,14 +64,15 @@
 
     $(document).ready(() => {
       $('.thredded--topics--topic .thredded--topic-title')
-        .hover(hoverTopicTitle, unhoverTopicTitle).click(viewTopic);
+        .mouseover(hoverTopicTitle).mouseleave(unhoverTopicTitle).click(viewTopic);
       $('.thredded--topic--read-state-toggle')
-        .hover(hoverTopicReadToggle, unhoverTopicReadToggle).click(readToggle);
+        .mouseover(hoverTopicReadToggle).mouseleave(unhoverTopicReadToggle)
+        .click(readToggle);
       $('.thredded--topics--topic')
-        .hover(hoverTopic, unhoverTopic);
+        .mouseover(hoverTopic).mouseleave(unhoverTopic);
       $('.thredded--topics--topic thredded--topic--view-button')
         .click(viewTopic);
-      $('.thredded--topic-last-post-with-controls').hover(hoverHighlight, unhoverHighlight);
+      $('.thredded--topic-last-post-with-controls').mouseover(hoverHighlight).mouseleave(unhoverHighlight);
     });
   }
 
