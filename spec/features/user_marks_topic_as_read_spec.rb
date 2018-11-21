@@ -20,13 +20,13 @@ feature "Logged in user" do
 
   scenario "can mark a post as read", js: true do
     visit all_topics_nav_path
-    expect(page).to have_css("article#topic_#{topic.id} [title='Mark as read'] ")
-    expect(page).not_to have_css("article#topic_#{topic.id} [title='Mark as unread']")
+    expect(page).to have_css("article#topic_#{topic.id}.thredded--topic-read")
+    expect(page).not_to have_css("article#topic_#{topic.id}.thredded--topic-unread")
     within("article#topic_#{topic.id}") do
       find("[title='Mark as read']").trigger("click")
     end
-    expect(page).not_to have_css("article#topic_#{topic.id} [title='Mark as read'] ")
-    expect(page).to have_css("article#topic_#{topic.id} [title='Mark as unread']")
+    expect(page).not_to have_css("article#topic_#{topic.id}.thredded--topic-read")
+    expect(page).to have_css("article#topic_#{topic.id}.thredded--topic-unread")
   end
 
   scenario "can mark all topics as read" do
