@@ -15,7 +15,7 @@
         <%= link_to topic.messageboard_name, topic.messageboard_path %>
       </cite>
     <% end %>
-    <a href="#" class="thredded-follow-toggle">
+    <a href="#" class="thredded-follow-toggle js-thredded-follow-toggle">
       <%= shared_inline_svg "thredded/follow.svg", class: "thredded--topics--follow-icon", role: "img" %>
       <%= shared_inline_svg "thredded/unfollow.svg", class: "thredded--topics--unfollow-icon", role: "img" %>
     </a>
@@ -46,7 +46,6 @@
   <% if topic.last_post %>
     <div class="thredded--topic-last-post-with-controls">
       <div class="thredded--topic-controls">
-        <a class="thredded--topic--view-button thredded--button" href="<%= topic.reply_path %>">View/Reply</a>
         <a class="thredded--topic--read-state-toggle thredded--topic--mark-as-read thredded--button" data-post-path="<%= topic.mark_as_read_path %>">
           <%= shared_inline_svg("thredded/workgroup/envelope-open-o.svg", class: "thredded--topics--read-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
           Mark as Read
@@ -54,6 +53,15 @@
         <a class="thredded--topic--read-state-toggle thredded--topic--mark-as-unread thredded--button" data-post-path="<%= topic.mark_as_unread_path %>">
           <%= shared_inline_svg("thredded/workgroup/envelope-o.svg", class: "thredded--topics--unread-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
           Mark as Unread
+        </a>
+        <a class="thredded--topic--view-button thredded--button" href="<%= topic.reply_path %>">View/Reply</a>
+        <a href="#" class="js-thredded-follow-toggle thredded--topic--follow thredded--button">
+          <%= shared_inline_svg "thredded/follow.svg", class: "thredded--icon", role: "img" %>
+          Follow
+        </a>
+        <a href="#" class="js-thredded-follow-toggle thredded--topic--unfollow thredded--button">
+          <%= shared_inline_svg "thredded/unfollow.svg", class: "thredded--icon", role: "img" %>
+          Stop following
         </a>
       </div>
       <div class='thredded--topic-post-and-last-user thredded--condensable thredded--condensable--condensed'>

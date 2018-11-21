@@ -49,7 +49,7 @@ cite.thredded--messageboard-name {
       display: none;
     }
 
-    &:hover {
+    &:hover, &.thredded--topic-hovering {
       svg.thredded--topics--follow-icon {
         color: darken($thredded-brand, 20%);
       }
@@ -65,7 +65,7 @@ cite.thredded--messageboard-name {
       display: none;
     }
 
-    &:hover {
+    &:hover, &.thredded--topic-hovering {
       svg.thredded--topics--unfollow-icon {
         opacity: 0.5;
       }
@@ -89,7 +89,8 @@ cite.thredded--messageboard-name {
     .thredded--topic--view-button {
       background-color: $thredded-button-hover-background;
       color: $thredded-button-hover-color;
-    } }
+    }
+  }
 }
 
 .thredded--topic-controls {
@@ -148,9 +149,11 @@ cite.thredded--messageboard-name {
   > .thredded--topics--title a {
     font-weight: lighter;
   }
+
   > .thredded--topic--read-state-toggle {
     background: $thredded-badge-inactive-background;
     color: $thredded-badge-inactive-color;
+
     &.thredded--topic-hovering {
       background: darken(opacify($thredded-badge-inactive-background, 0.25), 20%);
     }
@@ -166,17 +169,54 @@ cite.thredded--messageboard-name {
   > .thredded--topics--title a {
     font-weight: bold;
   }
+
   > .thredded--topic--read-state-toggle {
     background: $thredded-badge-active-background;
     color: $thredded-badge-active-color;
+
     .thredded--topics--read-icon {
       display: none;
     }
+
     &.thredded--topic-hovering {
       background: darken($thredded-badge-active-background, 20%);
     }
   }
+
   .thredded--topic--read-state-toggle.thredded--topic--mark-as-unread {
     display: none
+  }
+}
+
+.thredded--button {
+  svg.thredded--icon {
+    max-width: 16px;
+  }
+
+  &.thredded--topic-hovering {
+    background: darken($thredded-badge-active-background, 20%);
+  }
+}
+
+.thredded--topic-following {
+  .thredded--button.thredded--topic--follow {
+    display: none;
+  }
+}
+
+.thredded--topic-notfollowing {
+  .thredded--button.thredded--topic--unfollow {
+    display: none;
+  }
+}
+
+@include thredded-media-mobile {
+  .thredded--topic-hovering {
+    .thredded--button.thredded--topic--mark-as-unread,
+    .thredded--button.thredded--topic--mark-as-read,
+    .thredded--button.thredded--topic--follow,
+    .thredded--button.thredded--topic--unfollow {
+      display: none;
+    }
   }
 }
