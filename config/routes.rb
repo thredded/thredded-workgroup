@@ -14,5 +14,7 @@ Thredded::Workgroup::Engine.routes.draw do
     end
   end
 
+  put :mark_all_topics_read, to: "read_states#mark_all_topics_read", as: :mark_all_topics_read
+
   mount Thredded::Engine => "/"
 end

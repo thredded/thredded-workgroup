@@ -76,6 +76,10 @@ Include thredded JavaScripts in your `application.js`:
 //= require thredded-workgroup
 ```
 
+### Configuration
+
+**Reveal on hover?** The last topic shown in the thredded workflow top level pages is by default condensed when too long and revealed by click. You can also have it reveal on hover. This requires adding a data attribute in the layout (e.g. the body, or another high container element), as <div data-thredded-condensable-hover="reveal">. You can preview this behaviour in the demo, by adding `?hover=reveal` to the url.
+
 ## Master vs Released versions
 
 NB: if you are using the master version rather than a release version

@@ -15,7 +15,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
   <%= yield :head %>
 </head>
-<body class="app<%= ' app-layout' unless content_for?(:no_app_layout) %>">
+<body class="app<%= ' app-layout' unless content_for?(:no_app_layout) %>" data-thredded-condensable-hover="<%= params['hover'].presence || "no" %>">
 <% if ENV['GA_TRACKING_ID'] -%>
     <script data-turbolinks-eval="false">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -1,6 +1,7 @@
 .thredded--topic-source cite a {
   color: #a5aab6;
   text-decoration: none;
+
   &:hover {
     color: #4a90e2;
 
@@ -17,36 +18,205 @@ cite.thredded--messageboard-name {
 .thredded--topic-post-and-last-user {
   max-width: 35rem;
   margin: auto;
-  margin-top: 1rem;
+  padding-top: 1rem;
+}
 
-  &.thredded--condensed {
-    max-height: 100px;
-    overflow: hidden;
-    opacity: 0.8;
-    &.thredded--hovering {
-      opacity: 1;
+.thredded--topics--topic {
+  a.thredded-follow-toggle {
+    position: absolute;
+    right: -1.6rem;
+    top: 0;
+
+    svg, svg.thredded--topics--follow-icon {
+      position: static;
+      fill: currentColor;
+      display: inline-block;
+      font-size: 1em;
+      width: 1.4rem;
+      height: 1.4rem;
+      opacity: 0.4;
+    }
+
+    &:hover svg {
+      cursor: pointer;
+      opacity: 0.7;
+      color: #4a90e2;
     }
   }
-  &.thredded--hovering {
-    cursor: pointer;
+
+  &.thredded--topic-following a.thredded-follow-toggle {
+    svg.thredded--topics--unfollow-icon {
+      display: none;
+    }
+
+    &:hover, &.thredded--topic-hovering {
+      svg.thredded--topics--follow-icon {
+        color: darken($thredded-brand, 20%);
+      }
+    }
+  }
+
+  &.thredded--topic-notfollowing a.thredded-follow-toggle {
+    svg.thredded--topics--unfollow-icon {
+      opacity: 0.2;
+    }
+
+    svg.thredded--topics--follow-icon {
+      display: none;
+    }
+
+    &:hover, &.thredded--topic-hovering {
+      svg.thredded--topics--unfollow-icon {
+        opacity: 0.5;
+      }
+    }
   }
 }
 
-.thredded--topics--topic .thredded--topics--follow-icon {
-  &:hover {
-    cursor: pointer;
-    opacity: 0.7;
-    color: #4a90e2;
-  }
-}
 
-.thredded--topics--topic.thredded--rollover{
+.thredded--topics--topic.thredded--topic-hovering {
   cursor: pointer;
 
   .thredded--topic-title a {
     color: #4a90e2;
+
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  .thredded--topic-controls {
+    .thredded--topic--view-button {
+      background-color: $thredded-button-hover-background;
+      color: $thredded-button-hover-color;
+    }
+  }
+}
+
+.thredded--topic-controls {
+  .thredded--topic--read-state-toggle.thredded--topic-hovering {
+    background-color: $thredded-button-hover-background;
+    color: $thredded-button-hover-color;
+  }
+}
+
+.thredded--topic-last-post-with-controls {
+  position: relative;
+  top: 0;
+}
+
+.thredded--topic-controls {
+  display: none;
+  position: absolute;
+  top: 5px;
+  right: 0;
+  z-index: 4;
+
+  .thredded--topic-hovering & {
+    display: block;
+    background: #ffffff88;
+  }
+
+  .thredded--icon {
+    height: 0.85em;
+    margin: 0;
+  }
+}
+
+.thredded--topics--topic > .thredded--topic--read-state-toggle {
+  border-radius: 50%;
+  display: inline-block;
+  font-weight: 900;
+  font-size: 0.8rem;
+  height: 2rem;
+  left: -$thredded-topics-topic-posts-counter-width;
+  line-height: 2rem;
+  margin-right: $thredded-base-spacing;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 2rem;
+  transition: background 0.1s linear, color 0.1s linear;
+
+  .thredded--icon {
+    height: 1.25em;
+    position: relative;
+    top: 10%;
+  }
+}
+
+.thredded--topic-read {
+  > .thredded--topics--title a {
+    font-weight: lighter;
+  }
+
+  > .thredded--topic--read-state-toggle {
+    background: $thredded-badge-inactive-background;
+    color: $thredded-badge-inactive-color;
+
+    &.thredded--topic-hovering {
+      background: darken(opacify($thredded-badge-inactive-background, 0.25), 20%);
+    }
+  }
+
+  .thredded--topic--read-state-toggle.thredded--topic--mark-as-read {
+    display: none
+  }
+
+}
+
+.thredded--topic-unread {
+  > .thredded--topics--title a {
+    font-weight: bold;
+  }
+
+  > .thredded--topic--read-state-toggle {
+    background: $thredded-badge-active-background;
+    color: $thredded-badge-active-color;
+
+    .thredded--topics--read-icon {
+      display: none;
+    }
+
+    &.thredded--topic-hovering {
+      background: darken($thredded-badge-active-background, 20%);
+    }
+  }
+
+  .thredded--topic--read-state-toggle.thredded--topic--mark-as-unread {
+    display: none
+  }
+}
+
+.thredded--button {
+  svg.thredded--icon {
+    max-width: 16px;
+  }
+
+  &.thredded--topic-hovering {
+    background: darken($thredded-badge-active-background, 20%);
+  }
+}
+
+.thredded--topic-following {
+  .thredded--button.thredded--topic--follow {
+    display: none;
+  }
+}
+
+.thredded--topic-notfollowing {
+  .thredded--button.thredded--topic--unfollow {
+    display: none;
+  }
+}
+
+@include thredded-media-mobile {
+  .thredded--topic-hovering {
+    .thredded--button.thredded--topic--mark-as-unread,
+    .thredded--button.thredded--topic--mark-as-read,
+    .thredded--button.thredded--topic--follow,
+    .thredded--button.thredded--topic--unfollow {
+      display: none;
     }
   }
 }
