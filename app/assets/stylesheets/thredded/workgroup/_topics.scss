@@ -51,12 +51,7 @@ cite.thredded--messageboard-name {
 
     &:hover {
       svg.thredded--topics--follow-icon {
-        display: none;
-      }
-
-      svg.thredded--topics--unfollow-icon {
-        display: inline-block;
-        color: $thredded-brand;
+        color: darken($thredded-brand, 20%);
       }
     }
   }
@@ -72,12 +67,7 @@ cite.thredded--messageboard-name {
 
     &:hover {
       svg.thredded--topics--unfollow-icon {
-        display: none;
-      }
-
-      svg.thredded--topics--follow-icon {
-        display: inline-block;
-        color: $thredded-brand;
+        opacity: 0.5;
       }
     }
   }
@@ -161,17 +151,8 @@ cite.thredded--messageboard-name {
   > .thredded--topic--read-state-toggle {
     background: $thredded-badge-inactive-background;
     color: $thredded-badge-inactive-color;
-    .thredded--topics--unread-icon {
-      display: none;
-    }
     &.thredded--topic-hovering {
       background: darken(opacify($thredded-badge-inactive-background, 0.25), 20%);
-      .thredded--topics--unread-icon {
-        display: inline-block;
-      }
-      .thredded--topics--read-icon {
-        display: none;
-      }
     }
   }
 
@@ -193,12 +174,6 @@ cite.thredded--messageboard-name {
     }
     &.thredded--topic-hovering {
       background: darken($thredded-badge-active-background, 20%);
-      .thredded--topics--read-icon {
-        display: inline-block;
-      }
-      .thredded--topics--unread-icon {
-        display: none;
-      }
     }
   }
   .thredded--topic--read-state-toggle.thredded--topic--mark-as-unread {
