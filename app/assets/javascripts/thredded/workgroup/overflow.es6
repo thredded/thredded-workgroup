@@ -1,10 +1,9 @@
 (($) => {
-  console.log("topic_last_post.es6 loaded");
+
   const MAX_HEIGHT = 100; // $thredded-condensed-height
   const MAX_SCROLL_HEIGHT = MAX_HEIGHT + 8; // why ?
 
   function findOverflows() {
-    console.log("topic_last_post.findOverflows running");
     $('.thredded--condensable').each((i, elem) => {
       let $elem = $(elem);
       let sH = $elem.prop('scrollHeight');
@@ -29,7 +28,6 @@
   }
 
   function unhoverOverflow() {
-    console.log("unhovering");
     let $elem = $(this);
     $elem.removeClass('thredded--condensable--hover');
   }
@@ -48,9 +46,13 @@
     }
   }
 
-  $(document).ready(() => {
-    console.log("topic_last_post.es6 running");
+  const Thredded = window.Thredded;
+
+  Thredded.onPageLoad(() => {
     findOverflows();
-    $('.thredded--condensable.thredded--condensable--overflowing').hover(hoverOverflow, unhoverOverflow).click(clickOverflow);
+    $('.thredded--condensable.thredded--condensable--overflowing')
+      // .hover(hoverOverflow, unhoverOverflow)
+      .click(clickOverflow);
   })
+
 })(jQuery);

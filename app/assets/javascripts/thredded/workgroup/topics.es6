@@ -32,7 +32,7 @@
   }
 
   function updateReadStatus($topic, isRead) {
-    if(isRead) {
+    if (isRead) {
       $topic.addClass("thredded--topic-read").removeClass("thredded--topic-unread");
     } else {
       $topic.addClass("thredded--topic-unread").removeClass("thredded--topic-read");
@@ -42,9 +42,9 @@
   function readToggle() {
     let $topic = $(this).closest('.thredded--topics--topic');
     let path;
-    if($topic.hasClass("thredded--topic-read")) {
+    if ($topic.hasClass("thredded--topic-read")) {
       path = $topic.find('a.thredded--topic--read-state-toggle.thredded--topic--mark-as-unread').data("postPath");
-    } else{
+    } else {
       path = $topic.find('a.thredded--topic--read-state-toggle.thredded--topic--mark-as-read').data("postPath");
     }
     $.ajax({
@@ -54,28 +54,29 @@
     });
   }
 
-    function hoverHighlight() {
-      $(this).addClass('thredded--topic-hovering');
-    }
-
-    function unhoverHighlight() {
-      $(this).removeClass('thredded--topic-hovering');
-    }
-
-    $(document).ready(() => {
-      $('.thredded--topics--topic .thredded--topic-title')
-        .mouseover(hoverTopicTitle).mouseleave(unhoverTopicTitle).click(viewTopic);
-      $('.thredded--topic--read-state-toggle')
-        .mouseover(hoverTopicReadToggle).mouseleave(unhoverTopicReadToggle)
-        .click(readToggle);
-      $('.thredded--topics--topic')
-        .mouseover(hoverTopic).mouseleave(unhoverTopic);
-      $('.thredded--topics--topic thredded--topic--view-button')
-        .click(viewTopic);
-      $('.thredded--topic-last-post-with-controls').mouseover(hoverHighlight).mouseleave(unhoverHighlight);
-    });
+  function hoverHighlight() {
+    $(this).addClass('thredded--topic-hovering');
   }
 
-)
-(jQuery);
+  function unhoverHighlight() {
+    $(this).removeClass('thredded--topic-hovering');
+  }
+
+  const Thredded = window.Thredded;
+
+  Thredded.onPageLoad(() => {
+    $('.thredded--topics--topic .thredded--topic-title')
+    // .mouseover(hoverTopicTitle).mouseleave(unhoverTopicTitle)
+      .click(viewTopic);
+    $('.thredded--topic--read-state-toggle')
+      .mouseover(hoverTopicReadToggle).mouseleave(unhoverTopicReadToggle)
+      .click(readToggle);
+    // $('.thredded--topics--topic')
+    // .mouseover(hoverTopic).mouseleave(unhoverTopic);
+    $('.thredded--topics--topic thredded--topic--view-button')
+      .click(viewTopic);
+    // $('.thredded--topic-last-post-with-controls').mouseover(hoverHighlight).mouseleave(unhoverHighlight);
+  });
+
+})(jQuery);
 
