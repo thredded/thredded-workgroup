@@ -2,6 +2,7 @@
 
   const MAX_HEIGHT = 100; // $thredded-condensed-height
   const MAX_SCROLL_HEIGHT = MAX_HEIGHT + 8; // why ?
+  const ThreddedWorkgroup = window.ThreddedWorkgroup;
 
   function findOverflows() {
     $('.thredded--condensable').each((i, elem) => {
@@ -20,7 +21,9 @@
   }
 
   function hoverOverflow() {
-    console.log("hovering");
+    if (ThreddedWorkgroup.touching) {
+      return;
+    }
     let $elem = $(this);
     if ($elem.hasClass('thredded--condensable--condensed')) {
       $elem.addClass('thredded--condensable--hover');
@@ -34,8 +37,7 @@
 
   function clickOverflow(e) {
     e.preventDefault();
-    e.stopPropagation();
-    console.log("clicking");
+    // e.stopPropagation(); actually it needs to propagate to topics.es6
     let $elem = $(this);
     if ($elem.hasClass('thredded--condensable--hover')) {
       $elem.removeClass('thredded--condensable--hover');
@@ -51,7 +53,7 @@
   Thredded.onPageLoad(() => {
     findOverflows();
     $('.thredded--condensable.thredded--condensable--overflowing')
-      // .hover(hoverOverflow, unhoverOverflow)
+      .hover(hoverOverflow, unhoverOverflow)
       .click(clickOverflow);
   })
 
