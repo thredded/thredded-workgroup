@@ -35,7 +35,7 @@ interactor :off unless ENV["GUARD_USE_INTERACTOR"]
 # zeus: false                          # enables zeus gem.
 # CLI: 'rails server'                  # customizes runner command. Omits all options except `pid_file`!
 
-guard "rails", port: ENV["RAILS_S_PORT"]&.to_i || 3012, root: "spec/dummy" do
+guard "rails", host: ENV["UNSAFE_DEV"] ? "0.0.0.0" : "localhost", port: ENV["RAILS_S_PORT"]&.to_i || 3012, root: "spec/dummy" do
   watch("Gemfile.lock")
   watch(%r{^(config|lib)/.*})
 end
