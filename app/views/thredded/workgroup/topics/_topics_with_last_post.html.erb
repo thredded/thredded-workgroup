@@ -2,7 +2,7 @@
 
 <%= thredded_page do %>
   <%= content_tag :section, class: 'thredded--main-section thredded--topics', 'data-thredded-topics' => true do %>
-    <%= render @topics %>
+    <%= render @topics, show_messageboard: !messageboard_or_nil %>
   <% end %>
 
   <%= link_to "Mark all topics as read",

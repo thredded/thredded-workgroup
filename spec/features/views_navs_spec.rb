@@ -54,7 +54,7 @@ describe "Views navs", type: :feature do
     end
     it "links to messageboard" do
       visit unread_nav_path
-      within "##{dom_id(unread_followed_topic)} .thredded--messageboard-name" do
+      within "##{dom_id(unread_followed_topic)} .thredded--topics--messageboard" do
         e = find("a")
         expect(e["href"]).to eq(thredded_messageboard_path(unread_followed_topic.messageboard))
       end
