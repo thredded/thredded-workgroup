@@ -32,6 +32,6 @@ feature "Logged in user" do
   scenario "can mark all topics as read" do
     visit all_topics_nav_path
     expect(Thredded::Workgroup::MarkAllTopicsReadJob).to receive(:perform_later)
-    click_on "Mark all topics as read"
+    click_on "Mark all as read"
   end
 end

@@ -54,24 +54,24 @@ describe "Views navs", type: :feature do
     end
     it "links to messageboard" do
       visit unread_nav_path
-      within "##{dom_id(unread_followed_topic)} .thredded--messageboard-name" do
+      within "##{dom_id(unread_followed_topic)} .thredded--topics--messageboard" do
         e = find("a")
         expect(e["href"]).to eq(thredded_messageboard_path(unread_followed_topic.messageboard))
       end
     end
 
-    context "when Thredded.show_topic_followers" do
-      around do |ex|
-        was = Thredded.show_topic_followers
-        begin
-          Thredded.show_topic_followers = true
-          ex.call
-        ensure
-          Thredded.show_topic_followers = was
+    context "when view_hooks set" do
+      around do |example|
+        Thredded.view_hooks.topic_with_last_post.last_post_with_controls.config.before do |topic:, **_args|
+          render "thredded/topics/followers", topic: topic
         end
+        example.run
+        Thredded::AllViewHooks.reset_instance!
       end
-      it "shows followers" do
+      it "uses view hook (to show followers)" do
+        create(:post, content: "Something new in sandwiches", postable: unread_followed_topic) # must have last post
         user = create(:user, name: "jeremiah")
+
         unread_followed_topic.followers << user
         visit unread_nav_path
         within "##{dom_id(unread_followed_topic)}" do
