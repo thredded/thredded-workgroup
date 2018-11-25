@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Thredded
   module Workgroup
     module ViewHooks

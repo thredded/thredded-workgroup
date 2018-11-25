@@ -62,8 +62,8 @@ describe "Views navs", type: :feature do
 
     context "when view_hooks set" do
       around do |example|
-        Thredded.view_hooks.topic_with_last_post.last_post_with_controls.config.before do |topic:, **args|
-          render 'thredded/topics/followers', topic: topic
+        Thredded.view_hooks.topic_with_last_post.last_post_with_controls.config.before do |topic:, **_args|
+          render "thredded/topics/followers", topic: topic
         end
         example.run
         Thredded::AllViewHooks.reset_instance!
