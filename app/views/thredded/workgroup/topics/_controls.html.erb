@@ -1,0 +1,21 @@
+<div class="thredded--topic-controls">
+  <a class="thredded--topic--read-state-toggle thredded--topic--mark-as-read thredded--button" data-post-path="<%= topic.mark_as_read_path %>">
+    <%= shared_inline_svg("thredded/workgroup/envelope-open-o.svg", class: "thredded--topics--read-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
+    <%= t("thredded.topics.mark_read")%>
+  </a>
+  <a class="thredded--topic--read-state-toggle thredded--topic--mark-as-unread thredded--button" data-post-path="<%= topic.mark_as_unread_path %>">
+    <%= shared_inline_svg("thredded/workgroup/envelope-o.svg", class: "thredded--topics--unread-icon thredded--icon", role: "img", viewBox: "0 0 1792 1792") %>
+    <%= t("thredded.topics.mark_unread")%>
+  </a>
+  <a class="thredded--topic--view-button thredded--button" href="<%= topic.reply_path %>">
+    <%= t("thredded.topics.view_or_reply")%>
+  </a>
+  <a href="#" class="js-thredded-follow-toggle thredded--topic--follow thredded--button">
+    <%= shared_inline_svg "thredded/follow.svg", class: "thredded--icon", role: "img" %>
+    <%= t("thredded.topics.follow")%>
+  </a>
+  <a href="#" class="js-thredded-follow-toggle thredded--topic--unfollow thredded--button">
+    <%= shared_inline_svg "thredded/unfollow.svg", class: "thredded--icon", role: "img" %>
+    <%= t("thredded.topics.unfollow")%>
+  </a>
+</div>

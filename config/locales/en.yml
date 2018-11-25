@@ -12,9 +12,20 @@ en:
       following:
         title: Topics you are following
         link: Follow
+        you: (You)
       messageboards:
         link: Messageboards
         condensed-link: M'boards
       all_topics:
         title: All topics
         link: All
+      condensable:
+        read_all: Read all
+        read_less: Read less
+    nav:
+      mark_all_read: Mark all as read
+    topics:
+      mark_all_unread:
+      mark_read: Mark as Read
+      mark_unread: Mark as Unread
+      view_or_reply: View/Reply

@@ -7,7 +7,7 @@
         <span class="thredded--follower user-<%= user.id %>">
           <%= user_mention(user) %>
           <%- if user == thredded_current_user %>
-            (You)
+            <%= t("thredded.workgroup.following.you")%>
           <%- else %>
             <button class="thredded--follower--remove" data-kick-path="<%= thredded_workgroup.kick_topic_path(topic.to_model.id, user_id: user.id) %>" title="Remove follower" aria-label="Remove follower">
               <%= shared_inline_svg "thredded/follow.svg", class: "thredded--topics--follow-icon", role: "img" %>
