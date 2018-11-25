@@ -1,3 +1,11 @@
-<div class="thredded--last-post">
-  <%= render 'thredded/posts_common/content', post: post %>
-</div>
+<%= view_hooks.topic_with_last_post.last_post.render self, topic: topic do %>
+  <div class="thredded--topic-source">
+    <cite class="thredded--topics--updated-by">
+      <%= topic.last_user.thredded_display_name %>
+      <%= time_ago topic.last_post_at %>
+    </cite>
+  </div>
+  <div class="thredded--last-post">
+    <%= render 'thredded/posts_common/content', post: topic.last_post %>
+  </div>
+<% end %>

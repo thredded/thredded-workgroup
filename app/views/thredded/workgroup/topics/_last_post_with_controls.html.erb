@@ -1,16 +1,8 @@
-<%= render 'thredded/topics/followers', topic: topic %>
-
-<% if topic.last_post %>
+<%= view_hooks.topic_with_last_post.last_post_with_controls.render self, topic: topic do %>
   <div class="thredded--topic-last-post-with-controls">
     <%= render "thredded/workgroup/topics/controls", topic: topic %>
     <div class='thredded--topic-post-and-last-user thredded--condensable thredded--condensable--condensed'>
-      <div class="thredded--topic-source">
-        <cite class="thredded--topics--updated-by">
-          <%= topic.last_user.thredded_display_name %>
-          <%= time_ago topic.last_post_at %>
-        </cite>
-      </div>
-      <%= render "thredded/workgroup/topics/last_post", post: topic.last_post %>
+      <%= render "thredded/workgroup/topics/last_post", topic: topic %>
       <div class="thredded--condensable--overflow-only">
         <span class="thredded--condensable--expand"><%= t("thredded.workgroup.condensable.read_all") %></span>
         <span class="thredded--condensable--condense"><%= t("thredded.workgroup.condensable.read_less") %></span>

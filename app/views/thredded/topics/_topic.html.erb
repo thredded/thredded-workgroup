@@ -39,7 +39,7 @@
       <%= render 'thredded/shared/content_moderation_blocked_state', moderation_record: topic.last_moderation_record %>
     </span>
   <% end %>
-  <%= render 'thredded/workgroup/topics/last_post_with_controls', topic: topic %>
+  <%= render 'thredded/workgroup/topics/last_post_with_controls', topic: topic if topic.last_post %>
 <% end %>
 
 <% if local_assigns[:sticky_topics_divider] &&
