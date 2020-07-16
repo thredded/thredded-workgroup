@@ -15,7 +15,7 @@ require "roadie-rails"
 require "twemoji"
 require "twemoji/svg"
 require "thredded"
-// # IMPORTANT: Mandatory for Thredded::Workgroup dummy (doesn't have plugins for simplicity)
+# IMPORTANT: Mandatory for Thredded::Workgroup dummy (doesn't have plugins for simplicity)
 # require "thredded/markdown_coderay"
 # require "thredded/markdown_katex"
 require "rails-ujs" unless Thredded.rails_gte_51?

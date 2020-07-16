@@ -91,7 +91,7 @@ Dummy::Application.configure do
       policy.script_src :self, :https
       policy.style_src :self, :https, :unsafe_inline
     end
-    config.content_security_policy_nonce_generator = ->(request) {
+    config.content_security_policy_nonce_generator = lambda { |request|
       if request.env["HTTP_TURBOLINKS_REFERRER"].present?
         # Turbolinks nonce CSP support.
         # See https://github.com/turbolinks/turbolinks/issues/430
