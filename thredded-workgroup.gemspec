@@ -58,6 +58,4 @@ Gem::Specification.new do |s|
 
   # dummy app frontend
   s.add_development_dependency "turbolinks"
-  # required by the turbolinks gem
-  s.add_development_dependency "coffee-rails"
 end
