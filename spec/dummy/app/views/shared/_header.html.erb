@@ -1,6 +1,7 @@
 <header role="banner" class="app-header">
   <span class="app-nav-auth">
     <% if the_current_user %>
+      <!-- # IMPORTANT: Mandatory for Thredded::Workgroup dummy (a spec depends on this)-->
       <span class="all-unread-followed-topics-count">
         Unread: <%= all_unread_followed_topics_count %>
       </span>
@@ -23,7 +24,7 @@
           <% else -%>
             <%= button_to main_app.update_theme_path(theme) do %>
               <span class="app-nav-text"><%= theme.humanize %></span>
-              <span class="app-nav-icon"><%= inline_svg 'brightness.svg' %></span>
+              <span class="app-nav-icon"><%= inline_svg_tag 'brightness.svg' %></span>
             <% end %>
           <% end -%>
         <% end -%>

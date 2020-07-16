@@ -30,7 +30,7 @@ Dummy::Application.configure do
 
   # Compress JavaScripts and CSS
   config.assets.compress = true
-  config.assets.js_compressor = :uglifier
+  config.assets.js_compressor = :uglifier unless self.class.thredded_testapp_webpack?
   config.assets.css_compressor = :sass
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
@@ -81,4 +81,27 @@ Dummy::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  if Rails.gem_version >= Gem::Version.new("5.2.0")
+    config.content_security_policy do |policy|
+      policy.default_src :self, :https
+      policy.font_src :self, :https, :data
+      policy.img_src :self, :https, :data
+      policy.object_src :none
+      policy.script_src :self, :https
+      policy.style_src :self, :https, :unsafe_inline
+    end
+    config.content_security_policy_nonce_generator = lambda { |request|
+      if request.env["HTTP_TURBOLINKS_REFERRER"].present?
+        # Turbolinks nonce CSP support.
+        # See https://github.com/turbolinks/turbolinks/issues/430
+        request.env["HTTP_X_TURBOLINKS_NONCE"]
+      else
+        SecureRandom.base64(16)
+      end
+    }
+    if config.respond_to?(:content_security_policy_nonce_directives=)
+      config.content_security_policy_nonce_directives = %w[script-src]
+    end
+  end
 end

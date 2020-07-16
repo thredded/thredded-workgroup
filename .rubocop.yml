@@ -12,6 +12,9 @@ Metrics/AbcSize:
 Metrics/ClassLength:
   Max: 125
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/factories/*'
 Metrics/LineLength:
   Max: 120
 

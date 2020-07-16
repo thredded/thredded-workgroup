@@ -20,7 +20,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     MARKDOWN
   ].freeze
 
-  YOUTUBE_VIDEO_IDS = %w(5lBBUPVuusM vDnpDgY_Im4 dQw4w9WgXcQ wZZ7oFKsKzY WrO9PTpuSSs d-diB65scQU).freeze
+  YOUTUBE_VIDEO_IDS = %w[5lBBUPVuusM vDnpDgY_Im4 dQw4w9WgXcQ wZZ7oFKsKzY WrO9PTpuSSs d-diB65scQU].freeze
   CODE_SNIPPETS = [
     ["js", <<~'JAVASCRIPT'],
       // Substitution combinator
@@ -65,7 +65,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
     SASS
   ].freeze
   FORMULAS = [
-    "Use the Euler's formula: $$e^{ \pm i\theta } = \cos \theta \pm i\sin \theta$$.",
+    %q(Use the Euler's formula: $$e^{ \pm i\theta } = \cos \theta \pm i\sin \theta$$.),
     <<~'TEX',
       This is the recurrence relation you need:
 
@@ -81,7 +81,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
       $$
     TEX
   ].freeze
-  SMILEYS = %w(:smile: :boom:).freeze
+  SMILEYS = %w[:smile: :boom:].freeze
   ONEBOXES = [
     "Best tweet ever:\nhttps://twitter.com/thredded/status/838824533477982209",
     "Toys aint what they used to be:\nhttps://en.wikipedia.org/wiki/Gilbert_U-238_Atomic_Energy_Laboratory",
@@ -139,7 +139,7 @@ module FakeContent # rubocop:disable Metrics/ModuleLength
   def styled_smart_thing(with_smiley:)
     results = Faker::Hacker.say_something_smart.split(" ").map do |word|
       next word unless rand < 0.05 && word.length >= 4
-      style = %w(* ** _).sample
+      style = %w[* ** _].sample
       "#{style}#{word}#{style}"
     end
     results << " #{SMILEYS.sample}" if with_smiley

@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
     render template: "shared/not_found", status: :not_found
   end
 
+  # IMPORTANT: Mandatory for Thredded::Workgroup dummy (a spec depends on this)
   include Thredded::Workgroup::AllUnreadFollowedTopics
 
   protected

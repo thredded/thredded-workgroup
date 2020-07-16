@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root to: "home#show"
 
   resources :user_sessions,
-            only: %i(new create),
+            only: %i[new create],
             controller: "sessions"
   delete "/session" => "sessions#destroy",
          as: :destroy_user_session
