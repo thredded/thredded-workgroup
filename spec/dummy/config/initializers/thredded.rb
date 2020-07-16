@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "html_pipeline_twemoji"
+
 Thredded.user_class = "User"
 Thredded.user_name_column = :name
 Thredded.user_path = ->(user) { main_app.user_path(user.id) }
@@ -11,8 +13,12 @@ Thredded.avatar_url = ->(user) { Gravatar.src(user.email, 156, "retro") }
 Thredded.moderator_column = :admin
 Thredded.admin_column = :admin
 Thredded.content_visible_while_pending_moderation = true
+Thredded.show_messageboard_delete_button = false
+Thredded.show_messageboard_group_page = true
 Thredded.parent_mailer = "ApplicationMailer"
+Thredded::ContentFormatter.after_markup_filters.insert(1, HTMLPipelineTwemoji)
 
+# IMPORTANT: Mandatory for Thredded::Workgroup dummy
 # Whether private messaging functionality is enabled.
 Thredded.private_messaging_enabled = false
 

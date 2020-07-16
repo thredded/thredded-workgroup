@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Dummy::Application.configure do
+  # IMPORTANT: Mandatory for Thredded::Workgroup dummy (development)
   require "rack-livereload"
   # guard-livereload needs the rack middeleware:
   config.middleware.insert_after(
@@ -33,14 +34,26 @@ Dummy::Application.configure do
 
   # Do not compress assets
   config.assets.compress = false
-  # Generate digests for assets URLs?
-  config.assets.digest = false
 
   # Expands the lines which load the assets
   config.assets.debug = true
-  config.assets.compile = true
+
+  config.reload_plugins = true
 
   config.action_mailer.default_url_options = {
-    host: "localhost:3012"
+    # IMPORTANT: Mandatory for Thredded::Workgroup dummy
+    host: "localhost:9292"
   }
+
+  if File.file?("/.dockerenv")
+    docker_host_ip = `/sbin/ip route|awk '/default/ { print $3 }'`.strip
+    config.web_console.permissions = docker_host_ip
+  end
+
+  # Allow webpack-dev-server
+  if Rails.gem_version >= Gem::Version.new("6.0.0")
+    Rails.application.config.content_security_policy do |policy|
+      policy.connect_src :self, :https, "http://localhost:3035", "ws://localhost:3035" if Rails.env.development?
+    end
+  end
 end

@@ -52,6 +52,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rails_email_preview", ">= 2.0.1"
   s.add_development_dependency "roadie-rails"
   s.add_development_dependency "i18n-tasks"
+  s.add_development_dependency 'twemoji'
   s.add_development_dependency "web-console"
   s.add_development_dependency "jquery-rails"
 

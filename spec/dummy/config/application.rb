@@ -12,7 +12,12 @@ require "kaminari-i18n"
 require "turbolinks"
 require "rails_email_preview"
 require "roadie-rails"
+require "twemoji"
+require "twemoji/svg"
 require "thredded"
+// # IMPORTANT: Mandatory for Thredded::Workgroup dummy (doesn't have plugins for simplicity)
+# require "thredded/markdown_coderay"
+# require "thredded/markdown_katex"
 require "rails-ujs" unless Thredded.rails_gte_51?
 # IMPORTANT: Mandatory for Thredded::Workgroup dummy
 require "jquery-rails"
@@ -28,8 +33,9 @@ if ENV["HEROKU"]
   require "dalli"
 end
 
-require "sassc" unless Rails.env.production?
 require "web-console" if Rails.env.development?
+
+require "webpacker" if Rails::VERSION::MAJOR >= 6 && ENV["THREDDED_TESTAPP_SPROCKETS_JS"] != "1"
 
 module Dummy
   class Application < Rails::Application
@@ -62,7 +68,7 @@ module Dummy
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
-    config.i18n.available_locales = %i(en) + %i(es fr de it pl pt-BR ru zh-CN).sort
+    config.i18n.available_locales = %i[en] + %i[es fr de it pl pt-BR ru zh-CN].sort
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -77,7 +83,7 @@ module Dummy
 
     config.active_record.raise_in_transactional_callbacks = true if Rails::VERSION::MAJOR < 5
 
-    if Rails.gem_version >= Gem::Version.new("5.2.0.beta2")
+    if Rails.gem_version >= Gem::Version.new("5.2.0.beta2") && Rails::VERSION::MAJOR < 6
       config.active_record.sqlite3.represent_boolean_as_integer = true
     end
 
@@ -86,5 +92,11 @@ module Dummy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = "1.0"
+
+    config.load_defaults("#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}") if config.respond_to?(:load_defaults)
+
+    def self.thredded_testapp_webpack?
+      Rails::VERSION::MAJOR >= 6 && ENV["THREDDED_TESTAPP_SPROCKETS_JS"] != "1"
+    end
   end
 end

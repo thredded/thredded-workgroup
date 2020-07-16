@@ -12,5 +12,9 @@
 @import "emoji";
 @import "flash-messages";
 
+// # IMPORTANT: Mandatory for Thredded::Workgroup dummy (doesn't have plugins for simplicity)
+// Thredded plugins
+// @import "_katex";
+
 // Other plugins
 @import "rails_email_preview";
