@@ -25,9 +25,9 @@ module Thredded
           end
         end
       end
-      initializer "thredded.setup_assets" do
+      initializer "thredded_workgroup.setup_assets" do
         Thredded::Workgroup::Engine.config.assets.precompile += %w(
-          thredded-workgroup.css
+          thredded_workgroup_manifest.js
         )
       end
     end
