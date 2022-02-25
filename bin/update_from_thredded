@@ -20,7 +20,7 @@ rm -fR ./spec/dummy/
 cp -pR $(bundle show thredded)/spec/dummy ./spec/dummy
 
 # update some standard helpful files
-cp $(bundle show thredded)/spec/support/features/fake_content.rb spec/support/features/fake_content.rb
+cp $(bundle show thredded)/spec/support/system/fake_content.rb spec/support/system/fake_content.rb
 cp $(bundle show thredded)/spec/lib/thredded/all_view_hooks_spec.rb spec/lib/thredded/all_view_hooks_spec.rb
 
 # restore thredded-workgroup config, emoji

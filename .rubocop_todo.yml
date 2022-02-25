@@ -28,7 +28,7 @@ Layout/EmptyLineAfterGuardClause:
   Exclude:
     - 'spec/dummy/app/controllers/application_controller.rb'
     - 'spec/dummy/app/controllers/concerns/store_location_fullpath.rb'
-    - 'spec/support/features/fake_content.rb'
+    - 'spec/support/system/fake_content.rb'
 
 # Offense count: 1
 # Cop supports --auto-correct.
@@ -115,7 +115,7 @@ Style/FrozenStringLiteralComment:
 # Cop supports --auto-correct.
 Style/IfUnlessModifier:
   Exclude:
-    - 'spec/features/user_clicks_to_follow_unfollow_topic_spec.rb'
+    - 'spec/system/user_clicks_to_follow_unfollow_topic_spec.rb'
     - 'spec/spec_helper.rb'
 
 # Offense count: 14
@@ -131,7 +131,7 @@ Style/PercentLiteralDelimiters:
     - 'spec/dummy/config/routes.rb'
     - 'spec/dummy/lib/themes.rb'
     - 'spec/factories/thredded.rb'
-    - 'spec/support/features/fake_content.rb'
+    - 'spec/support/system/fake_content.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -140,7 +140,7 @@ Style/PercentLiteralDelimiters:
 Style/SafeNavigation:
   Exclude:
     - 'Rakefile'
-    - 'spec/features/user_adds_post_and_is_redirected_spec.rb'
+    - 'spec/system/user_adds_post_and_is_redirected_spec.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.

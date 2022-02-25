@@ -64,7 +64,6 @@ ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(Fi
 
 require "capybara-webkit"
 
-
 Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara.asset_host = "http://localhost:3012" unless ENV["CI"]
 

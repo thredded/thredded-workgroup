@@ -27,5 +27,5 @@ module RoutingSupport
 end
 
 RSpec.configure do |config|
-  config.include RoutingSupport, type: :feature
+  config.include RoutingSupport, type: :system
 end

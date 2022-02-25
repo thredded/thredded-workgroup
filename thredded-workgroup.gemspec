@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.description   = "Write a longer description or delete this line."
   s.homepage      = "https://github.com/red56/thredded-workgroup."
   s.license       = "MIT"
-  s.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  s.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|system)/}) }
   s.bindir        = "exe"
   s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
