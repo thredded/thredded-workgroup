@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-feature "Logged in user" do
+RSpec.describe "Logged in user" do
   let(:messageboard) { create(:messageboard) }
   let(:topic) { create(:topic, with_posts: 1, messageboard: messageboard) }
   let(:user) { create(:user) }
@@ -15,7 +15,7 @@ feature "Logged in user" do
 
   before { log_in }
 
-  scenario "can mark a post as unread" do
+  it "can mark a post as unread" do
     visit thredded_topic_path(topic)
     post = topic.first_post
     within("article#post_#{post.id}") do

@@ -39,9 +39,9 @@ end
 
 require "rspec/rails"
 require "capybara/rspec"
+require "webdrivers"
 require "pundit/rspec"
 require "factory_bot_rails"
-require "database_cleaner"
 require "fileutils"
 require "active_support/testing/time_helpers"
 
@@ -62,14 +62,12 @@ FileUtils.mkdir("log") unless File.directory?("log")
 
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", "w"))
 
-require "capybara-webkit"
-
-Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
 Capybara.asset_host = "http://localhost:3012" unless ENV["CI"]
 
 RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.include FactoryBot::Syntax::Methods
+  config.infer_spec_type_from_file_location!
 
   config.before(:suite) do
     ActiveJob::Base.queue_adapter = :test

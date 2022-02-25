@@ -3,7 +3,7 @@
 # rubocop:disable Style/Semicolon
 require "spec_helper"
 
-describe "Views navs", type: :system do
+RSpec.describe "Views navs" do
   let(:messageboard) { create(:messageboard, name: "Some message board") }
   let(:topic) { create(:topic, messageboard: messageboard) }
   let!(:post) { create(:post, postable: topic) }

@@ -31,13 +31,11 @@ Gem::Specification.new do |s|
 
   # test dependencies
   s.add_development_dependency "capybara"
-  s.add_development_dependency "database_cleaner"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "faker", ">= 1.6.2"
   s.add_development_dependency "launchy"
   s.add_development_dependency "rspec-rails", ">= 3.5.0"
   s.add_development_dependency "rubocop", '= 0.58.2'
-  s.add_development_dependency "transactional_capybara"
   s.add_development_dependency "bundle-audit"
 
   # dummy app dependencies

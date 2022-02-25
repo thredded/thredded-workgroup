@@ -15,6 +15,10 @@ rescue LoadError
   RDoc::Task = Rake::RDocTask
 end
 
+
+require 'webdrivers'
+load 'webdrivers/Rakefile'
+
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = "rdoc"
   rdoc.title    = "Thredded Workgroup"

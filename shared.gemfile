@@ -11,9 +11,13 @@ else
     gem 'guard-livereload'
     gem 'rack-livereload'
   end
-  group :test do
-    gem 'selenium-webdriver'
-  end
+end
+
+group :development, :test do
+  gem 'webdrivers', require: false
+end
+group :test do
+  gem 'selenium-webdriver', require: false
 end
 
 gem 'sassc', '>= 1.12.1'
