@@ -18,13 +18,12 @@ require "thredded"
 # IMPORTANT: Mandatory for Thredded::Workgroup dummy (doesn't have plugins for simplicity)
 # require "thredded/markdown_coderay"
 # require "thredded/markdown_katex"
-require "rails-ujs" unless Thredded.rails_gte_51?
+
 # IMPORTANT: Mandatory for Thredded::Workgroup dummy
 require "jquery-rails"
 
 # IMPORTANT: Mandatory for Thredded::Workgroup dummy
 require "thredded/workgroup"
-require "backport_new_renderer" if Rails::VERSION::MAJOR < 5
 
 if ENV["HEROKU"]
   require "tunemygc"
@@ -81,11 +80,7 @@ module Dummy
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
-    config.active_record.raise_in_transactional_callbacks = true if Rails::VERSION::MAJOR < 5
-
-    if Rails.gem_version >= Gem::Version.new("5.2.0.beta2") && Rails::VERSION::MAJOR < 6
-      config.active_record.sqlite3.represent_boolean_as_integer = true
-    end
+    config.active_record.sqlite3.represent_boolean_as_integer = true if Rails::VERSION::MAJOR < 6
 
     # Enable the asset pipeline
     config.assets.enabled = true
