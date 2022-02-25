@@ -11,8 +11,8 @@ else
     gem 'guard-livereload'
     gem 'rack-livereload'
   end
-  group :development, :test do
-    gem "capybara-webkit", '1.15.1'
+  group :test do
+    gem 'selenium-webdriver'
   end
 end
 
