@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
 
   s.summary       = "Extension to Thredded with features for workgroup messaging (Unread, Unreplied, Following)."
   s.description   = "Write a longer description or delete this line."
-  s.homepage      = "https://github.com/red56/thredded-workgroup."
+  s.homepage      = "https://github.com/thredded/thredded-workgroup"
   s.license       = "MIT"
   s.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|system)/}) }
   s.bindir        = "exe"

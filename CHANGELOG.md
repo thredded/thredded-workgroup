@@ -1,9 +1,11 @@
-# v0.3.0
+# v0.3.0, v0.3.1
 
 This version supports:
 
 * thredded v1.0 +
 * rails 5.2
+
+v0.3.1 was just a fix to a link in the gem
 
 # v0.2.1
 
