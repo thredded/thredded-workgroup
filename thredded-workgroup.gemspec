@@ -35,7 +35,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency "faker", ">= 1.6.2"
   s.add_development_dependency "launchy"
   s.add_development_dependency "rspec-rails", ">= 3.5.0"
-  s.add_development_dependency "rubocop", '= 0.58.2'
+  s.add_development_dependency "rubocop", "= 1.25.1"
+  s.add_development_dependency "rubocop-rails", "= 2.13.2"
+  s.add_development_dependency "rubocop-rspec", "= 2.8.0"
+  s.add_development_dependency "rubocop-performance", "= 1.13.2"
   s.add_development_dependency "bundle-audit"
 
   # dummy app dependencies
@@ -49,7 +52,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rails_email_preview", ">= 2.0.1"
   s.add_development_dependency "roadie-rails"
   s.add_development_dependency "i18n-tasks"
-  s.add_development_dependency 'twemoji'
+  s.add_development_dependency "twemoji"
   s.add_development_dependency "web-console"
   s.add_development_dependency "jquery-rails"
 

@@ -16,8 +16,8 @@ rescue LoadError
 end
 
 
-require 'webdrivers'
-load 'webdrivers/Rakefile'
+require "webdrivers"
+load "webdrivers/Rakefile"
 
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = "rdoc"

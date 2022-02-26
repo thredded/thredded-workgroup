@@ -1,32 +1,34 @@
-gem 'rake'
-gem 'thredded', github: 'thredded/thredded', branch: 'master'
+# frozen_string_literal: true
 
-unless ENV['TRAVIS']
+gem "rake"
+gem "thredded", github: "thredded/thredded", branch: "master"
+
+unless ENV["TRAVIS"]
   group :development do
-    gem 'guard'
-    gem 'guard-rails'
-    gem 'guard-livereload'
-    gem 'rack-livereload'
+    gem "guard"
+    gem "guard-rails"
+    gem "guard-livereload"
+    gem "rack-livereload"
   end
 end
 
 group :development, :test do
-  gem 'webdrivers', require: false
+  gem "webdrivers", require: false
 end
 group :test do
-  gem 'selenium-webdriver', require: false
+  gem "selenium-webdriver", require: false
 end
 
-gem 'sassc', '>= 1.12.1'
+gem "sassc", ">= 1.12.1"
 
 group :debug do
-  gem 'derailed'
-  gem 'pry-rails'
-  gem 'rack-mini-profiler'
+  gem "derailed"
+  gem "pry-rails"
+  gem "rack-mini-profiler"
 
   platform :mri do
-    gem 'byebug'
-    gem 'flamegraph'
-    gem 'stackprof'
+    gem "byebug"
+    gem "flamegraph"
+    gem "stackprof"
   end
 end
