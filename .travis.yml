@@ -2,30 +2,36 @@ dist: bionic
 
 language: ruby
 rvm:
-  - 2.7
+  - 2.6
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
   - spec/gemfiles/rails_5_2.gemfile
 
-env:
-  matrix:
-    # Username and password from http://docs.travis-ci.com/user/database-setup/
-    - DB=sqlite3 DBC_VERBOSE=true
-    #  - DB=mysql2     DB_USERNAME=root     DB_PASSWORD=""
-    - DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
-
-matrix:
+jobs:
   fast_finish: true
   allow_failures:
     - env: DB=sqlite3 DBC_VERBOSE=true
+  include:
+    - name: audit
+      gemfile: spec/gemfiles/rails_5_2.gemfile
+      before_script: ""
+      script:
+        - bundle show rubocop
+        - bundle exec rubocop
+        - cp $BUNDLE_GEMFILE Gemfile.lock
+        - bundle exec bundle-audit check --update -v
+    - gemfile: spec/gemfiles/rails_5_2.gemfile
+      rvm: 2.6
+      env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
+      services: postgresql
+    - gemfile: spec/gemfiles/rails_5_2.gemfile
+      rvm: 2.6
+      env: DB=sqlite3 DBC_VERBOSE=true
+
 
 before_script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate
 
 script:
   - xvfb-run bundle exec rspec
-  - bundle show rubocop
-  - bundle exec rubocop
-  - cp $BUNDLE_GEMFILE Gemfile.lock
-  - bundle exec bundle-audit check --update -v
