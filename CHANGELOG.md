@@ -1,3 +1,10 @@
+# v0.3.0
+
+This version supports:
+
+* thredded v1.0 +
+* rails 5.2
+
 # v0.2.1
 
 Support sprockets 4
