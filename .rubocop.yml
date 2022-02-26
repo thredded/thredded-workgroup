@@ -1,10 +1,19 @@
-inherit_from:
-  - .rubocop_todo.yml
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rspec
+
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.6
   Exclude:
   - 'spec/dummy/db/**/*'
   - 'vendor/**/*'
+  DisplayCopNames: true
+  NewCops: enable
+  CacheRootDirectory: tmp # ie. tmp/rubocop_cache
+  UseCache: true
 
 Metrics/AbcSize:
   Enabled: false
@@ -15,7 +24,7 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   Exclude:
     - 'spec/factories/*'
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Metrics/MethodLength:

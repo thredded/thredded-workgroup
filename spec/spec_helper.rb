@@ -39,9 +39,9 @@ end
 
 require "rspec/rails"
 require "capybara/rspec"
+require "webdrivers"
 require "pundit/rspec"
 require "factory_bot_rails"
-require "database_cleaner"
 require "fileutils"
 require "active_support/testing/time_helpers"
 
@@ -62,25 +62,12 @@ FileUtils.mkdir("log") unless File.directory?("log")
 
 ActiveRecord::SchemaMigration.logger = ActiveRecord::Base.logger = Logger.new(File.open("log/test.#{db}.log", "w"))
 
-require "capybara-webkit"
-
-require "transactional_capybara/ajax_helpers" # so we can wait for ajax (only!)
-if db == "sqlite3"
-  # see http://stackoverflow.com/questions/29387097/capybara-and-chrome-driver-sqlite3busyexception-database-is-locked
-  dbcleaner_js_strategy = :deletion
-  dbcleaner_nonjs_strategy = :truncation
-else
-  dbcleaner_js_strategy = :truncation
-  dbcleaner_nonjs_strategy = :transaction
-end
-
-Capybara.javascript_driver = ENV["CAPYBARA_JS_DRIVER"].blank? ? :webkit : ENV["CAPYBARA_JS_DRIVER"].to_sym
-Capybara::Webkit.configure(&:block_unknown_urls)
 Capybara.asset_host = "http://localhost:3012" unless ENV["CI"]
 
 RSpec.configure do |config|
-  config.use_transactional_fixtures = false
+  config.use_transactional_fixtures = true
   config.include FactoryBot::Syntax::Methods
+  config.infer_spec_type_from_file_location!
 
   config.before(:suite) do
     ActiveJob::Base.queue_adapter = :test
@@ -88,40 +75,5 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Time.zone = "UTC"
-  end
-
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation, reset_ids: true)
-    if Rails::VERSION::MAJOR < 5
-      # after_commit testing is baked into rails 5.
-      require "test_after_commit"
-      TestAfterCommit.enabled = true
-    end
-  end
-
-  config.before(:each) do
-    Time.zone = "UTC"
-  end
-
-  config.before(:each) do |example|
-    strategy = if example.metadata[:js]
-                 dbcleaner_js_strategy
-               else
-                 dbcleaner_nonjs_strategy
-               end
-    DatabaseCleaner.strategy = strategy
-  end
-
-  config.before(:each) do |_example|
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do |example|
-    if example.metadata[:js]
-      TransactionalCapybara::AjaxHelpers.wait_for_ajax(page)
-    end
-  end
-  config.append_after(:each) do |_example|
-    DatabaseCleaner.clean
   end
 end

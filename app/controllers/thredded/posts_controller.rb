@@ -10,11 +10,11 @@ module Thredded
       )
       authorize_creating @post_form.post
 
-      if @post_form.save # rubocop:disable Style/GuardClause
+      if @post_form.save
         # TODO: extract as a hook on thredded#posts_controller `after_create(post)`
         redirect_after_create(@post_form.post)
       else
-        return render :new
+        render :new
       end
     end
 

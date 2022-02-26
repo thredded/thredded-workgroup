@@ -16,29 +16,29 @@ Gem::Specification.new do |s|
   s.description   = "Write a longer description or delete this line."
   s.homepage      = "https://github.com/red56/thredded-workgroup."
   s.license       = "MIT"
-  s.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  s.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|system)/}) }
   s.bindir        = "exe"
   s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
   s.require_paths = ["lib"]
 
   # needs thredded, you can specify a specific fork or version (in **your** gemfile) if you need to!
-  s.add_dependency "thredded", "~> 0.16", ">= 0.16.1"
+  s.add_dependency "thredded", ">= 0.16.1"
 
   # bundler added dependencies
-  s.add_development_dependency "bundler", "~> 1.12"
-  s.add_development_dependency "rake", ">= 12.3.3"
-  s.add_development_dependency "rspec", "~> 3.0"
+  s.add_development_dependency "bundler"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "rspec"
 
   # test dependencies
-  s.add_development_dependency "capybara", "~> 2.4"
-  s.add_development_dependency "capybara-webkit"
-  s.add_development_dependency "database_cleaner"
+  s.add_development_dependency "capybara"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "faker", ">= 1.6.2"
   s.add_development_dependency "launchy"
   s.add_development_dependency "rspec-rails", ">= 3.5.0"
-  s.add_development_dependency "rubocop", '= 0.58.2'
-  s.add_development_dependency "transactional_capybara"
+  s.add_development_dependency "rubocop", "= 1.25.1"
+  s.add_development_dependency "rubocop-rails", "= 2.13.2"
+  s.add_development_dependency "rubocop-rspec", "= 2.8.0"
+  s.add_development_dependency "rubocop-performance", "= 1.13.2"
   s.add_development_dependency "bundle-audit"
 
   # dummy app dependencies
@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rails_email_preview", ">= 2.0.1"
   s.add_development_dependency "roadie-rails"
   s.add_development_dependency "i18n-tasks"
-  s.add_development_dependency 'twemoji'
+  s.add_development_dependency "twemoji"
   s.add_development_dependency "web-console"
   s.add_development_dependency "jquery-rails"
 

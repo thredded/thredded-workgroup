@@ -5,7 +5,11 @@ module Thredded
     module AllUnreadFollowedTopics
       extend ActiveSupport::Concern
       included do
-        include Pundit
+        if defined?(Pundit::Authorization)
+          include Pundit::Authorization
+        else
+          include Pundit
+        end
         helper_method :all_unread_followed_topics_count
       end
 

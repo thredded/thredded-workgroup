@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     redirect_location = clear_stored_location_fullpath! || request.referer
     redirect_location = thredded.root_path if [root_path, root_url, new_user_session_url].include?(redirect_location)
     redirect_to redirect_location,
-                notice: "Signed in as #{user.name}, #{(user.admin? ? 'an admin' : ' a user')}."
+                notice: "Signed in as #{user.name}, #{user.admin? ? 'an admin' : ' a user'}."
   end
 
   def destroy

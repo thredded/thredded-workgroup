@@ -18,5 +18,5 @@ end
 #   extend RSpec::SharedContext
 # end
 # RSpec.configure do |config|
-#   config.include LinkageSupport, type: :feature
+#   config.include LinkageSupport, type: :system
 # end

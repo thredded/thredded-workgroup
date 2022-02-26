@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe "Main app pages", type: :feature do
+RSpec.describe "Main app pages" do
   let(:log_in) do
     visit main_app.new_user_session_path
     fill_in "name", with: user.name

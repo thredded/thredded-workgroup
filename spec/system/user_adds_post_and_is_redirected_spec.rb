@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Getting referred back", type: :feature do
+RSpec.describe "Getting referred back" do
   let(:messageboard) { create(:messageboard, name: "Some message board") }
   let(:user) { create(:user) }
   let(:log_in) do

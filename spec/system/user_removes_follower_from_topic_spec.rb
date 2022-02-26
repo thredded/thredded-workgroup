@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-feature "Logged in user" do
+RSpec.describe "Logged in user" do
   let(:messageboard) { create(:messageboard) }
   let(:topic) { create(:topic, with_posts: 1, messageboard: messageboard) }
   let(:user) { create(:user) }
@@ -19,12 +19,12 @@ feature "Logged in user" do
     log_in
   end
 
-  scenario "can remove a follower from a topic", js: true do
+  it "can remove a follower from a topic", js: true do
     visit thredded_topic_path(topic)
     expect(page).to have_content "@SomeoneElse"
     within ".thredded--form.thredded--post-form" do
       within ".user-#{follower.id}" do
-        find("button").trigger("click")
+        find("button").click
       end
       expect(page).not_to have_content "@SomeoneElse"
     end

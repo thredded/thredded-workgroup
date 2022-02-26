@@ -1,31 +1,34 @@
-gem 'rake'
-gem 'test_after_commit', group: :test #only enabled on rails v4
-gem 'thredded', github: 'thredded/thredded', branch: 'master'
+# frozen_string_literal: true
 
-if ENV['TRAVIS']
-  gem 'codeclimate-test-reporter', group: :test, require: false
-else
+gem "rake"
+gem "thredded", github: "thredded/thredded", branch: "master"
+
+unless ENV["TRAVIS"]
   group :development do
-    gem 'guard'
-    gem 'guard-rails'
-    gem 'guard-livereload'
-    gem 'rack-livereload'
-  end
-  group :development, :test do
-    gem "capybara-webkit", '1.15.1'
+    gem "guard"
+    gem "guard-rails"
+    gem "guard-livereload"
+    gem "rack-livereload"
   end
 end
 
-gem 'sassc', '>= 1.12.1'
+group :development, :test do
+  gem "webdrivers", require: false
+end
+group :test do
+  gem "selenium-webdriver", require: false
+end
+
+gem "sassc", ">= 1.12.1"
 
 group :debug do
-  gem 'derailed'
-  gem 'pry-rails'
-  gem 'rack-mini-profiler'
+  gem "derailed"
+  gem "pry-rails"
+  gem "rack-mini-profiler"
 
   platform :mri do
-    gem 'byebug'
-    gem 'flamegraph'
-    gem 'stackprof'
+    gem "byebug"
+    gem "flamegraph"
+    gem "stackprof"
   end
 end
