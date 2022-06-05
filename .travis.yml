@@ -2,7 +2,7 @@ dist: bionic
 
 language: ruby
 rvm:
-  - 2.6
+  - 2.7
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
 gemfile:
@@ -22,11 +22,11 @@ jobs:
         - cp $BUNDLE_GEMFILE Gemfile.lock
         - bundle exec bundle-audit check --update -v
     - gemfile: spec/gemfiles/rails_5_2.gemfile
-      rvm: 2.6
+      rvm: 2.7
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
     - gemfile: spec/gemfiles/rails_5_2.gemfile
-      rvm: 2.6
+      rvm: 2.7
       env: DB=sqlite3 DBC_VERBOSE=true
 
 
