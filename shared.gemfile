@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 gem "rake"
-gem "thredded", github: "thredded/thredded", branch: "master"
+gem "thredded", github: "thredded/thredded", branch: "main"
 
 unless ENV["TRAVIS"]
   group :development do

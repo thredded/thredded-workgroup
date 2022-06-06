@@ -38,7 +38,7 @@ So you need to include jquery and its ujs file, for example in your Gemfile:
 gem "jquery-rails"
 ```
  
-__NB: (see below for using master vs a released version)__
+__NB: (see below for using main branch vs a released version)__
 
 And then execute:
 
@@ -91,13 +91,13 @@ grep view_hooks -R --include '*.html.erb' "$(bundle show thredded-workgroup)"
 ```
 ## Master vs Released versions
 
-NB: if you are using the master version rather than a release version
+NB: if you are using the main branch rather than a release version
 (and as no release has been made yet you must be! :) ) then you may well need
-also to use the latest master release of thredded. So your gem file may need to say:
+also to use the latest main branch of thredded. So your gem file may need to say:
 
 ```ruby
- gem 'thredded', github: 'thredded/thredded', branch: 'master'
- gem 'thredded-workgroup', github: 'red56/thredded-workgroup', branch: 'master'
+ gem 'thredded', github: 'thredded/thredded', branch: 'main'
+ gem 'thredded-workgroup', github: 'red56/thredded-workgroup', branch: 'main'
 ```
 
 and you need to update both at the same time: `gem update thredded thredded-workgroup`
