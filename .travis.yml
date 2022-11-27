@@ -5,8 +5,6 @@ rvm:
   - 2.7
 cache: bundler
 bundler_args: --path ../../vendor/bundle --without debug
-gemfile:
-  - spec/gemfiles/rails_5_2.gemfile
 
 jobs:
   fast_finish: true
@@ -14,21 +12,24 @@ jobs:
     - env: DB=sqlite3 DBC_VERBOSE=true
   include:
     - name: audit
-      gemfile: spec/gemfiles/rails_5_2.gemfile
+      gemfile: spec/gemfiles/rails_6_0.gemfile
       before_script: ""
       script:
         - bundle show rubocop
         - bundle exec rubocop
         - cp $BUNDLE_GEMFILE Gemfile.lock
         - bundle exec bundle-audit check --update -v
-    - gemfile: spec/gemfiles/rails_5_2.gemfile
+    - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.7
       env: DB=postgresql DB_USERNAME=postgres DB_PASSWORD=""
       services: postgresql
-    - gemfile: spec/gemfiles/rails_5_2.gemfile
+    - gemfile: spec/gemfiles/rails_6_0.gemfile
       rvm: 2.7
       env: DB=sqlite3 DBC_VERBOSE=true
 
+env:
+  global:
+    - THREDDED_TESTAPP_SPROCKETS_JS=1
 
 before_script:
   - RAILS_ENV=test bundle exec rake db:create db:migrate
