@@ -9,6 +9,8 @@ unless ENV["TRAVIS"]
     gem "guard-rails"
     gem "guard-livereload"
     gem "rack-livereload"
+    # TODO: drop this when launchy 2.5.2 is released (needed to get to Addressable 2.8)
+    gem "launchy", github: "copiousfreetime/launchy", branch: "main"
   end
 end
 
