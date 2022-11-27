@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 require "thredded/engine"
-require "thredded/workgroup/thredded_route_delegator"
-require "thredded/workgroup/route_delegator"
+
 module Thredded
   module Workgroup
     class Engine < ::Rails::Engine
@@ -14,8 +13,6 @@ module Thredded
 
       config.to_prepare do
         Rails.application.reload_routes!
-        ::Thredded::Workgroup::ThreddedRouteDelegator.add_thredded_proxies
-        ::Thredded::Workgroup::RouteDelegator.add_my_proxies_to_thredded
 
         Thredded::ApplicationController.module_eval do
           Thredded.view_hooks.post_form.content_text_area.config.before do |form:, **_args|

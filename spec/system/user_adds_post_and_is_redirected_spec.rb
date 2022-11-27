@@ -54,7 +54,7 @@ RSpec.describe "Getting referred back" do
       visit thredded_topic_path(topic)
       fill_in "Content", with: "reply"
       click_on "Submit Reply"
-      expect(current_path).to eq unread_nav_path
+      expect(current_path).to eq thredded_workgroup.unread_nav_path
       expect(topic_is_read).to be_truthy
     end
   end
