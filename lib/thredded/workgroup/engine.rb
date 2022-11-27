@@ -7,10 +7,6 @@ module Thredded
     class Engine < ::Rails::Engine
       isolate_namespace Thredded::Workgroup
 
-      %w(app/controllers app/jobs app/view_models lib).each do |path|
-        config.autoload_paths << File.expand_path("../../#{path}", File.dirname(__FILE__))
-      end
-
       config.to_prepare do
         Rails.application.reload_routes!
 
