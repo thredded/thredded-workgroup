@@ -7,6 +7,16 @@ module Thredded
     class Engine < ::Rails::Engine
       isolate_namespace Thredded::Workgroup
 
+      # https://guides.rubyonrails.org/engines.html#overriding-models-and-controllers
+      overrides = root.join("lib/overrides")
+      # Rails::autoloaders.main.ignore(overrides)
+      config.to_prepare do
+        Dir.glob("#{overrides}/**/*_override.rb").each do |override|
+          Rails.logger.debug { "overriding: #{override}" }
+          load override
+        end
+      end
+
       config.to_prepare do
         Rails.application.reload_routes!
 

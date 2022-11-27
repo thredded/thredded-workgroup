@@ -3,11 +3,8 @@
 module Thredded
   module Workgroup
     module ViewHooks
-      attr_reader :topic_with_last_post
-
-      def initialize
-        super
-        @topic_with_last_post = TopicWithLastPost.new
+      def topic_with_last_post
+        @topic_with_last_post ||= TopicWithLastPost.new
       end
 
       # View hooks for a Topic when displaying last post.
