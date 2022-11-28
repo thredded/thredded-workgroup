@@ -1,3 +1,7 @@
+# v0.4.1
+
+* Fix for a bug with pagination
+
 # v0.4.0
 
 This version supports:
