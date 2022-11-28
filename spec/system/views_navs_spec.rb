@@ -60,6 +60,13 @@ RSpec.describe "Views navs" do
       end
     end
 
+    it "works when paginated" do
+      allow(Thredded::Topic).to receive(:default_per_page).and_return(2)
+      2.times { |x| travel((x + 1).minute) { create(:topic).tap { |topic| topic.followers << user } } }
+      visit unread_nav_path
+      expect(page).to have_link_to(unread_nav_path(page: 2))
+    end
+
     context "when view_hooks set" do
       around do |example|
         Thredded.view_hooks.topic_with_last_post.last_post_with_controls.config.before do |topic:, **_args|
@@ -89,6 +96,13 @@ RSpec.describe "Views navs" do
       expect(page).to have_link_to(thredded_topic_path(read_followed_topic, page: 0))
       expect(page).not_to have_link_to(thredded_topic_path(unread_unfollowed_topic))
     end
+
+    it "works when paginated" do
+      allow(Thredded::Topic).to receive(:default_per_page).and_return(2)
+      2.times { |x| travel((x + 1).minute) { create(:topic).tap { |topic| topic.followers << user } } }
+      visit following_nav_path
+      expect(page).to have_link_to(following_nav_path(page: 2))
+    end
   end
 
   context "all_topics" do
@@ -102,6 +116,13 @@ RSpec.describe "Views navs" do
     it "is linked from messageboards" do
       visit messageboards_nav_path
       expect(page).to have_link_to(all_topics_nav_path)
+    end
+
+    it "works when paginated" do
+      allow(Thredded::Topic).to receive(:default_per_page).and_return(2)
+      # 2.times { |x|  travel( (x + 1).minute) { create_topic } } # already has 3 matching tops
+      visit all_topics_nav_path
+      expect(page).to have_link_to(all_topics_nav_path(page: 2))
     end
   end
 
@@ -124,6 +145,24 @@ RSpec.describe "Views navs" do
       it "doesn't show topics I have posted last on and that are awaiting reply" do
         visit awaiting_nav_path
         expect(page).not_to have_link_to(thredded_topic_path(topic))
+      end
+    end
+
+    context "when paginated" do
+      before do
+        allow(Thredded::Topic).to receive(:default_per_page).and_return(2)
+        3.times do |x|
+          travel((x + 1).minute) do
+            topic = create(:topic)
+            topic.followers << user
+            create(:post, postable: topic, user_id: user.id)
+            topic.update_last_user_and_time_from_last_post!
+          end
+        end
+      end
+      it "works" do
+        visit awaiting_nav_path
+        expect(page).to have_link_to(awaiting_nav_path(page: 2))
       end
     end
 

@@ -11,6 +11,6 @@
       method: :put -%>
 
   <footer>
-    <%= paginate @topics %>
+    <%= paginate(@topics, paginator_class: Thredded::Workgroup::Paginator) %>
   </footer>
 <% end %>
