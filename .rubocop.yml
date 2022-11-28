@@ -15,6 +15,15 @@ AllCops:
   CacheRootDirectory: tmp # ie. tmp/rubocop_cache
   UseCache: true
 
+Layout/EndAlignment:
+  AutoCorrect: true
+
+Layout/LineLength:
+  Max: 120
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -22,10 +31,23 @@ Metrics/ClassLength:
   Max: 125
 
 Metrics/BlockLength:
+  CountComments: false  # count full line comments?
+  IgnoredMethods:
+    - 'context'
+    - 'configure'
+    - 'describe'
+    - 'namespace'
+    - 'shared_examples_for'
+    - 'shared_examples'
+    - 'pending'
+    - 'shared_context'
+    - 'xcontext'
+    - 'xdescribe'
+    - 'it'
   Exclude:
-    - 'spec/factories/*'
-Layout/LineLength:
-  Max: 120
+    - 'db/schema.rb'
+    - 'spec/factories/**/*'
+    - '*.gemspec'
 
 Metrics/MethodLength:
   Max: 25
@@ -37,18 +59,28 @@ Metrics/ModuleLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Naming/PredicateName:
+  Exclude:
+  - spec/**/*.rb
+
+Rails:
+  Enabled: true
+
+Rails/Date:
+  EnforcedStyle: strict
+
+Rails/FindBy:
+  Enabled: true
+  Include:
+  - app/commands/**/*.rb
+  - app/models/**/*.rb
+  - app/view_models/**/*.rb
+
 Style/CollectionMethods:
   Enabled: true
 
 Style/Documentation:
   Enabled: false
-
-Layout/MultilineMethodCallIndentation:
-  EnforcedStyle: indented
-
-Naming/PredicateName:
-  Exclude:
-  - spec/**/*.rb
 
 Style/SignalException:
   EnforcedStyle: semantic
@@ -65,18 +97,3 @@ Style/TrailingCommaInHashLiteral:
 Style/TrailingCommaInArguments:
   Enabled: false
 
-Rails:
-  Enabled: true
-
-Rails/Date:
-  EnforcedStyle: strict
-
-Rails/FindBy:
-  Enabled: true
-  Include:
-  - app/commands/**/*.rb
-  - app/models/**/*.rb
-  - app/view_models/**/*.rb
-
-Layout/EndAlignment:
-  AutoCorrect: true

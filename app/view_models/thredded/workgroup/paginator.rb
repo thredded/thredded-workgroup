@@ -16,6 +16,8 @@ module Thredded
         @last = Thredded::Workgroup::Paginator::Page.new @template, **@options.merge(page: page)
       end
 
+      # rubocop:disable Security/Eval
+      # rubocop:disable Style/DocumentDynamicEvalDefinition
       %w[first_page prev_page next_page last_page gap].each do |tag|
         eval <<-DEF, nil, __FILE__, __LINE__ + 1
           def #{tag}_tag
@@ -32,6 +34,8 @@ module Thredded
           end
         DEF
       end
+      # rubocop:enable Security/Eval
+      # rubocop:enable Style/DocumentDynamicEvalDefinition
     end
   end
 end
