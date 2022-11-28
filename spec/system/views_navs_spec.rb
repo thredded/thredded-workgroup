@@ -148,11 +148,22 @@ RSpec.describe "Views navs" do
       end
     end
 
-    it "works when paginated" do
-      allow(Thredded::Topic).to receive(:default_per_page).and_return(2)
-      2.times { |x| travel((x + 1).minute) { create(:topic).tap { |topic| topic.followers << user } } }
-      visit awaiting_nav_path
-      expect(page).to have_link_to(awaiting_nav_path(page: 2))
+    context "when paginated" do
+      before do
+        allow(Thredded::Topic).to receive(:default_per_page).and_return(2)
+        3.times do |x|
+          travel((x + 1).minute) do
+            topic = create(:topic)
+            topic.followers << user
+            create(:post, postable: topic, user_id: user.id)
+            topic.update_last_user_and_time_from_last_post!
+          end
+        end
+      end
+      it "works" do
+        visit awaiting_nav_path
+        expect(page).to have_link_to(awaiting_nav_path(page: 2))
+      end
     end
 
     it "is linked from messageboards" do
