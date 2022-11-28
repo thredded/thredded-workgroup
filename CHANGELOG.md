@@ -1,3 +1,10 @@
+# v0.4.0
+
+This version supports:
+
+* thredded v1.0 +
+* rails 6.0 (with zeitwerk)
+
 # v0.3.0, v0.3.1
 
 This version supports:

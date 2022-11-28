@@ -89,7 +89,8 @@ To see the extra view hooks provided by Thredded::Workgroup (with their argument
 ```bash
 grep view_hooks -R --include '*.html.erb' "$(bundle show thredded-workgroup)"
 ```
-## Master vs Released versions
+
+## Main vs Released versions
 
 NB: if you are using the main branch rather than a release version
 (and as no release has been made yet you must be! :) ) then you may well need
