@@ -315,7 +315,6 @@ Style/ExpandPathArguments:
     - 'Rakefile'
     - 'bin/rails.rb'
     - 'spec/dummy/config.ru'
-    - 'spec/gemfiles/rails_5_2.gemfile'
     - 'spec/spec_helper.rb'
     - 'thredded-workgroup.gemspec'
 
