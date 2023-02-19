@@ -8,8 +8,11 @@ module Thredded
       isolate_namespace Thredded::Workgroup
 
       # https://guides.rubyonrails.org/engines.html#overriding-models-and-controllers
-      overrides = root.join("lib/overrides")
-      # Rails::autoloaders.main.ignore(overrides)
+      overrides = root.join("app/overrides")
+      initializer "let the autoloader ignore overrides" do
+        # Rails.autoloaders.main.log!
+        Rails.autoloaders.main.ignore(overrides)
+      end
       config.to_prepare do
         Dir.glob("#{overrides}/**/*_override.rb").each do |override|
           Rails.logger.debug { "overriding: #{override}" }
