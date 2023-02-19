@@ -34,7 +34,7 @@ end
 
 require "web-console" if Rails.env.development?
 
-require "webpacker" if Rails::VERSION::MAJOR >= 6 && ENV["THREDDED_TESTAPP_SPROCKETS_JS"] != "1"
+require "webpacker" if ENV["THREDDED_TESTAPP_SPROCKETS_JS"] != "1"
 
 module Dummy
   class Application < Rails::Application
@@ -80,8 +80,6 @@ module Dummy
     # like if you have constraints or database-specific column types
     # config.active_record.schema_format = :sql
 
-    config.active_record.sqlite3.represent_boolean_as_integer = true if Rails::VERSION::MAJOR < 6
-
     # Enable the asset pipeline
     config.assets.enabled = true
 
@@ -91,7 +89,7 @@ module Dummy
     config.load_defaults("#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}") if config.respond_to?(:load_defaults)
 
     def self.thredded_testapp_webpack?
-      Rails::VERSION::MAJOR >= 6 && ENV["THREDDED_TESTAPP_SPROCKETS_JS"] != "1"
+      ENV["THREDDED_TESTAPP_SPROCKETS_JS"] != "1"
     end
   end
 end

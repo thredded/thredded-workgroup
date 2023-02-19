@@ -45,14 +45,12 @@ require "factory_bot_rails"
 require "fileutils"
 require "active_support/testing/time_helpers"
 
-if Rails::VERSION::MAJOR >= 5
-  require "rails-controller-testing"
-  RSpec.configure do |config|
-    [:controller, :view, :request].each do |type|
-      config.include ::Rails::Controller::Testing::TestProcess, type: type
-      config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
-      config.include ::Rails::Controller::Testing::Integration, type: type
-    end
+require "rails-controller-testing"
+RSpec.configure do |config|
+  [:controller, :view, :request].each do |type|
+    config.include ::Rails::Controller::Testing::TestProcess, type: type
+    config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
+    config.include ::Rails::Controller::Testing::Integration, type: type
   end
 end
 

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Style/Semicolon
 require "spec_helper"
 
 RSpec.describe "Views navs" do
@@ -30,7 +29,11 @@ RSpec.describe "Views navs" do
   end
 
   context "unread" do
-    before { unread_unfollowed_topic; unread_followed_topic; read_followed_topic }
+    before do
+      unread_unfollowed_topic
+      unread_followed_topic
+      read_followed_topic
+    end
 
     it "shows unread but not read topics" do
       visit unread_nav_path
@@ -89,7 +92,11 @@ RSpec.describe "Views navs" do
   end
 
   context "following" do
-    before { unread_unfollowed_topic; unread_followed_topic; read_followed_topic }
+    before do
+      unread_unfollowed_topic
+      unread_followed_topic
+      read_followed_topic
+    end
     it "shows followed but not read topics" do
       visit following_nav_path
       expect(page).to have_link_to(thredded_topic_path(unread_followed_topic))
@@ -106,7 +113,11 @@ RSpec.describe "Views navs" do
   end
 
   context "all_topics" do
-    before { unread_unfollowed_topic; unread_followed_topic; read_followed_topic }
+    before do
+      unread_unfollowed_topic
+      unread_followed_topic
+      read_followed_topic
+    end
     it "shows followed but not read topics" do
       visit all_topics_nav_path
       expect(page).to have_link_to(thredded_topic_path(unread_followed_topic))
@@ -186,4 +197,3 @@ RSpec.describe "Views navs" do
     end
   end
 end
-# rubocop:enable Style/Semicolon
